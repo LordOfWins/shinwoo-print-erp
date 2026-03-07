@@ -1,0 +1,99 @@
+// src/app/login/page.tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Printer } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+export default function LoginPage() {
+  const router = useRouter();
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        router.push("/dashboard");
+        router.refresh();
+      } else {
+        setError(data.message || "로그인에 실패했습니다.");
+      }
+    } catch {
+      setError("서버에 연결할 수 없습니다.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-3 text-center">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary">
+            <Printer className="h-8 w-8 text-primary-foreground" />
+          </div>
+          <CardTitle className="text-2xl font-bold">
+            신우씨링 영업관리
+          </CardTitle>
+          <CardDescription className="text-base">
+            시스템에 접속하려면 비밀번호를 입력하세요.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-base">
+                비밀번호
+              </Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="비밀번호를 입력하세요"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoFocus
+                className="h-12 text-base"
+              />
+            </div>
+
+            {error && (
+              <p className="text-sm font-medium text-destructive">{error}</p>
+            )}
+
+            <Button
+              type="submit"
+              className="h-12 w-full text-base"
+              disabled={isLoading}
+            >
+              {isLoading ? "로그인 중..." : "로그인"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
