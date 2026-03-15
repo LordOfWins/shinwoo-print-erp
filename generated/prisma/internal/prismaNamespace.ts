@@ -1562,6 +1562,7 @@ export const OrderScalarFieldEnum = {
   deliveryRegion: 'deliveryRegion',
   photoInspection: 'photoInspection',
   sampleShipping: 'sampleShipping',
+  tightRoll: 'tightRoll',
   packagingType: 'packagingType',
   deliveryType: 'deliveryType',
   courierType: 'courierType',
@@ -1626,6 +1627,9 @@ export const EstimateScalarFieldEnum = {
   stage: 'stage',
   validDays: 'validDays',
   totalSupplyAmount: 'totalSupplyAmount',
+  totalVat: 'totalVat',
+  totalAmount: 'totalAmount',
+  recipientText: 'recipientText',
   note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1643,6 +1647,9 @@ export const EstimateItemScalarFieldEnum = {
   quantity: 'quantity',
   unitPrice: 'unitPrice',
   supplyAmount: 'supplyAmount',
+  vat: 'vat',
+  quantityText: 'quantityText',
+  unitPriceText: 'unitPriceText',
   note: 'note',
   sortOrder: 'sortOrder',
   createdAt: 'createdAt',
@@ -1882,6 +1889,7 @@ export const EstimateOrderByRelevanceFieldEnum = {
   estimateNumber: 'estimateNumber',
   clientContactName: 'clientContactName',
   stage: 'stage',
+  recipientText: 'recipientText',
   note: 'note'
 } as const
 
@@ -1891,6 +1899,8 @@ export type EstimateOrderByRelevanceFieldEnum = (typeof EstimateOrderByRelevance
 export const EstimateItemOrderByRelevanceFieldEnum = {
   productName: 'productName',
   spec: 'spec',
+  quantityText: 'quantityText',
+  unitPriceText: 'unitPriceText',
   note: 'note'
 } as const
 

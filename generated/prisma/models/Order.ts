@@ -50,6 +50,7 @@ export type OrderMinAggregateOutputType = {
   deliveryRegion: string | null
   photoInspection: boolean | null
   sampleShipping: boolean | null
+  tightRoll: boolean | null
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -76,6 +77,7 @@ export type OrderMaxAggregateOutputType = {
   deliveryRegion: string | null
   photoInspection: boolean | null
   sampleShipping: boolean | null
+  tightRoll: boolean | null
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -102,6 +104,7 @@ export type OrderCountAggregateOutputType = {
   deliveryRegion: number
   photoInspection: number
   sampleShipping: number
+  tightRoll: number
   packagingType: number
   deliveryType: number
   courierType: number
@@ -140,6 +143,7 @@ export type OrderMinAggregateInputType = {
   deliveryRegion?: true
   photoInspection?: true
   sampleShipping?: true
+  tightRoll?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -166,6 +170,7 @@ export type OrderMaxAggregateInputType = {
   deliveryRegion?: true
   photoInspection?: true
   sampleShipping?: true
+  tightRoll?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -192,6 +197,7 @@ export type OrderCountAggregateInputType = {
   deliveryRegion?: true
   photoInspection?: true
   sampleShipping?: true
+  tightRoll?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -305,6 +311,7 @@ export type OrderGroupByOutputType = {
   deliveryRegion: string | null
   photoInspection: boolean
   sampleShipping: boolean
+  tightRoll: boolean
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -354,6 +361,7 @@ export type OrderWhereInput = {
   deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
   photoInspection?: Prisma.BoolFilter<"Order"> | boolean
   sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
+  tightRoll?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -382,6 +390,7 @@ export type OrderOrderByWithRelationInput = {
   deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   photoInspection?: Prisma.SortOrder
   sampleShipping?: Prisma.SortOrder
+  tightRoll?: Prisma.SortOrder
   packagingType?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
   courierType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -414,6 +423,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
   photoInspection?: Prisma.BoolFilter<"Order"> | boolean
   sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
+  tightRoll?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -442,6 +452,7 @@ export type OrderOrderByWithAggregationInput = {
   deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   photoInspection?: Prisma.SortOrder
   sampleShipping?: Prisma.SortOrder
+  tightRoll?: Prisma.SortOrder
   packagingType?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
   courierType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -476,6 +487,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   deliveryRegion?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   photoInspection?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   sampleShipping?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  tightRoll?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -500,6 +512,7 @@ export type OrderCreateInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -528,6 +541,7 @@ export type OrderUncheckedCreateInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -553,6 +567,7 @@ export type OrderUpdateInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -581,6 +596,7 @@ export type OrderUncheckedUpdateInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -608,6 +624,7 @@ export type OrderCreateManyInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -632,6 +649,7 @@ export type OrderUpdateManyMutationInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -658,6 +676,7 @@ export type OrderUncheckedUpdateManyInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -700,6 +719,7 @@ export type OrderCountOrderByAggregateInput = {
   deliveryRegion?: Prisma.SortOrder
   photoInspection?: Prisma.SortOrder
   sampleShipping?: Prisma.SortOrder
+  tightRoll?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -731,6 +751,7 @@ export type OrderMaxOrderByAggregateInput = {
   deliveryRegion?: Prisma.SortOrder
   photoInspection?: Prisma.SortOrder
   sampleShipping?: Prisma.SortOrder
+  tightRoll?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -757,6 +778,7 @@ export type OrderMinOrderByAggregateInput = {
   deliveryRegion?: Prisma.SortOrder
   photoInspection?: Prisma.SortOrder
   sampleShipping?: Prisma.SortOrder
+  tightRoll?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -851,6 +873,7 @@ export type OrderCreateWithoutClientInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -877,6 +900,7 @@ export type OrderUncheckedCreateWithoutClientInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -933,6 +957,7 @@ export type OrderScalarWhereInput = {
   deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
   photoInspection?: Prisma.BoolFilter<"Order"> | boolean
   sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
+  tightRoll?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -957,6 +982,7 @@ export type OrderCreateWithoutItemsInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -984,6 +1010,7 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -1024,6 +1051,7 @@ export type OrderUpdateWithoutItemsInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1051,6 +1079,7 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1076,6 +1105,7 @@ export type OrderCreateManyClientInput = {
   deliveryRegion?: string | null
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -1100,6 +1130,7 @@ export type OrderUpdateWithoutClientInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1126,6 +1157,7 @@ export type OrderUncheckedUpdateWithoutClientInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1152,6 +1184,7 @@ export type OrderUncheckedUpdateManyWithoutClientInput = {
   deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  tightRoll?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1209,6 +1242,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   deliveryRegion?: boolean
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: boolean
   deliveryType?: boolean
   courierType?: boolean
@@ -1240,6 +1274,7 @@ export type OrderSelectScalar = {
   deliveryRegion?: boolean
   photoInspection?: boolean
   sampleShipping?: boolean
+  tightRoll?: boolean
   packagingType?: boolean
   deliveryType?: boolean
   courierType?: boolean
@@ -1252,7 +1287,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "clientId" | "orderDate" | "dueDate" | "orderer" | "worker" | "clientContact" | "clientPhone" | "deliveryMethod" | "deliveryRegion" | "photoInspection" | "sampleShipping" | "packagingType" | "deliveryType" | "courierType" | "deliveryAddress" | "receiverName" | "receiverPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "clientId" | "orderDate" | "dueDate" | "orderer" | "worker" | "clientContact" | "clientPhone" | "deliveryMethod" | "deliveryRegion" | "photoInspection" | "sampleShipping" | "tightRoll" | "packagingType" | "deliveryType" | "courierType" | "deliveryAddress" | "receiverName" | "receiverPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1279,6 +1314,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     deliveryRegion: string | null
     photoInspection: boolean
     sampleShipping: boolean
+    tightRoll: boolean
     packagingType: string | null
     deliveryType: string | null
     courierType: string | null
@@ -1673,6 +1709,7 @@ export interface OrderFieldRefs {
   readonly deliveryRegion: Prisma.FieldRef<"Order", 'String'>
   readonly photoInspection: Prisma.FieldRef<"Order", 'Boolean'>
   readonly sampleShipping: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly tightRoll: Prisma.FieldRef<"Order", 'Boolean'>
   readonly packagingType: Prisma.FieldRef<"Order", 'String'>
   readonly deliveryType: Prisma.FieldRef<"Order", 'String'>
   readonly courierType: Prisma.FieldRef<"Order", 'String'>

@@ -55,6 +55,7 @@ model SystemOption {
   @@index([category, isActive])
   @@map("system_options")
 }
+
 // ★ NEW: 원단 마스터 (시딩 전용)
 model Material {
   id                Int      @id @default(autoincrement())
@@ -72,6 +73,7 @@ model Material {
   @@index([code])
   @@map("materials")
 }
+
 model Client {
   id                Int      @id @default(autoincrement())
   companyName       String   @db.VarChar(100)
@@ -100,7 +102,7 @@ model Client {
 
 model Product {
   id                Int      @id @default(autoincrement())
-  productCode       String?  @unique @db.VarChar(10)           // ★ NEW
+  productCode       String?  @unique @db.VarChar(10)
   productName       String   @db.VarChar(200)
   spec              String?  @db.VarChar(100)
   printType         String?  @db.VarChar(50)
@@ -127,13 +129,14 @@ model Order {
   orderDate         DateTime @db.Date
   dueDate           DateTime? @db.Date
   orderer           String?  @db.VarChar(50)
-  worker            String?  @db.VarChar(50)             // ★ NEW
-  clientContact     String?  @db.VarChar(50)             // ★ NEW
-  clientPhone       String?  @db.VarChar(30)             // ★ NEW
-  deliveryMethod    String?  @db.VarChar(20)             // ★ NEW
-  deliveryRegion    String?  @db.VarChar(50)             // ★ NEW
-  photoInspection   Boolean  @default(false)             // ★ NEW
-  sampleShipping    Boolean  @default(false)             // ★ NEW
+  worker            String?  @db.VarChar(50)
+  clientContact     String?  @db.VarChar(50)
+  clientPhone       String?  @db.VarChar(30)
+  deliveryMethod    String?  @db.VarChar(20)
+  deliveryRegion    String?  @db.VarChar(50)
+  photoInspection   Boolean  @default(false)
+  sampleShipping    Boolean  @default(false)
+  tightRoll         Boolean  @default(false)              // ★ P0 추가
   packagingType     String?  @db.VarChar(20)
   deliveryType      String?  @db.VarChar(20)
   courierType       String?  @db.VarChar(20)
@@ -176,11 +179,11 @@ model OrderItem {
   lamination        String?  @db.VarChar(20)
   foil              String?  @db.VarChar(20)
   cuttingMethod     String?  @db.VarChar(20)
-  cuttingType       String?  @db.VarChar(20)             // ★ NEW 재단방식(롤/시트)
-  sheetsPerSheet    String?  @db.VarChar(30)             // ★ NEW 시트당매수
-  labelGap          Decimal? @db.Decimal(4, 1)           // ★ NEW 라벨간격(mm)
-  dieCutter         String?  @db.VarChar(20)             // ★ NEW 도무송칼
-  resinPlate        String?  @db.VarChar(20)             // ★ NEW 수지판
+  cuttingType       String?  @db.VarChar(20)
+  sheetsPerSheet    String?  @db.VarChar(30)
+  labelGap          Decimal? @db.Decimal(4, 1)
+  dieCutter         String?  @db.VarChar(20)
+  resinPlate        String?  @db.VarChar(20)
   rollDirection     String?  @db.VarChar(10)
   slit              Boolean  @default(false)
   dataType          String?  @db.VarChar(20)
@@ -198,6 +201,7 @@ model OrderItem {
   @@index([productId])
   @@map("order_items")
 }
+
 model Estimate {
   id                Int      @id @default(autoincrement())
   estimateNumber    String   @unique @db.VarChar(30)
@@ -205,8 +209,11 @@ model Estimate {
   clientId          Int
   clientContactName String?  @db.VarChar(50)
   stage             String   @default("1차제안") @db.VarChar(30)
-  validDays         Int      @default(10)                // ★ NEW
+  validDays         Int      @default(10)
   totalSupplyAmount Decimal  @default(0) @db.Decimal(12, 0)
+  totalVat          Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
+  totalAmount       Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
+  recipientText     String?  @db.VarChar(200)                  // ★ P0 추가
   note              String?  @db.Text
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -220,7 +227,6 @@ model Estimate {
   @@map("estimates")
 }
 
-
 model EstimateItem {
   id                Int      @id @default(autoincrement())
   estimateId        Int
@@ -230,6 +236,9 @@ model EstimateItem {
   quantity          Int      @default(0)
   unitPrice         Decimal  @default(0) @db.Decimal(12, 0)
   supplyAmount      Decimal  @default(0) @db.Decimal(12, 0)
+  vat               Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
+  quantityText      String?  @db.VarChar(50)                   // ★ P0 추가
+  unitPriceText     String?  @db.VarChar(50)                   // ★ P0 추가
   note              String?  @db.VarChar(200)
   sortOrder         Int      @default(0)
   createdAt         DateTime @default(now())
@@ -245,7 +254,7 @@ model EstimateItem {
 model Transaction {
   id                  Int      @id @default(autoincrement())
   transactionNumber   String   @unique @db.VarChar(30)
-  transactionDate     DateTime @db.Date                  // ★ NEW
+  transactionDate     DateTime @db.Date
   clientId            Int
   bankAccountId       Int?
   totalQuantity       Int      @default(0)
@@ -264,7 +273,6 @@ model Transaction {
   @@index([transactionDate])
   @@map("transactions")
 }
-
 
 model TransactionItem {
   id                Int      @id @default(autoincrement())
@@ -293,11 +301,11 @@ model SalesRecord {
   id                  Int      @id @default(autoincrement())
   year                Int
   month               Int
-  transactionType     String?  @db.VarChar(10)           // ★ NEW 매출/매입
-  dataType            String?  @db.VarChar(20)           // ★ NEW 기존/수정/신규/정기매입/수시매입
-  worker              String?  @db.VarChar(50)           // ★ NEW
-  deliveryType        String?  @db.VarChar(20)           // ★ NEW
-  deliveryRegion      String?  @db.VarChar(50)           // ★ NEW
+  transactionType     String?  @db.VarChar(10)
+  dataType            String?  @db.VarChar(20)
+  worker              String?  @db.VarChar(50)
+  deliveryType        String?  @db.VarChar(20)
+  deliveryRegion      String?  @db.VarChar(50)
   orderReceivedDate   DateTime? @db.Date
   clientId            Int
   printType           String?  @db.VarChar(50)
@@ -321,7 +329,6 @@ model SalesRecord {
   @@index([transactionType])
   @@map("sales_records")
 }
-
 
 model SalesTarget {
   id                Int      @id @default(autoincrement())

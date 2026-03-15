@@ -33,6 +33,7 @@ export type EstimateItemAvgAggregateOutputType = {
   quantity: number | null
   unitPrice: runtime.Decimal | null
   supplyAmount: runtime.Decimal | null
+  vat: runtime.Decimal | null
   sortOrder: number | null
 }
 
@@ -43,6 +44,7 @@ export type EstimateItemSumAggregateOutputType = {
   quantity: number | null
   unitPrice: runtime.Decimal | null
   supplyAmount: runtime.Decimal | null
+  vat: runtime.Decimal | null
   sortOrder: number | null
 }
 
@@ -55,6 +57,9 @@ export type EstimateItemMinAggregateOutputType = {
   quantity: number | null
   unitPrice: runtime.Decimal | null
   supplyAmount: runtime.Decimal | null
+  vat: runtime.Decimal | null
+  quantityText: string | null
+  unitPriceText: string | null
   note: string | null
   sortOrder: number | null
   createdAt: Date | null
@@ -70,6 +75,9 @@ export type EstimateItemMaxAggregateOutputType = {
   quantity: number | null
   unitPrice: runtime.Decimal | null
   supplyAmount: runtime.Decimal | null
+  vat: runtime.Decimal | null
+  quantityText: string | null
+  unitPriceText: string | null
   note: string | null
   sortOrder: number | null
   createdAt: Date | null
@@ -85,6 +93,9 @@ export type EstimateItemCountAggregateOutputType = {
   quantity: number
   unitPrice: number
   supplyAmount: number
+  vat: number
+  quantityText: number
+  unitPriceText: number
   note: number
   sortOrder: number
   createdAt: number
@@ -100,6 +111,7 @@ export type EstimateItemAvgAggregateInputType = {
   quantity?: true
   unitPrice?: true
   supplyAmount?: true
+  vat?: true
   sortOrder?: true
 }
 
@@ -110,6 +122,7 @@ export type EstimateItemSumAggregateInputType = {
   quantity?: true
   unitPrice?: true
   supplyAmount?: true
+  vat?: true
   sortOrder?: true
 }
 
@@ -122,6 +135,9 @@ export type EstimateItemMinAggregateInputType = {
   quantity?: true
   unitPrice?: true
   supplyAmount?: true
+  vat?: true
+  quantityText?: true
+  unitPriceText?: true
   note?: true
   sortOrder?: true
   createdAt?: true
@@ -137,6 +153,9 @@ export type EstimateItemMaxAggregateInputType = {
   quantity?: true
   unitPrice?: true
   supplyAmount?: true
+  vat?: true
+  quantityText?: true
+  unitPriceText?: true
   note?: true
   sortOrder?: true
   createdAt?: true
@@ -152,6 +171,9 @@ export type EstimateItemCountAggregateInputType = {
   quantity?: true
   unitPrice?: true
   supplyAmount?: true
+  vat?: true
+  quantityText?: true
+  unitPriceText?: true
   note?: true
   sortOrder?: true
   createdAt?: true
@@ -254,6 +276,9 @@ export type EstimateItemGroupByOutputType = {
   quantity: number
   unitPrice: runtime.Decimal
   supplyAmount: runtime.Decimal
+  vat: runtime.Decimal
+  quantityText: string | null
+  unitPriceText: string | null
   note: string | null
   sortOrder: number
   createdAt: Date
@@ -292,6 +317,9 @@ export type EstimateItemWhereInput = {
   quantity?: Prisma.IntFilter<"EstimateItem"> | number
   unitPrice?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
+  unitPriceText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   note?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   sortOrder?: Prisma.IntFilter<"EstimateItem"> | number
   createdAt?: Prisma.DateTimeFilter<"EstimateItem"> | Date | string
@@ -309,6 +337,9 @@ export type EstimateItemOrderByWithRelationInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
+  quantityText?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitPriceText?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -330,6 +361,9 @@ export type EstimateItemWhereUniqueInput = Prisma.AtLeast<{
   quantity?: Prisma.IntFilter<"EstimateItem"> | number
   unitPrice?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
+  unitPriceText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   note?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   sortOrder?: Prisma.IntFilter<"EstimateItem"> | number
   createdAt?: Prisma.DateTimeFilter<"EstimateItem"> | Date | string
@@ -347,6 +381,9 @@ export type EstimateItemOrderByWithAggregationInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
+  quantityText?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitPriceText?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -370,6 +407,9 @@ export type EstimateItemScalarWhereWithAggregatesInput = {
   quantity?: Prisma.IntWithAggregatesFilter<"EstimateItem"> | number
   unitPrice?: Prisma.DecimalWithAggregatesFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalWithAggregatesFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalWithAggregatesFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.StringNullableWithAggregatesFilter<"EstimateItem"> | string | null
+  unitPriceText?: Prisma.StringNullableWithAggregatesFilter<"EstimateItem"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"EstimateItem"> | string | null
   sortOrder?: Prisma.IntWithAggregatesFilter<"EstimateItem"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"EstimateItem"> | Date | string
@@ -382,6 +422,9 @@ export type EstimateItemCreateInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -399,6 +442,9 @@ export type EstimateItemUncheckedCreateInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -411,6 +457,9 @@ export type EstimateItemUpdateInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -428,6 +477,9 @@ export type EstimateItemUncheckedUpdateInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -443,6 +495,9 @@ export type EstimateItemCreateManyInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -455,6 +510,9 @@ export type EstimateItemUpdateManyMutationInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -470,6 +528,9 @@ export type EstimateItemUncheckedUpdateManyInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -501,6 +562,9 @@ export type EstimateItemCountOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
+  quantityText?: Prisma.SortOrder
+  unitPriceText?: Prisma.SortOrder
   note?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -514,6 +578,7 @@ export type EstimateItemAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
 }
 
@@ -526,6 +591,9 @@ export type EstimateItemMaxOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
+  quantityText?: Prisma.SortOrder
+  unitPriceText?: Prisma.SortOrder
   note?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -541,6 +609,9 @@ export type EstimateItemMinOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
+  quantityText?: Prisma.SortOrder
+  unitPriceText?: Prisma.SortOrder
   note?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -554,6 +625,7 @@ export type EstimateItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   unitPrice?: Prisma.SortOrder
   supplyAmount?: Prisma.SortOrder
+  vat?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
 }
 
@@ -647,6 +719,9 @@ export type EstimateItemCreateWithoutProductInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -662,6 +737,9 @@ export type EstimateItemUncheckedCreateWithoutProductInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -706,6 +784,9 @@ export type EstimateItemScalarWhereInput = {
   quantity?: Prisma.IntFilter<"EstimateItem"> | number
   unitPrice?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFilter<"EstimateItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
+  unitPriceText?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   note?: Prisma.StringNullableFilter<"EstimateItem"> | string | null
   sortOrder?: Prisma.IntFilter<"EstimateItem"> | number
   createdAt?: Prisma.DateTimeFilter<"EstimateItem"> | Date | string
@@ -718,6 +799,9 @@ export type EstimateItemCreateWithoutEstimateInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -733,6 +817,9 @@ export type EstimateItemUncheckedCreateWithoutEstimateInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -773,6 +860,9 @@ export type EstimateItemCreateManyProductInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -785,6 +875,9 @@ export type EstimateItemUpdateWithoutProductInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -800,6 +893,9 @@ export type EstimateItemUncheckedUpdateWithoutProductInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -814,6 +910,9 @@ export type EstimateItemUncheckedUpdateManyWithoutProductInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -828,6 +927,9 @@ export type EstimateItemCreateManyEstimateInput = {
   quantity?: number
   unitPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: string | null
+  unitPriceText?: string | null
   note?: string | null
   sortOrder?: number
   createdAt?: Date | string
@@ -840,6 +942,9 @@ export type EstimateItemUpdateWithoutEstimateInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -855,6 +960,9 @@ export type EstimateItemUncheckedUpdateWithoutEstimateInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -869,6 +977,9 @@ export type EstimateItemUncheckedUpdateManyWithoutEstimateInput = {
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   unitPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   supplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  vat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  quantityText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitPriceText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -886,6 +997,9 @@ export type EstimateItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   quantity?: boolean
   unitPrice?: boolean
   supplyAmount?: boolean
+  vat?: boolean
+  quantityText?: boolean
+  unitPriceText?: boolean
   note?: boolean
   sortOrder?: boolean
   createdAt?: boolean
@@ -905,13 +1019,16 @@ export type EstimateItemSelectScalar = {
   quantity?: boolean
   unitPrice?: boolean
   supplyAmount?: boolean
+  vat?: boolean
+  quantityText?: boolean
+  unitPriceText?: boolean
   note?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EstimateItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateId" | "productId" | "productName" | "spec" | "quantity" | "unitPrice" | "supplyAmount" | "note" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["estimateItem"]>
+export type EstimateItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateId" | "productId" | "productName" | "spec" | "quantity" | "unitPrice" | "supplyAmount" | "vat" | "quantityText" | "unitPriceText" | "note" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["estimateItem"]>
 export type EstimateItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   estimate?: boolean | Prisma.EstimateDefaultArgs<ExtArgs>
   product?: boolean | Prisma.EstimateItem$productArgs<ExtArgs>
@@ -932,6 +1049,9 @@ export type $EstimateItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
     quantity: number
     unitPrice: runtime.Decimal
     supplyAmount: runtime.Decimal
+    vat: runtime.Decimal
+    quantityText: string | null
+    unitPriceText: string | null
     note: string | null
     sortOrder: number
     createdAt: Date
@@ -1315,6 +1435,9 @@ export interface EstimateItemFieldRefs {
   readonly quantity: Prisma.FieldRef<"EstimateItem", 'Int'>
   readonly unitPrice: Prisma.FieldRef<"EstimateItem", 'Decimal'>
   readonly supplyAmount: Prisma.FieldRef<"EstimateItem", 'Decimal'>
+  readonly vat: Prisma.FieldRef<"EstimateItem", 'Decimal'>
+  readonly quantityText: Prisma.FieldRef<"EstimateItem", 'String'>
+  readonly unitPriceText: Prisma.FieldRef<"EstimateItem", 'String'>
   readonly note: Prisma.FieldRef<"EstimateItem", 'String'>
   readonly sortOrder: Prisma.FieldRef<"EstimateItem", 'Int'>
   readonly createdAt: Prisma.FieldRef<"EstimateItem", 'DateTime'>
