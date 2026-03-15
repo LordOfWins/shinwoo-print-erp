@@ -55,7 +55,23 @@ model SystemOption {
   @@index([category, isActive])
   @@map("system_options")
 }
+// ★ NEW: 원단 마스터 (시딩 전용)
+model Material {
+  id                Int      @id @default(autoincrement())
+  paperType         String?  @db.VarChar(50)
+  backing           String?  @db.VarChar(50)
+  adhesive          String?  @db.VarChar(50)
+  thickness         String?  @db.VarChar(20)
+  manufacturer      String?  @db.VarChar(100)
+  code              String?  @db.VarChar(150)
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
+  @@index([paperType])
+  @@index([code])
+  @@map("materials")
+}
 model Client {
   id                Int      @id @default(autoincrement())
   companyName       String   @db.VarChar(100)
@@ -84,6 +100,7 @@ model Client {
 
 model Product {
   id                Int      @id @default(autoincrement())
+  productCode       String?  @unique @db.VarChar(10)           // ★ NEW
   productName       String   @db.VarChar(200)
   spec              String?  @db.VarChar(100)
   printType         String?  @db.VarChar(50)
@@ -105,11 +122,18 @@ model Product {
 
 model Order {
   id                Int      @id @default(autoincrement())
-  orderNumber       String   @unique @db.VarChar(20)
+  orderNumber       String   @unique @db.VarChar(30)
   clientId          Int
   orderDate         DateTime @db.Date
   dueDate           DateTime? @db.Date
   orderer           String?  @db.VarChar(50)
+  worker            String?  @db.VarChar(50)             // ★ NEW
+  clientContact     String?  @db.VarChar(50)             // ★ NEW
+  clientPhone       String?  @db.VarChar(30)             // ★ NEW
+  deliveryMethod    String?  @db.VarChar(20)             // ★ NEW
+  deliveryRegion    String?  @db.VarChar(50)             // ★ NEW
+  photoInspection   Boolean  @default(false)             // ★ NEW
+  sampleShipping    Boolean  @default(false)             // ★ NEW
   packagingType     String?  @db.VarChar(20)
   deliveryType      String?  @db.VarChar(20)
   courierType       String?  @db.VarChar(20)
@@ -152,6 +176,11 @@ model OrderItem {
   lamination        String?  @db.VarChar(20)
   foil              String?  @db.VarChar(20)
   cuttingMethod     String?  @db.VarChar(20)
+  cuttingType       String?  @db.VarChar(20)             // ★ NEW 재단방식(롤/시트)
+  sheetsPerSheet    String?  @db.VarChar(30)             // ★ NEW 시트당매수
+  labelGap          Decimal? @db.Decimal(4, 1)           // ★ NEW 라벨간격(mm)
+  dieCutter         String?  @db.VarChar(20)             // ★ NEW 도무송칼
+  resinPlate        String?  @db.VarChar(20)             // ★ NEW 수지판
   rollDirection     String?  @db.VarChar(10)
   slit              Boolean  @default(false)
   dataType          String?  @db.VarChar(20)
@@ -171,11 +200,12 @@ model OrderItem {
 }
 model Estimate {
   id                Int      @id @default(autoincrement())
-  estimateNumber    String   @unique @db.VarChar(20)
+  estimateNumber    String   @unique @db.VarChar(30)
   estimateDate      DateTime @db.Date
   clientId          Int
   clientContactName String?  @db.VarChar(50)
   stage             String   @default("1차제안") @db.VarChar(30)
+  validDays         Int      @default(10)                // ★ NEW
   totalSupplyAmount Decimal  @default(0) @db.Decimal(12, 0)
   note              String?  @db.Text
   createdAt         DateTime @default(now())
@@ -189,6 +219,7 @@ model Estimate {
   @@index([stage])
   @@map("estimates")
 }
+
 
 model EstimateItem {
   id                Int      @id @default(autoincrement())
@@ -213,7 +244,8 @@ model EstimateItem {
 
 model Transaction {
   id                  Int      @id @default(autoincrement())
-  transactionNumber   String   @unique @db.VarChar(20)
+  transactionNumber   String   @unique @db.VarChar(30)
+  transactionDate     DateTime @db.Date                  // ★ NEW
   clientId            Int
   bankAccountId       Int?
   totalQuantity       Int      @default(0)
@@ -229,9 +261,10 @@ model Transaction {
   items               TransactionItem[]
 
   @@index([clientId])
-  @@index([createdAt])
+  @@index([transactionDate])
   @@map("transactions")
 }
+
 
 model TransactionItem {
   id                Int      @id @default(autoincrement())
@@ -260,6 +293,11 @@ model SalesRecord {
   id                  Int      @id @default(autoincrement())
   year                Int
   month               Int
+  transactionType     String?  @db.VarChar(10)           // ★ NEW 매출/매입
+  dataType            String?  @db.VarChar(20)           // ★ NEW 기존/수정/신규/정기매입/수시매입
+  worker              String?  @db.VarChar(50)           // ★ NEW
+  deliveryType        String?  @db.VarChar(20)           // ★ NEW
+  deliveryRegion      String?  @db.VarChar(50)           // ★ NEW
   orderReceivedDate   DateTime? @db.Date
   clientId            Int
   printType           String?  @db.VarChar(50)
@@ -280,8 +318,10 @@ model SalesRecord {
 
   @@index([clientId])
   @@index([year, month])
+  @@index([transactionType])
   @@map("sales_records")
 }
+
 
 model SalesTarget {
   id                Int      @id @default(autoincrement())

@@ -81,7 +81,17 @@ export async function POST(request: NextRequest) {
     }
 
     const data = parsed.data;
-    const orderNumber = await generateOrderNumber();
+    const client = await prisma.client.findUnique({
+      where: { id: data.clientId },
+      select: { companyName: true },
+    });
+    if (!client) {
+      return NextResponse.json(
+        { message: "거래처를 찾을 수 없습니다" },
+        { status: 400 },
+      );
+    }
+    const orderNumber = await generateOrderNumber(client.companyName);
 
     const order = await prisma.order.create({
       data: {

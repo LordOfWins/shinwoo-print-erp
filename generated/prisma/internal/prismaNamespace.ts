@@ -387,6 +387,7 @@ export const ModelName = {
   CompanyInfo: 'CompanyInfo',
   BankAccount: 'BankAccount',
   SystemOption: 'SystemOption',
+  Material: 'Material',
   Client: 'Client',
   Product: 'Product',
   Order: 'Order',
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "companyInfo" | "bankAccount" | "systemOption" | "client" | "product" | "order" | "orderItem" | "estimate" | "estimateItem" | "transaction" | "transactionItem" | "salesRecord" | "salesTarget" | "fileUpload"
+    modelProps: "companyInfo" | "bankAccount" | "systemOption" | "material" | "client" | "product" | "order" | "orderItem" | "estimate" | "estimateItem" | "transaction" | "transactionItem" | "salesRecord" | "salesTarget" | "fileUpload"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -612,6 +613,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.SystemOptionCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.SystemOptionCountAggregateOutputType> | number
+        }
+      }
+    }
+    Material: {
+      payload: Prisma.$MaterialPayload<ExtArgs>
+      fields: Prisma.MaterialFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.MaterialFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.MaterialFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        findFirst: {
+          args: Prisma.MaterialFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.MaterialFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        findMany: {
+          args: Prisma.MaterialFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>[]
+        }
+        create: {
+          args: Prisma.MaterialCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        createMany: {
+          args: Prisma.MaterialCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.MaterialDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        update: {
+          args: Prisma.MaterialUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        deleteMany: {
+          args: Prisma.MaterialDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.MaterialUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.MaterialUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$MaterialPayload>
+        }
+        aggregate: {
+          args: Prisma.MaterialAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateMaterial>
+        }
+        groupBy: {
+          args: Prisma.MaterialGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.MaterialCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.MaterialCountAggregateOutputType> | number
         }
       }
     }
@@ -1428,6 +1495,22 @@ export const SystemOptionScalarFieldEnum = {
 export type SystemOptionScalarFieldEnum = (typeof SystemOptionScalarFieldEnum)[keyof typeof SystemOptionScalarFieldEnum]
 
 
+export const MaterialScalarFieldEnum = {
+  id: 'id',
+  paperType: 'paperType',
+  backing: 'backing',
+  adhesive: 'adhesive',
+  thickness: 'thickness',
+  manufacturer: 'manufacturer',
+  code: 'code',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialScalarFieldEnum = (typeof MaterialScalarFieldEnum)[keyof typeof MaterialScalarFieldEnum]
+
+
 export const ClientScalarFieldEnum = {
   id: 'id',
   companyName: 'companyName',
@@ -1450,6 +1533,7 @@ export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof 
 
 export const ProductScalarFieldEnum = {
   id: 'id',
+  productCode: 'productCode',
   productName: 'productName',
   spec: 'spec',
   printType: 'printType',
@@ -1471,6 +1555,13 @@ export const OrderScalarFieldEnum = {
   orderDate: 'orderDate',
   dueDate: 'dueDate',
   orderer: 'orderer',
+  worker: 'worker',
+  clientContact: 'clientContact',
+  clientPhone: 'clientPhone',
+  deliveryMethod: 'deliveryMethod',
+  deliveryRegion: 'deliveryRegion',
+  photoInspection: 'photoInspection',
+  sampleShipping: 'sampleShipping',
   packagingType: 'packagingType',
   deliveryType: 'deliveryType',
   courierType: 'courierType',
@@ -1507,6 +1598,11 @@ export const OrderItemScalarFieldEnum = {
   lamination: 'lamination',
   foil: 'foil',
   cuttingMethod: 'cuttingMethod',
+  cuttingType: 'cuttingType',
+  sheetsPerSheet: 'sheetsPerSheet',
+  labelGap: 'labelGap',
+  dieCutter: 'dieCutter',
+  resinPlate: 'resinPlate',
   rollDirection: 'rollDirection',
   slit: 'slit',
   dataType: 'dataType',
@@ -1528,6 +1624,7 @@ export const EstimateScalarFieldEnum = {
   clientId: 'clientId',
   clientContactName: 'clientContactName',
   stage: 'stage',
+  validDays: 'validDays',
   totalSupplyAmount: 'totalSupplyAmount',
   note: 'note',
   createdAt: 'createdAt',
@@ -1558,6 +1655,7 @@ export type EstimateItemScalarFieldEnum = (typeof EstimateItemScalarFieldEnum)[k
 export const TransactionScalarFieldEnum = {
   id: 'id',
   transactionNumber: 'transactionNumber',
+  transactionDate: 'transactionDate',
   clientId: 'clientId',
   bankAccountId: 'bankAccountId',
   totalQuantity: 'totalQuantity',
@@ -1596,6 +1694,11 @@ export const SalesRecordScalarFieldEnum = {
   id: 'id',
   year: 'year',
   month: 'month',
+  transactionType: 'transactionType',
+  dataType: 'dataType',
+  worker: 'worker',
+  deliveryType: 'deliveryType',
+  deliveryRegion: 'deliveryRegion',
   orderReceivedDate: 'orderReceivedDate',
   clientId: 'clientId',
   printType: 'printType',
@@ -1693,6 +1796,18 @@ export const SystemOptionOrderByRelevanceFieldEnum = {
 export type SystemOptionOrderByRelevanceFieldEnum = (typeof SystemOptionOrderByRelevanceFieldEnum)[keyof typeof SystemOptionOrderByRelevanceFieldEnum]
 
 
+export const MaterialOrderByRelevanceFieldEnum = {
+  paperType: 'paperType',
+  backing: 'backing',
+  adhesive: 'adhesive',
+  thickness: 'thickness',
+  manufacturer: 'manufacturer',
+  code: 'code'
+} as const
+
+export type MaterialOrderByRelevanceFieldEnum = (typeof MaterialOrderByRelevanceFieldEnum)[keyof typeof MaterialOrderByRelevanceFieldEnum]
+
+
 export const ClientOrderByRelevanceFieldEnum = {
   companyName: 'companyName',
   contactName: 'contactName',
@@ -1710,6 +1825,7 @@ export type ClientOrderByRelevanceFieldEnum = (typeof ClientOrderByRelevanceFiel
 
 
 export const ProductOrderByRelevanceFieldEnum = {
+  productCode: 'productCode',
   productName: 'productName',
   spec: 'spec',
   printType: 'printType',
@@ -1723,6 +1839,11 @@ export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFi
 export const OrderOrderByRelevanceFieldEnum = {
   orderNumber: 'orderNumber',
   orderer: 'orderer',
+  worker: 'worker',
+  clientContact: 'clientContact',
+  clientPhone: 'clientPhone',
+  deliveryMethod: 'deliveryMethod',
+  deliveryRegion: 'deliveryRegion',
   packagingType: 'packagingType',
   deliveryType: 'deliveryType',
   courierType: 'courierType',
@@ -1744,6 +1865,10 @@ export const OrderItemOrderByRelevanceFieldEnum = {
   lamination: 'lamination',
   foil: 'foil',
   cuttingMethod: 'cuttingMethod',
+  cuttingType: 'cuttingType',
+  sheetsPerSheet: 'sheetsPerSheet',
+  dieCutter: 'dieCutter',
+  resinPlate: 'resinPlate',
   rollDirection: 'rollDirection',
   dataType: 'dataType',
   designFileStatus: 'designFileStatus',
@@ -1790,6 +1915,11 @@ export type TransactionItemOrderByRelevanceFieldEnum = (typeof TransactionItemOr
 
 
 export const SalesRecordOrderByRelevanceFieldEnum = {
+  transactionType: 'transactionType',
+  dataType: 'dataType',
+  worker: 'worker',
+  deliveryType: 'deliveryType',
+  deliveryRegion: 'deliveryRegion',
   printType: 'printType',
   productName: 'productName',
   note: 'note'
@@ -1953,6 +2083,7 @@ export type GlobalOmitConfig = {
   companyInfo?: Prisma.CompanyInfoOmit
   bankAccount?: Prisma.BankAccountOmit
   systemOption?: Prisma.SystemOptionOmit
+  material?: Prisma.MaterialOmit
   client?: Prisma.ClientOmit
   product?: Prisma.ProductOmit
   order?: Prisma.OrderOmit

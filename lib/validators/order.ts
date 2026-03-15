@@ -38,6 +38,11 @@ const orderItemSchema = z.object({
   lamination: z.string().max(20).optional().or(z.literal("")),
   foil: z.string().max(20).optional().or(z.literal("")),
   cuttingMethod: z.string().max(20).optional().or(z.literal("")),
+  cuttingType: z.string().max(20).optional().or(z.literal("")),
+  sheetsPerSheet: z.string().max(30).optional().or(z.literal("")),
+  labelGap: z.string().optional().or(z.literal("")),
+  dieCutter: z.string().max(20).optional().or(z.literal("")),
+  resinPlate: z.string().max(20).optional().or(z.literal("")),
   rollDirection: z.string().max(10).optional().or(z.literal("")),
   slit: z.boolean().optional().default(false),
   dataType: z.string().max(20).optional().or(z.literal("")),
@@ -63,6 +68,13 @@ export const orderFormSchema = z.object({
   receiverPhone: z.string().max(30).optional().or(z.literal("")),
   note: z.string().optional().or(z.literal("")),
   items: z.array(orderItemSchema).min(1, "최소 1개의 품목을 추가하세요"),
+  worker: z.string().max(50).optional().or(z.literal("")),
+  clientContact: z.string().max(50).optional().or(z.literal("")),
+  clientPhone: z.string().max(30).optional().or(z.literal("")),
+  deliveryMethod: z.string().max(20).optional().or(z.literal("")),
+  deliveryRegion: z.string().max(50).optional().or(z.literal("")),
+  photoInspection: z.boolean().optional().default(false),
+  sampleShipping: z.boolean().optional().default(false),
 });
 
 export type OrderFormValues = z.infer<typeof orderFormSchema>;

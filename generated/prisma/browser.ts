@@ -33,6 +33,11 @@ export type BankAccount = Prisma.BankAccountModel
  */
 export type SystemOption = Prisma.SystemOptionModel
 /**
+ * Model Material
+ * 
+ */
+export type Material = Prisma.MaterialModel
+/**
  * Model Client
  * 
  */

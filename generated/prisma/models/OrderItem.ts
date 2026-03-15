@@ -39,6 +39,7 @@ export type OrderItemAvgAggregateOutputType = {
   sizeWidth: runtime.Decimal | null
   sizeHeight: runtime.Decimal | null
   okkuri: runtime.Decimal | null
+  labelGap: runtime.Decimal | null
   sortOrder: number | null
 }
 
@@ -55,6 +56,7 @@ export type OrderItemSumAggregateOutputType = {
   sizeWidth: runtime.Decimal | null
   sizeHeight: runtime.Decimal | null
   okkuri: runtime.Decimal | null
+  labelGap: runtime.Decimal | null
   sortOrder: number | null
 }
 
@@ -79,6 +81,11 @@ export type OrderItemMinAggregateOutputType = {
   lamination: string | null
   foil: string | null
   cuttingMethod: string | null
+  cuttingType: string | null
+  sheetsPerSheet: string | null
+  labelGap: runtime.Decimal | null
+  dieCutter: string | null
+  resinPlate: string | null
   rollDirection: string | null
   slit: boolean | null
   dataType: string | null
@@ -111,6 +118,11 @@ export type OrderItemMaxAggregateOutputType = {
   lamination: string | null
   foil: string | null
   cuttingMethod: string | null
+  cuttingType: string | null
+  sheetsPerSheet: string | null
+  labelGap: runtime.Decimal | null
+  dieCutter: string | null
+  resinPlate: string | null
   rollDirection: string | null
   slit: boolean | null
   dataType: string | null
@@ -143,6 +155,11 @@ export type OrderItemCountAggregateOutputType = {
   lamination: number
   foil: number
   cuttingMethod: number
+  cuttingType: number
+  sheetsPerSheet: number
+  labelGap: number
+  dieCutter: number
+  resinPlate: number
   rollDirection: number
   slit: number
   dataType: number
@@ -169,6 +186,7 @@ export type OrderItemAvgAggregateInputType = {
   sizeWidth?: true
   sizeHeight?: true
   okkuri?: true
+  labelGap?: true
   sortOrder?: true
 }
 
@@ -185,6 +203,7 @@ export type OrderItemSumAggregateInputType = {
   sizeWidth?: true
   sizeHeight?: true
   okkuri?: true
+  labelGap?: true
   sortOrder?: true
 }
 
@@ -209,6 +228,11 @@ export type OrderItemMinAggregateInputType = {
   lamination?: true
   foil?: true
   cuttingMethod?: true
+  cuttingType?: true
+  sheetsPerSheet?: true
+  labelGap?: true
+  dieCutter?: true
+  resinPlate?: true
   rollDirection?: true
   slit?: true
   dataType?: true
@@ -241,6 +265,11 @@ export type OrderItemMaxAggregateInputType = {
   lamination?: true
   foil?: true
   cuttingMethod?: true
+  cuttingType?: true
+  sheetsPerSheet?: true
+  labelGap?: true
+  dieCutter?: true
+  resinPlate?: true
   rollDirection?: true
   slit?: true
   dataType?: true
@@ -273,6 +302,11 @@ export type OrderItemCountAggregateInputType = {
   lamination?: true
   foil?: true
   cuttingMethod?: true
+  cuttingType?: true
+  sheetsPerSheet?: true
+  labelGap?: true
+  dieCutter?: true
+  resinPlate?: true
   rollDirection?: true
   slit?: true
   dataType?: true
@@ -392,6 +426,11 @@ export type OrderItemGroupByOutputType = {
   lamination: string | null
   foil: string | null
   cuttingMethod: string | null
+  cuttingType: string | null
+  sheetsPerSheet: string | null
+  labelGap: runtime.Decimal | null
+  dieCutter: string | null
+  resinPlate: string | null
   rollDirection: string | null
   slit: boolean
   dataType: string | null
@@ -447,6 +486,11 @@ export type OrderItemWhereInput = {
   lamination?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   foil?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   cuttingMethod?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  cuttingType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  sheetsPerSheet?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  labelGap?: Prisma.DecimalNullableFilter<"OrderItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  resinPlate?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   rollDirection?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   slit?: Prisma.BoolFilter<"OrderItem"> | boolean
   dataType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
@@ -481,6 +525,11 @@ export type OrderItemOrderByWithRelationInput = {
   lamination?: Prisma.SortOrderInput | Prisma.SortOrder
   foil?: Prisma.SortOrderInput | Prisma.SortOrder
   cuttingMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  cuttingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  sheetsPerSheet?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelGap?: Prisma.SortOrderInput | Prisma.SortOrder
+  dieCutter?: Prisma.SortOrderInput | Prisma.SortOrder
+  resinPlate?: Prisma.SortOrderInput | Prisma.SortOrder
   rollDirection?: Prisma.SortOrderInput | Prisma.SortOrder
   slit?: Prisma.SortOrder
   dataType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -519,6 +568,11 @@ export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
   lamination?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   foil?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   cuttingMethod?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  cuttingType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  sheetsPerSheet?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  labelGap?: Prisma.DecimalNullableFilter<"OrderItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  resinPlate?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   rollDirection?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   slit?: Prisma.BoolFilter<"OrderItem"> | boolean
   dataType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
@@ -553,6 +607,11 @@ export type OrderItemOrderByWithAggregationInput = {
   lamination?: Prisma.SortOrderInput | Prisma.SortOrder
   foil?: Prisma.SortOrderInput | Prisma.SortOrder
   cuttingMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  cuttingType?: Prisma.SortOrderInput | Prisma.SortOrder
+  sheetsPerSheet?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelGap?: Prisma.SortOrderInput | Prisma.SortOrder
+  dieCutter?: Prisma.SortOrderInput | Prisma.SortOrder
+  resinPlate?: Prisma.SortOrderInput | Prisma.SortOrder
   rollDirection?: Prisma.SortOrderInput | Prisma.SortOrder
   slit?: Prisma.SortOrder
   dataType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -593,6 +652,11 @@ export type OrderItemScalarWhereWithAggregatesInput = {
   lamination?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   foil?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   cuttingMethod?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+  cuttingType?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+  sheetsPerSheet?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+  labelGap?: Prisma.DecimalNullableWithAggregatesFilter<"OrderItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+  resinPlate?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   rollDirection?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   slit?: Prisma.BoolWithAggregatesFilter<"OrderItem"> | boolean
   dataType?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
@@ -622,6 +686,11 @@ export type OrderItemCreateInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -656,6 +725,11 @@ export type OrderItemUncheckedCreateInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -685,6 +759,11 @@ export type OrderItemUpdateInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -719,6 +798,11 @@ export type OrderItemUncheckedUpdateInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -751,6 +835,11 @@ export type OrderItemCreateManyInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -780,6 +869,11 @@ export type OrderItemUpdateManyMutationInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -812,6 +906,11 @@ export type OrderItemUncheckedUpdateManyInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -860,6 +959,11 @@ export type OrderItemCountOrderByAggregateInput = {
   lamination?: Prisma.SortOrder
   foil?: Prisma.SortOrder
   cuttingMethod?: Prisma.SortOrder
+  cuttingType?: Prisma.SortOrder
+  sheetsPerSheet?: Prisma.SortOrder
+  labelGap?: Prisma.SortOrder
+  dieCutter?: Prisma.SortOrder
+  resinPlate?: Prisma.SortOrder
   rollDirection?: Prisma.SortOrder
   slit?: Prisma.SortOrder
   dataType?: Prisma.SortOrder
@@ -884,6 +988,7 @@ export type OrderItemAvgOrderByAggregateInput = {
   sizeWidth?: Prisma.SortOrder
   sizeHeight?: Prisma.SortOrder
   okkuri?: Prisma.SortOrder
+  labelGap?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
 }
 
@@ -908,6 +1013,11 @@ export type OrderItemMaxOrderByAggregateInput = {
   lamination?: Prisma.SortOrder
   foil?: Prisma.SortOrder
   cuttingMethod?: Prisma.SortOrder
+  cuttingType?: Prisma.SortOrder
+  sheetsPerSheet?: Prisma.SortOrder
+  labelGap?: Prisma.SortOrder
+  dieCutter?: Prisma.SortOrder
+  resinPlate?: Prisma.SortOrder
   rollDirection?: Prisma.SortOrder
   slit?: Prisma.SortOrder
   dataType?: Prisma.SortOrder
@@ -940,6 +1050,11 @@ export type OrderItemMinOrderByAggregateInput = {
   lamination?: Prisma.SortOrder
   foil?: Prisma.SortOrder
   cuttingMethod?: Prisma.SortOrder
+  cuttingType?: Prisma.SortOrder
+  sheetsPerSheet?: Prisma.SortOrder
+  labelGap?: Prisma.SortOrder
+  dieCutter?: Prisma.SortOrder
+  resinPlate?: Prisma.SortOrder
   rollDirection?: Prisma.SortOrder
   slit?: Prisma.SortOrder
   dataType?: Prisma.SortOrder
@@ -964,6 +1079,7 @@ export type OrderItemSumOrderByAggregateInput = {
   sizeWidth?: Prisma.SortOrder
   sizeHeight?: Prisma.SortOrder
   okkuri?: Prisma.SortOrder
+  labelGap?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
 }
 
@@ -1077,6 +1193,11 @@ export type OrderItemCreateWithoutProductInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1109,6 +1230,11 @@ export type OrderItemUncheckedCreateWithoutProductInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1170,6 +1296,11 @@ export type OrderItemScalarWhereInput = {
   lamination?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   foil?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   cuttingMethod?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  cuttingType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  sheetsPerSheet?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  labelGap?: Prisma.DecimalNullableFilter<"OrderItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  resinPlate?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   rollDirection?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   slit?: Prisma.BoolFilter<"OrderItem"> | boolean
   dataType?: Prisma.StringNullableFilter<"OrderItem"> | string | null
@@ -1199,6 +1330,11 @@ export type OrderItemCreateWithoutOrderInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1231,6 +1367,11 @@ export type OrderItemUncheckedCreateWithoutOrderInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1288,6 +1429,11 @@ export type OrderItemCreateManyProductInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1317,6 +1463,11 @@ export type OrderItemUpdateWithoutProductInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1349,6 +1500,11 @@ export type OrderItemUncheckedUpdateWithoutProductInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1380,6 +1536,11 @@ export type OrderItemUncheckedUpdateManyWithoutProductInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1411,6 +1572,11 @@ export type OrderItemCreateManyOrderInput = {
   lamination?: string | null
   foil?: string | null
   cuttingMethod?: string | null
+  cuttingType?: string | null
+  sheetsPerSheet?: string | null
+  labelGap?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: string | null
+  resinPlate?: string | null
   rollDirection?: string | null
   slit?: boolean
   dataType?: string | null
@@ -1440,6 +1606,11 @@ export type OrderItemUpdateWithoutOrderInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1472,6 +1643,11 @@ export type OrderItemUncheckedUpdateWithoutOrderInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1503,6 +1679,11 @@ export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
   lamination?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   foil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cuttingMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cuttingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sheetsPerSheet?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelGap?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  dieCutter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  resinPlate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rollDirection?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slit?: Prisma.BoolFieldUpdateOperationsInput | boolean
   dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1537,6 +1718,11 @@ export type OrderItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   lamination?: boolean
   foil?: boolean
   cuttingMethod?: boolean
+  cuttingType?: boolean
+  sheetsPerSheet?: boolean
+  labelGap?: boolean
+  dieCutter?: boolean
+  resinPlate?: boolean
   rollDirection?: boolean
   slit?: boolean
   dataType?: boolean
@@ -1573,6 +1759,11 @@ export type OrderItemSelectScalar = {
   lamination?: boolean
   foil?: boolean
   cuttingMethod?: boolean
+  cuttingType?: boolean
+  sheetsPerSheet?: boolean
+  labelGap?: boolean
+  dieCutter?: boolean
+  resinPlate?: boolean
   rollDirection?: boolean
   slit?: boolean
   dataType?: boolean
@@ -1584,7 +1775,7 @@ export type OrderItemSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "productId" | "productName" | "printType" | "printPrice" | "sheets" | "sheetsPerRoll" | "unitPrice" | "supplyAmount" | "material" | "materialWidth" | "perforation" | "sizeWidth" | "sizeHeight" | "shape" | "okkuri" | "lamination" | "foil" | "cuttingMethod" | "rollDirection" | "slit" | "dataType" | "lastDataDate" | "designFileStatus" | "designImageUrl" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["orderItem"]>
+export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "productId" | "productName" | "printType" | "printPrice" | "sheets" | "sheetsPerRoll" | "unitPrice" | "supplyAmount" | "material" | "materialWidth" | "perforation" | "sizeWidth" | "sizeHeight" | "shape" | "okkuri" | "lamination" | "foil" | "cuttingMethod" | "cuttingType" | "sheetsPerSheet" | "labelGap" | "dieCutter" | "resinPlate" | "rollDirection" | "slit" | "dataType" | "lastDataDate" | "designFileStatus" | "designImageUrl" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["orderItem"]>
 export type OrderItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   product?: boolean | Prisma.OrderItem$productArgs<ExtArgs>
@@ -1617,6 +1808,11 @@ export type $OrderItemPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     lamination: string | null
     foil: string | null
     cuttingMethod: string | null
+    cuttingType: string | null
+    sheetsPerSheet: string | null
+    labelGap: runtime.Decimal | null
+    dieCutter: string | null
+    resinPlate: string | null
     rollDirection: string | null
     slit: boolean
     dataType: string | null
@@ -2017,6 +2213,11 @@ export interface OrderItemFieldRefs {
   readonly lamination: Prisma.FieldRef<"OrderItem", 'String'>
   readonly foil: Prisma.FieldRef<"OrderItem", 'String'>
   readonly cuttingMethod: Prisma.FieldRef<"OrderItem", 'String'>
+  readonly cuttingType: Prisma.FieldRef<"OrderItem", 'String'>
+  readonly sheetsPerSheet: Prisma.FieldRef<"OrderItem", 'String'>
+  readonly labelGap: Prisma.FieldRef<"OrderItem", 'Decimal'>
+  readonly dieCutter: Prisma.FieldRef<"OrderItem", 'String'>
+  readonly resinPlate: Prisma.FieldRef<"OrderItem", 'String'>
   readonly rollDirection: Prisma.FieldRef<"OrderItem", 'String'>
   readonly slit: Prisma.FieldRef<"OrderItem", 'Boolean'>
   readonly dataType: Prisma.FieldRef<"OrderItem", 'String'>

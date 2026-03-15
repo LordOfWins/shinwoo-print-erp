@@ -54,6 +54,7 @@ export const ModelName = {
   CompanyInfo: 'CompanyInfo',
   BankAccount: 'BankAccount',
   SystemOption: 'SystemOption',
+  Material: 'Material',
   Client: 'Client',
   Product: 'Product',
   Order: 'Order',
@@ -131,6 +132,22 @@ export const SystemOptionScalarFieldEnum = {
 export type SystemOptionScalarFieldEnum = (typeof SystemOptionScalarFieldEnum)[keyof typeof SystemOptionScalarFieldEnum]
 
 
+export const MaterialScalarFieldEnum = {
+  id: 'id',
+  paperType: 'paperType',
+  backing: 'backing',
+  adhesive: 'adhesive',
+  thickness: 'thickness',
+  manufacturer: 'manufacturer',
+  code: 'code',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MaterialScalarFieldEnum = (typeof MaterialScalarFieldEnum)[keyof typeof MaterialScalarFieldEnum]
+
+
 export const ClientScalarFieldEnum = {
   id: 'id',
   companyName: 'companyName',
@@ -153,6 +170,7 @@ export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof 
 
 export const ProductScalarFieldEnum = {
   id: 'id',
+  productCode: 'productCode',
   productName: 'productName',
   spec: 'spec',
   printType: 'printType',
@@ -174,6 +192,13 @@ export const OrderScalarFieldEnum = {
   orderDate: 'orderDate',
   dueDate: 'dueDate',
   orderer: 'orderer',
+  worker: 'worker',
+  clientContact: 'clientContact',
+  clientPhone: 'clientPhone',
+  deliveryMethod: 'deliveryMethod',
+  deliveryRegion: 'deliveryRegion',
+  photoInspection: 'photoInspection',
+  sampleShipping: 'sampleShipping',
   packagingType: 'packagingType',
   deliveryType: 'deliveryType',
   courierType: 'courierType',
@@ -210,6 +235,11 @@ export const OrderItemScalarFieldEnum = {
   lamination: 'lamination',
   foil: 'foil',
   cuttingMethod: 'cuttingMethod',
+  cuttingType: 'cuttingType',
+  sheetsPerSheet: 'sheetsPerSheet',
+  labelGap: 'labelGap',
+  dieCutter: 'dieCutter',
+  resinPlate: 'resinPlate',
   rollDirection: 'rollDirection',
   slit: 'slit',
   dataType: 'dataType',
@@ -231,6 +261,7 @@ export const EstimateScalarFieldEnum = {
   clientId: 'clientId',
   clientContactName: 'clientContactName',
   stage: 'stage',
+  validDays: 'validDays',
   totalSupplyAmount: 'totalSupplyAmount',
   note: 'note',
   createdAt: 'createdAt',
@@ -261,6 +292,7 @@ export type EstimateItemScalarFieldEnum = (typeof EstimateItemScalarFieldEnum)[k
 export const TransactionScalarFieldEnum = {
   id: 'id',
   transactionNumber: 'transactionNumber',
+  transactionDate: 'transactionDate',
   clientId: 'clientId',
   bankAccountId: 'bankAccountId',
   totalQuantity: 'totalQuantity',
@@ -299,6 +331,11 @@ export const SalesRecordScalarFieldEnum = {
   id: 'id',
   year: 'year',
   month: 'month',
+  transactionType: 'transactionType',
+  dataType: 'dataType',
+  worker: 'worker',
+  deliveryType: 'deliveryType',
+  deliveryRegion: 'deliveryRegion',
   orderReceivedDate: 'orderReceivedDate',
   clientId: 'clientId',
   printType: 'printType',
@@ -396,6 +433,18 @@ export const SystemOptionOrderByRelevanceFieldEnum = {
 export type SystemOptionOrderByRelevanceFieldEnum = (typeof SystemOptionOrderByRelevanceFieldEnum)[keyof typeof SystemOptionOrderByRelevanceFieldEnum]
 
 
+export const MaterialOrderByRelevanceFieldEnum = {
+  paperType: 'paperType',
+  backing: 'backing',
+  adhesive: 'adhesive',
+  thickness: 'thickness',
+  manufacturer: 'manufacturer',
+  code: 'code'
+} as const
+
+export type MaterialOrderByRelevanceFieldEnum = (typeof MaterialOrderByRelevanceFieldEnum)[keyof typeof MaterialOrderByRelevanceFieldEnum]
+
+
 export const ClientOrderByRelevanceFieldEnum = {
   companyName: 'companyName',
   contactName: 'contactName',
@@ -413,6 +462,7 @@ export type ClientOrderByRelevanceFieldEnum = (typeof ClientOrderByRelevanceFiel
 
 
 export const ProductOrderByRelevanceFieldEnum = {
+  productCode: 'productCode',
   productName: 'productName',
   spec: 'spec',
   printType: 'printType',
@@ -426,6 +476,11 @@ export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFi
 export const OrderOrderByRelevanceFieldEnum = {
   orderNumber: 'orderNumber',
   orderer: 'orderer',
+  worker: 'worker',
+  clientContact: 'clientContact',
+  clientPhone: 'clientPhone',
+  deliveryMethod: 'deliveryMethod',
+  deliveryRegion: 'deliveryRegion',
   packagingType: 'packagingType',
   deliveryType: 'deliveryType',
   courierType: 'courierType',
@@ -447,6 +502,10 @@ export const OrderItemOrderByRelevanceFieldEnum = {
   lamination: 'lamination',
   foil: 'foil',
   cuttingMethod: 'cuttingMethod',
+  cuttingType: 'cuttingType',
+  sheetsPerSheet: 'sheetsPerSheet',
+  dieCutter: 'dieCutter',
+  resinPlate: 'resinPlate',
   rollDirection: 'rollDirection',
   dataType: 'dataType',
   designFileStatus: 'designFileStatus',
@@ -493,6 +552,11 @@ export type TransactionItemOrderByRelevanceFieldEnum = (typeof TransactionItemOr
 
 
 export const SalesRecordOrderByRelevanceFieldEnum = {
+  transactionType: 'transactionType',
+  dataType: 'dataType',
+  worker: 'worker',
+  deliveryType: 'deliveryType',
+  deliveryRegion: 'deliveryRegion',
   printType: 'printType',
   productName: 'productName',
   note: 'note'

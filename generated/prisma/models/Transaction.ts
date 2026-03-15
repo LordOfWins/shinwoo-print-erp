@@ -49,6 +49,7 @@ export type TransactionSumAggregateOutputType = {
 export type TransactionMinAggregateOutputType = {
   id: number | null
   transactionNumber: string | null
+  transactionDate: Date | null
   clientId: number | null
   bankAccountId: number | null
   totalQuantity: number | null
@@ -63,6 +64,7 @@ export type TransactionMinAggregateOutputType = {
 export type TransactionMaxAggregateOutputType = {
   id: number | null
   transactionNumber: string | null
+  transactionDate: Date | null
   clientId: number | null
   bankAccountId: number | null
   totalQuantity: number | null
@@ -77,6 +79,7 @@ export type TransactionMaxAggregateOutputType = {
 export type TransactionCountAggregateOutputType = {
   id: number
   transactionNumber: number
+  transactionDate: number
   clientId: number
   bankAccountId: number
   totalQuantity: number
@@ -113,6 +116,7 @@ export type TransactionSumAggregateInputType = {
 export type TransactionMinAggregateInputType = {
   id?: true
   transactionNumber?: true
+  transactionDate?: true
   clientId?: true
   bankAccountId?: true
   totalQuantity?: true
@@ -127,6 +131,7 @@ export type TransactionMinAggregateInputType = {
 export type TransactionMaxAggregateInputType = {
   id?: true
   transactionNumber?: true
+  transactionDate?: true
   clientId?: true
   bankAccountId?: true
   totalQuantity?: true
@@ -141,6 +146,7 @@ export type TransactionMaxAggregateInputType = {
 export type TransactionCountAggregateInputType = {
   id?: true
   transactionNumber?: true
+  transactionDate?: true
   clientId?: true
   bankAccountId?: true
   totalQuantity?: true
@@ -242,6 +248,7 @@ export type TransactionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type TransactionGroupByOutputType = {
   id: number
   transactionNumber: string
+  transactionDate: Date
   clientId: number
   bankAccountId: number | null
   totalQuantity: number
@@ -279,6 +286,7 @@ export type TransactionWhereInput = {
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   id?: Prisma.IntFilter<"Transaction"> | number
   transactionNumber?: Prisma.StringFilter<"Transaction"> | string
+  transactionDate?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   clientId?: Prisma.IntFilter<"Transaction"> | number
   bankAccountId?: Prisma.IntNullableFilter<"Transaction"> | number | null
   totalQuantity?: Prisma.IntFilter<"Transaction"> | number
@@ -296,6 +304,7 @@ export type TransactionWhereInput = {
 export type TransactionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
+  transactionDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalQuantity?: Prisma.SortOrder
@@ -317,6 +326,7 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
+  transactionDate?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   clientId?: Prisma.IntFilter<"Transaction"> | number
   bankAccountId?: Prisma.IntNullableFilter<"Transaction"> | number | null
   totalQuantity?: Prisma.IntFilter<"Transaction"> | number
@@ -334,6 +344,7 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
 export type TransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
+  transactionDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrderInput | Prisma.SortOrder
   totalQuantity?: Prisma.SortOrder
@@ -356,6 +367,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TransactionScalarWhereWithAggregatesInput | Prisma.TransactionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   transactionNumber?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
+  transactionDate?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   clientId?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   bankAccountId?: Prisma.IntNullableWithAggregatesFilter<"Transaction"> | number | null
   totalQuantity?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
@@ -369,6 +381,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
 
 export type TransactionCreateInput = {
   transactionNumber: string
+  transactionDate: Date | string
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -384,6 +397,7 @@ export type TransactionCreateInput = {
 export type TransactionUncheckedCreateInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   clientId: number
   bankAccountId?: number | null
   totalQuantity?: number
@@ -398,6 +412,7 @@ export type TransactionUncheckedCreateInput = {
 
 export type TransactionUpdateInput = {
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -413,6 +428,7 @@ export type TransactionUpdateInput = {
 export type TransactionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   bankAccountId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -428,6 +444,7 @@ export type TransactionUncheckedUpdateInput = {
 export type TransactionCreateManyInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   clientId: number
   bankAccountId?: number | null
   totalQuantity?: number
@@ -441,6 +458,7 @@ export type TransactionCreateManyInput = {
 
 export type TransactionUpdateManyMutationInput = {
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -453,6 +471,7 @@ export type TransactionUpdateManyMutationInput = {
 export type TransactionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   bankAccountId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -483,6 +502,7 @@ export type TransactionOrderByRelevanceInput = {
 export type TransactionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
+  transactionDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   totalQuantity?: Prisma.SortOrder
@@ -507,6 +527,7 @@ export type TransactionAvgOrderByAggregateInput = {
 export type TransactionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
+  transactionDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   totalQuantity?: Prisma.SortOrder
@@ -521,6 +542,7 @@ export type TransactionMaxOrderByAggregateInput = {
 export type TransactionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   transactionNumber?: Prisma.SortOrder
+  transactionDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   bankAccountId?: Prisma.SortOrder
   totalQuantity?: Prisma.SortOrder
@@ -647,6 +669,7 @@ export type TransactionUpdateOneRequiredWithoutItemsNestedInput = {
 
 export type TransactionCreateWithoutBankAccountInput = {
   transactionNumber: string
+  transactionDate: Date | string
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -661,6 +684,7 @@ export type TransactionCreateWithoutBankAccountInput = {
 export type TransactionUncheckedCreateWithoutBankAccountInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   clientId: number
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -704,6 +728,7 @@ export type TransactionScalarWhereInput = {
   NOT?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
   id?: Prisma.IntFilter<"Transaction"> | number
   transactionNumber?: Prisma.StringFilter<"Transaction"> | string
+  transactionDate?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   clientId?: Prisma.IntFilter<"Transaction"> | number
   bankAccountId?: Prisma.IntNullableFilter<"Transaction"> | number | null
   totalQuantity?: Prisma.IntFilter<"Transaction"> | number
@@ -717,6 +742,7 @@ export type TransactionScalarWhereInput = {
 
 export type TransactionCreateWithoutClientInput = {
   transactionNumber: string
+  transactionDate: Date | string
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -731,6 +757,7 @@ export type TransactionCreateWithoutClientInput = {
 export type TransactionUncheckedCreateWithoutClientInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   bankAccountId?: number | null
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -770,6 +797,7 @@ export type TransactionUpdateManyWithWhereWithoutClientInput = {
 
 export type TransactionCreateWithoutItemsInput = {
   transactionNumber: string
+  transactionDate: Date | string
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -784,6 +812,7 @@ export type TransactionCreateWithoutItemsInput = {
 export type TransactionUncheckedCreateWithoutItemsInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   clientId: number
   bankAccountId?: number | null
   totalQuantity?: number
@@ -813,6 +842,7 @@ export type TransactionUpdateToOneWithWhereWithoutItemsInput = {
 
 export type TransactionUpdateWithoutItemsInput = {
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -827,6 +857,7 @@ export type TransactionUpdateWithoutItemsInput = {
 export type TransactionUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   bankAccountId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
@@ -841,6 +872,7 @@ export type TransactionUncheckedUpdateWithoutItemsInput = {
 export type TransactionCreateManyBankAccountInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   clientId: number
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -853,6 +885,7 @@ export type TransactionCreateManyBankAccountInput = {
 
 export type TransactionUpdateWithoutBankAccountInput = {
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -867,6 +900,7 @@ export type TransactionUpdateWithoutBankAccountInput = {
 export type TransactionUncheckedUpdateWithoutBankAccountInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -881,6 +915,7 @@ export type TransactionUncheckedUpdateWithoutBankAccountInput = {
 export type TransactionUncheckedUpdateManyWithoutBankAccountInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -894,6 +929,7 @@ export type TransactionUncheckedUpdateManyWithoutBankAccountInput = {
 export type TransactionCreateManyClientInput = {
   id?: number
   transactionNumber: string
+  transactionDate: Date | string
   bankAccountId?: number | null
   totalQuantity?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -906,6 +942,7 @@ export type TransactionCreateManyClientInput = {
 
 export type TransactionUpdateWithoutClientInput = {
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -920,6 +957,7 @@ export type TransactionUpdateWithoutClientInput = {
 export type TransactionUncheckedUpdateWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bankAccountId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -934,6 +972,7 @@ export type TransactionUncheckedUpdateWithoutClientInput = {
 export type TransactionUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   transactionNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  transactionDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   bankAccountId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   totalQuantity?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -978,6 +1017,7 @@ export type TransactionCountOutputTypeCountItemsArgs<ExtArgs extends runtime.Typ
 export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   transactionNumber?: boolean
+  transactionDate?: boolean
   clientId?: boolean
   bankAccountId?: boolean
   totalQuantity?: boolean
@@ -998,6 +1038,7 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type TransactionSelectScalar = {
   id?: boolean
   transactionNumber?: boolean
+  transactionDate?: boolean
   clientId?: boolean
   bankAccountId?: boolean
   totalQuantity?: boolean
@@ -1009,7 +1050,7 @@ export type TransactionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "transactionNumber" | "clientId" | "bankAccountId" | "totalQuantity" | "totalSupplyAmount" | "totalVat" | "totalAmount" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "transactionNumber" | "transactionDate" | "clientId" | "bankAccountId" | "totalQuantity" | "totalSupplyAmount" | "totalVat" | "totalAmount" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   bankAccount?: boolean | Prisma.Transaction$bankAccountArgs<ExtArgs>
@@ -1027,6 +1068,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     transactionNumber: string
+    transactionDate: Date
     clientId: number
     bankAccountId: number | null
     totalQuantity: number
@@ -1410,6 +1452,7 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
 export interface TransactionFieldRefs {
   readonly id: Prisma.FieldRef<"Transaction", 'Int'>
   readonly transactionNumber: Prisma.FieldRef<"Transaction", 'String'>
+  readonly transactionDate: Prisma.FieldRef<"Transaction", 'DateTime'>
   readonly clientId: Prisma.FieldRef<"Transaction", 'Int'>
   readonly bankAccountId: Prisma.FieldRef<"Transaction", 'Int'>
   readonly totalQuantity: Prisma.FieldRef<"Transaction", 'Int'>

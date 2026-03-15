@@ -29,12 +29,14 @@ export type AggregateEstimate = {
 export type EstimateAvgAggregateOutputType = {
   id: number | null
   clientId: number | null
+  validDays: number | null
   totalSupplyAmount: runtime.Decimal | null
 }
 
 export type EstimateSumAggregateOutputType = {
   id: number | null
   clientId: number | null
+  validDays: number | null
   totalSupplyAmount: runtime.Decimal | null
 }
 
@@ -45,6 +47,7 @@ export type EstimateMinAggregateOutputType = {
   clientId: number | null
   clientContactName: string | null
   stage: string | null
+  validDays: number | null
   totalSupplyAmount: runtime.Decimal | null
   note: string | null
   createdAt: Date | null
@@ -58,6 +61,7 @@ export type EstimateMaxAggregateOutputType = {
   clientId: number | null
   clientContactName: string | null
   stage: string | null
+  validDays: number | null
   totalSupplyAmount: runtime.Decimal | null
   note: string | null
   createdAt: Date | null
@@ -71,6 +75,7 @@ export type EstimateCountAggregateOutputType = {
   clientId: number
   clientContactName: number
   stage: number
+  validDays: number
   totalSupplyAmount: number
   note: number
   createdAt: number
@@ -82,12 +87,14 @@ export type EstimateCountAggregateOutputType = {
 export type EstimateAvgAggregateInputType = {
   id?: true
   clientId?: true
+  validDays?: true
   totalSupplyAmount?: true
 }
 
 export type EstimateSumAggregateInputType = {
   id?: true
   clientId?: true
+  validDays?: true
   totalSupplyAmount?: true
 }
 
@@ -98,6 +105,7 @@ export type EstimateMinAggregateInputType = {
   clientId?: true
   clientContactName?: true
   stage?: true
+  validDays?: true
   totalSupplyAmount?: true
   note?: true
   createdAt?: true
@@ -111,6 +119,7 @@ export type EstimateMaxAggregateInputType = {
   clientId?: true
   clientContactName?: true
   stage?: true
+  validDays?: true
   totalSupplyAmount?: true
   note?: true
   createdAt?: true
@@ -124,6 +133,7 @@ export type EstimateCountAggregateInputType = {
   clientId?: true
   clientContactName?: true
   stage?: true
+  validDays?: true
   totalSupplyAmount?: true
   note?: true
   createdAt?: true
@@ -224,6 +234,7 @@ export type EstimateGroupByOutputType = {
   clientId: number
   clientContactName: string | null
   stage: string
+  validDays: number
   totalSupplyAmount: runtime.Decimal
   note: string | null
   createdAt: Date
@@ -260,6 +271,7 @@ export type EstimateWhereInput = {
   clientId?: Prisma.IntFilter<"Estimate"> | number
   clientContactName?: Prisma.StringNullableFilter<"Estimate"> | string | null
   stage?: Prisma.StringFilter<"Estimate"> | string
+  validDays?: Prisma.IntFilter<"Estimate"> | number
   totalSupplyAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -275,6 +287,7 @@ export type EstimateOrderByWithRelationInput = {
   clientId?: Prisma.SortOrder
   clientContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   stage?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -294,6 +307,7 @@ export type EstimateWhereUniqueInput = Prisma.AtLeast<{
   clientId?: Prisma.IntFilter<"Estimate"> | number
   clientContactName?: Prisma.StringNullableFilter<"Estimate"> | string | null
   stage?: Prisma.StringFilter<"Estimate"> | string
+  validDays?: Prisma.IntFilter<"Estimate"> | number
   totalSupplyAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -309,6 +323,7 @@ export type EstimateOrderByWithAggregationInput = {
   clientId?: Prisma.SortOrder
   clientContactName?: Prisma.SortOrderInput | Prisma.SortOrder
   stage?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -330,6 +345,7 @@ export type EstimateScalarWhereWithAggregatesInput = {
   clientId?: Prisma.IntWithAggregatesFilter<"Estimate"> | number
   clientContactName?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
   stage?: Prisma.StringWithAggregatesFilter<"Estimate"> | string
+  validDays?: Prisma.IntWithAggregatesFilter<"Estimate"> | number
   totalSupplyAmount?: Prisma.DecimalWithAggregatesFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Estimate"> | Date | string
@@ -341,6 +357,7 @@ export type EstimateCreateInput = {
   estimateDate: Date | string
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -356,6 +373,7 @@ export type EstimateUncheckedCreateInput = {
   clientId: number
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -368,6 +386,7 @@ export type EstimateUpdateInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -383,6 +402,7 @@ export type EstimateUncheckedUpdateInput = {
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +417,7 @@ export type EstimateCreateManyInput = {
   clientId: number
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -408,6 +429,7 @@ export type EstimateUpdateManyMutationInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -421,6 +443,7 @@ export type EstimateUncheckedUpdateManyInput = {
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -450,6 +473,7 @@ export type EstimateCountOrderByAggregateInput = {
   clientId?: Prisma.SortOrder
   clientContactName?: Prisma.SortOrder
   stage?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -459,6 +483,7 @@ export type EstimateCountOrderByAggregateInput = {
 export type EstimateAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
 }
 
@@ -469,6 +494,7 @@ export type EstimateMaxOrderByAggregateInput = {
   clientId?: Prisma.SortOrder
   clientContactName?: Prisma.SortOrder
   stage?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -482,6 +508,7 @@ export type EstimateMinOrderByAggregateInput = {
   clientId?: Prisma.SortOrder
   clientContactName?: Prisma.SortOrder
   stage?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -491,6 +518,7 @@ export type EstimateMinOrderByAggregateInput = {
 export type EstimateSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
+  validDays?: Prisma.SortOrder
   totalSupplyAmount?: Prisma.SortOrder
 }
 
@@ -568,6 +596,7 @@ export type EstimateCreateWithoutClientInput = {
   estimateDate: Date | string
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -581,6 +610,7 @@ export type EstimateUncheckedCreateWithoutClientInput = {
   estimateDate: Date | string
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -624,6 +654,7 @@ export type EstimateScalarWhereInput = {
   clientId?: Prisma.IntFilter<"Estimate"> | number
   clientContactName?: Prisma.StringNullableFilter<"Estimate"> | string | null
   stage?: Prisma.StringFilter<"Estimate"> | string
+  validDays?: Prisma.IntFilter<"Estimate"> | number
   totalSupplyAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -635,6 +666,7 @@ export type EstimateCreateWithoutItemsInput = {
   estimateDate: Date | string
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -649,6 +681,7 @@ export type EstimateUncheckedCreateWithoutItemsInput = {
   clientId: number
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -676,6 +709,7 @@ export type EstimateUpdateWithoutItemsInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -690,6 +724,7 @@ export type EstimateUncheckedUpdateWithoutItemsInput = {
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -702,6 +737,7 @@ export type EstimateCreateManyClientInput = {
   estimateDate: Date | string
   clientContactName?: string | null
   stage?: string
+  validDays?: number
   totalSupplyAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: string | null
   createdAt?: Date | string
@@ -713,6 +749,7 @@ export type EstimateUpdateWithoutClientInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -726,6 +763,7 @@ export type EstimateUncheckedUpdateWithoutClientInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -739,6 +777,7 @@ export type EstimateUncheckedUpdateManyWithoutClientInput = {
   estimateDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   clientContactName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   stage?: Prisma.StringFieldUpdateOperationsInput | string
+  validDays?: Prisma.IntFieldUpdateOperationsInput | number
   totalSupplyAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -783,6 +822,7 @@ export type EstimateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   clientId?: boolean
   clientContactName?: boolean
   stage?: boolean
+  validDays?: boolean
   totalSupplyAmount?: boolean
   note?: boolean
   createdAt?: boolean
@@ -801,13 +841,14 @@ export type EstimateSelectScalar = {
   clientId?: boolean
   clientContactName?: boolean
   stage?: boolean
+  validDays?: boolean
   totalSupplyAmount?: boolean
   note?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateNumber" | "estimateDate" | "clientId" | "clientContactName" | "stage" | "totalSupplyAmount" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["estimate"]>
+export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateNumber" | "estimateDate" | "clientId" | "clientContactName" | "stage" | "validDays" | "totalSupplyAmount" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["estimate"]>
 export type EstimateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Estimate$itemsArgs<ExtArgs>
@@ -827,6 +868,7 @@ export type $EstimatePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     clientId: number
     clientContactName: string | null
     stage: string
+    validDays: number
     totalSupplyAmount: runtime.Decimal
     note: string | null
     createdAt: Date
@@ -1208,6 +1250,7 @@ export interface EstimateFieldRefs {
   readonly clientId: Prisma.FieldRef<"Estimate", 'Int'>
   readonly clientContactName: Prisma.FieldRef<"Estimate", 'String'>
   readonly stage: Prisma.FieldRef<"Estimate", 'String'>
+  readonly validDays: Prisma.FieldRef<"Estimate", 'Int'>
   readonly totalSupplyAmount: Prisma.FieldRef<"Estimate", 'Decimal'>
   readonly note: Prisma.FieldRef<"Estimate", 'String'>
   readonly createdAt: Prisma.FieldRef<"Estimate", 'DateTime'>

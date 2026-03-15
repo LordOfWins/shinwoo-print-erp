@@ -52,6 +52,11 @@ export type SalesRecordMinAggregateOutputType = {
   id: number | null
   year: number | null
   month: number | null
+  transactionType: string | null
+  dataType: string | null
+  worker: string | null
+  deliveryType: string | null
+  deliveryRegion: string | null
   orderReceivedDate: Date | null
   clientId: number | null
   printType: string | null
@@ -73,6 +78,11 @@ export type SalesRecordMaxAggregateOutputType = {
   id: number | null
   year: number | null
   month: number | null
+  transactionType: string | null
+  dataType: string | null
+  worker: string | null
+  deliveryType: string | null
+  deliveryRegion: string | null
   orderReceivedDate: Date | null
   clientId: number | null
   printType: string | null
@@ -94,6 +104,11 @@ export type SalesRecordCountAggregateOutputType = {
   id: number
   year: number
   month: number
+  transactionType: number
+  dataType: number
+  worker: number
+  deliveryType: number
+  deliveryRegion: number
   orderReceivedDate: number
   clientId: number
   printType: number
@@ -139,6 +154,11 @@ export type SalesRecordMinAggregateInputType = {
   id?: true
   year?: true
   month?: true
+  transactionType?: true
+  dataType?: true
+  worker?: true
+  deliveryType?: true
+  deliveryRegion?: true
   orderReceivedDate?: true
   clientId?: true
   printType?: true
@@ -160,6 +180,11 @@ export type SalesRecordMaxAggregateInputType = {
   id?: true
   year?: true
   month?: true
+  transactionType?: true
+  dataType?: true
+  worker?: true
+  deliveryType?: true
+  deliveryRegion?: true
   orderReceivedDate?: true
   clientId?: true
   printType?: true
@@ -181,6 +206,11 @@ export type SalesRecordCountAggregateInputType = {
   id?: true
   year?: true
   month?: true
+  transactionType?: true
+  dataType?: true
+  worker?: true
+  deliveryType?: true
+  deliveryRegion?: true
   orderReceivedDate?: true
   clientId?: true
   printType?: true
@@ -289,6 +319,11 @@ export type SalesRecordGroupByOutputType = {
   id: number
   year: number
   month: number
+  transactionType: string | null
+  dataType: string | null
+  worker: string | null
+  deliveryType: string | null
+  deliveryRegion: string | null
   orderReceivedDate: Date | null
   clientId: number
   printType: string | null
@@ -333,6 +368,11 @@ export type SalesRecordWhereInput = {
   id?: Prisma.IntFilter<"SalesRecord"> | number
   year?: Prisma.IntFilter<"SalesRecord"> | number
   month?: Prisma.IntFilter<"SalesRecord"> | number
+  transactionType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  dataType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  worker?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
   orderReceivedDate?: Prisma.DateTimeNullableFilter<"SalesRecord"> | Date | string | null
   clientId?: Prisma.IntFilter<"SalesRecord"> | number
   printType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
@@ -355,6 +395,11 @@ export type SalesRecordOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   year?: Prisma.SortOrder
   month?: Prisma.SortOrder
+  transactionType?: Prisma.SortOrderInput | Prisma.SortOrder
+  dataType?: Prisma.SortOrderInput | Prisma.SortOrder
+  worker?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   orderReceivedDate?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
   printType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -381,6 +426,11 @@ export type SalesRecordWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.SalesRecordWhereInput | Prisma.SalesRecordWhereInput[]
   year?: Prisma.IntFilter<"SalesRecord"> | number
   month?: Prisma.IntFilter<"SalesRecord"> | number
+  transactionType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  dataType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  worker?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
   orderReceivedDate?: Prisma.DateTimeNullableFilter<"SalesRecord"> | Date | string | null
   clientId?: Prisma.IntFilter<"SalesRecord"> | number
   printType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
@@ -403,6 +453,11 @@ export type SalesRecordOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   year?: Prisma.SortOrder
   month?: Prisma.SortOrder
+  transactionType?: Prisma.SortOrderInput | Prisma.SortOrder
+  dataType?: Prisma.SortOrderInput | Prisma.SortOrder
+  worker?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
   orderReceivedDate?: Prisma.SortOrderInput | Prisma.SortOrder
   clientId?: Prisma.SortOrder
   printType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -432,6 +487,11 @@ export type SalesRecordScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"SalesRecord"> | number
   year?: Prisma.IntWithAggregatesFilter<"SalesRecord"> | number
   month?: Prisma.IntWithAggregatesFilter<"SalesRecord"> | number
+  transactionType?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
+  dataType?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
+  worker?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
+  deliveryType?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
+  deliveryRegion?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
   orderReceivedDate?: Prisma.DateTimeNullableWithAggregatesFilter<"SalesRecord"> | Date | string | null
   clientId?: Prisma.IntWithAggregatesFilter<"SalesRecord"> | number
   printType?: Prisma.StringNullableWithAggregatesFilter<"SalesRecord"> | string | null
@@ -452,6 +512,11 @@ export type SalesRecordScalarWhereWithAggregatesInput = {
 export type SalesRecordCreateInput = {
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   printType?: string | null
   productName?: string | null
@@ -473,6 +538,11 @@ export type SalesRecordUncheckedCreateInput = {
   id?: number
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   clientId: number
   printType?: string | null
@@ -493,6 +563,11 @@ export type SalesRecordUncheckedCreateInput = {
 export type SalesRecordUpdateInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -514,6 +589,11 @@ export type SalesRecordUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -535,6 +615,11 @@ export type SalesRecordCreateManyInput = {
   id?: number
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   clientId: number
   printType?: string | null
@@ -555,6 +640,11 @@ export type SalesRecordCreateManyInput = {
 export type SalesRecordUpdateManyMutationInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -575,6 +665,11 @@ export type SalesRecordUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -612,6 +707,11 @@ export type SalesRecordCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   year?: Prisma.SortOrder
   month?: Prisma.SortOrder
+  transactionType?: Prisma.SortOrder
+  dataType?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
   orderReceivedDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   printType?: Prisma.SortOrder
@@ -644,6 +744,11 @@ export type SalesRecordMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   year?: Prisma.SortOrder
   month?: Prisma.SortOrder
+  transactionType?: Prisma.SortOrder
+  dataType?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
   orderReceivedDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   printType?: Prisma.SortOrder
@@ -665,6 +770,11 @@ export type SalesRecordMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   year?: Prisma.SortOrder
   month?: Prisma.SortOrder
+  transactionType?: Prisma.SortOrder
+  dataType?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  deliveryType?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
   orderReceivedDate?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
   printType?: Prisma.SortOrder
@@ -738,6 +848,11 @@ export type SalesRecordUncheckedUpdateManyWithoutClientNestedInput = {
 export type SalesRecordCreateWithoutClientInput = {
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   printType?: string | null
   productName?: string | null
@@ -758,6 +873,11 @@ export type SalesRecordUncheckedCreateWithoutClientInput = {
   id?: number
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   printType?: string | null
   productName?: string | null
@@ -807,6 +927,11 @@ export type SalesRecordScalarWhereInput = {
   id?: Prisma.IntFilter<"SalesRecord"> | number
   year?: Prisma.IntFilter<"SalesRecord"> | number
   month?: Prisma.IntFilter<"SalesRecord"> | number
+  transactionType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  dataType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  worker?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
   orderReceivedDate?: Prisma.DateTimeNullableFilter<"SalesRecord"> | Date | string | null
   clientId?: Prisma.IntFilter<"SalesRecord"> | number
   printType?: Prisma.StringNullableFilter<"SalesRecord"> | string | null
@@ -828,6 +953,11 @@ export type SalesRecordCreateManyClientInput = {
   id?: number
   year: number
   month: number
+  transactionType?: string | null
+  dataType?: string | null
+  worker?: string | null
+  deliveryType?: string | null
+  deliveryRegion?: string | null
   orderReceivedDate?: Date | string | null
   printType?: string | null
   productName?: string | null
@@ -847,6 +977,11 @@ export type SalesRecordCreateManyClientInput = {
 export type SalesRecordUpdateWithoutClientInput = {
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -867,6 +1002,11 @@ export type SalesRecordUncheckedUpdateWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -887,6 +1027,11 @@ export type SalesRecordUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   year?: Prisma.IntFieldUpdateOperationsInput | number
   month?: Prisma.IntFieldUpdateOperationsInput | number
+  transactionType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   orderReceivedDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   printType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   productName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -909,6 +1054,11 @@ export type SalesRecordSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id?: boolean
   year?: boolean
   month?: boolean
+  transactionType?: boolean
+  dataType?: boolean
+  worker?: boolean
+  deliveryType?: boolean
+  deliveryRegion?: boolean
   orderReceivedDate?: boolean
   clientId?: boolean
   printType?: boolean
@@ -933,6 +1083,11 @@ export type SalesRecordSelectScalar = {
   id?: boolean
   year?: boolean
   month?: boolean
+  transactionType?: boolean
+  dataType?: boolean
+  worker?: boolean
+  deliveryType?: boolean
+  deliveryRegion?: boolean
   orderReceivedDate?: boolean
   clientId?: boolean
   printType?: boolean
@@ -950,7 +1105,7 @@ export type SalesRecordSelectScalar = {
   updatedAt?: boolean
 }
 
-export type SalesRecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "year" | "month" | "orderReceivedDate" | "clientId" | "printType" | "productName" | "sheets" | "unitPrice" | "supplyAmount" | "taxIncludedAmount" | "requestedDueDate" | "transactionDate" | "taxInvoiceDate" | "paymentDate" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["salesRecord"]>
+export type SalesRecordOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "year" | "month" | "transactionType" | "dataType" | "worker" | "deliveryType" | "deliveryRegion" | "orderReceivedDate" | "clientId" | "printType" | "productName" | "sheets" | "unitPrice" | "supplyAmount" | "taxIncludedAmount" | "requestedDueDate" | "transactionDate" | "taxInvoiceDate" | "paymentDate" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["salesRecord"]>
 export type SalesRecordInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
 }
@@ -964,6 +1119,11 @@ export type $SalesRecordPayload<ExtArgs extends runtime.Types.Extensions.Interna
     id: number
     year: number
     month: number
+    transactionType: string | null
+    dataType: string | null
+    worker: string | null
+    deliveryType: string | null
+    deliveryRegion: string | null
     orderReceivedDate: Date | null
     clientId: number
     printType: string | null
@@ -1352,6 +1512,11 @@ export interface SalesRecordFieldRefs {
   readonly id: Prisma.FieldRef<"SalesRecord", 'Int'>
   readonly year: Prisma.FieldRef<"SalesRecord", 'Int'>
   readonly month: Prisma.FieldRef<"SalesRecord", 'Int'>
+  readonly transactionType: Prisma.FieldRef<"SalesRecord", 'String'>
+  readonly dataType: Prisma.FieldRef<"SalesRecord", 'String'>
+  readonly worker: Prisma.FieldRef<"SalesRecord", 'String'>
+  readonly deliveryType: Prisma.FieldRef<"SalesRecord", 'String'>
+  readonly deliveryRegion: Prisma.FieldRef<"SalesRecord", 'String'>
   readonly orderReceivedDate: Prisma.FieldRef<"SalesRecord", 'DateTime'>
   readonly clientId: Prisma.FieldRef<"SalesRecord", 'Int'>
   readonly printType: Prisma.FieldRef<"SalesRecord", 'String'>

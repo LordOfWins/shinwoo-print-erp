@@ -11,6 +11,7 @@
 export type * from './models/CompanyInfo'
 export type * from './models/BankAccount'
 export type * from './models/SystemOption'
+export type * from './models/Material'
 export type * from './models/Client'
 export type * from './models/Product'
 export type * from './models/Order'

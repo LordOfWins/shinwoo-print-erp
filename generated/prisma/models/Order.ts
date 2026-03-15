@@ -43,6 +43,13 @@ export type OrderMinAggregateOutputType = {
   orderDate: Date | null
   dueDate: Date | null
   orderer: string | null
+  worker: string | null
+  clientContact: string | null
+  clientPhone: string | null
+  deliveryMethod: string | null
+  deliveryRegion: string | null
+  photoInspection: boolean | null
+  sampleShipping: boolean | null
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -62,6 +69,13 @@ export type OrderMaxAggregateOutputType = {
   orderDate: Date | null
   dueDate: Date | null
   orderer: string | null
+  worker: string | null
+  clientContact: string | null
+  clientPhone: string | null
+  deliveryMethod: string | null
+  deliveryRegion: string | null
+  photoInspection: boolean | null
+  sampleShipping: boolean | null
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -81,6 +95,13 @@ export type OrderCountAggregateOutputType = {
   orderDate: number
   dueDate: number
   orderer: number
+  worker: number
+  clientContact: number
+  clientPhone: number
+  deliveryMethod: number
+  deliveryRegion: number
+  photoInspection: number
+  sampleShipping: number
   packagingType: number
   deliveryType: number
   courierType: number
@@ -112,6 +133,13 @@ export type OrderMinAggregateInputType = {
   orderDate?: true
   dueDate?: true
   orderer?: true
+  worker?: true
+  clientContact?: true
+  clientPhone?: true
+  deliveryMethod?: true
+  deliveryRegion?: true
+  photoInspection?: true
+  sampleShipping?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -131,6 +159,13 @@ export type OrderMaxAggregateInputType = {
   orderDate?: true
   dueDate?: true
   orderer?: true
+  worker?: true
+  clientContact?: true
+  clientPhone?: true
+  deliveryMethod?: true
+  deliveryRegion?: true
+  photoInspection?: true
+  sampleShipping?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -150,6 +185,13 @@ export type OrderCountAggregateInputType = {
   orderDate?: true
   dueDate?: true
   orderer?: true
+  worker?: true
+  clientContact?: true
+  clientPhone?: true
+  deliveryMethod?: true
+  deliveryRegion?: true
+  photoInspection?: true
+  sampleShipping?: true
   packagingType?: true
   deliveryType?: true
   courierType?: true
@@ -256,6 +298,13 @@ export type OrderGroupByOutputType = {
   orderDate: Date
   dueDate: Date | null
   orderer: string | null
+  worker: string | null
+  clientContact: string | null
+  clientPhone: string | null
+  deliveryMethod: string | null
+  deliveryRegion: string | null
+  photoInspection: boolean
+  sampleShipping: boolean
   packagingType: string | null
   deliveryType: string | null
   courierType: string | null
@@ -298,6 +347,13 @@ export type OrderWhereInput = {
   orderDate?: Prisma.DateTimeFilter<"Order"> | Date | string
   dueDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   orderer?: Prisma.StringNullableFilter<"Order"> | string | null
+  worker?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientContact?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
+  photoInspection?: Prisma.BoolFilter<"Order"> | boolean
+  sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -319,6 +375,13 @@ export type OrderOrderByWithRelationInput = {
   orderDate?: Prisma.SortOrder
   dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   orderer?: Prisma.SortOrderInput | Prisma.SortOrder
+  worker?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
+  photoInspection?: Prisma.SortOrder
+  sampleShipping?: Prisma.SortOrder
   packagingType?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
   courierType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -344,6 +407,13 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   orderDate?: Prisma.DateTimeFilter<"Order"> | Date | string
   dueDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   orderer?: Prisma.StringNullableFilter<"Order"> | string | null
+  worker?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientContact?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
+  photoInspection?: Prisma.BoolFilter<"Order"> | boolean
+  sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -365,6 +435,13 @@ export type OrderOrderByWithAggregationInput = {
   orderDate?: Prisma.SortOrder
   dueDate?: Prisma.SortOrderInput | Prisma.SortOrder
   orderer?: Prisma.SortOrderInput | Prisma.SortOrder
+  worker?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientContact?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryMethod?: Prisma.SortOrderInput | Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrderInput | Prisma.SortOrder
+  photoInspection?: Prisma.SortOrder
+  sampleShipping?: Prisma.SortOrder
   packagingType?: Prisma.SortOrderInput | Prisma.SortOrder
   deliveryType?: Prisma.SortOrderInput | Prisma.SortOrder
   courierType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -392,6 +469,13 @@ export type OrderScalarWhereWithAggregatesInput = {
   orderDate?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   dueDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Order"> | Date | string | null
   orderer?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  worker?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  clientContact?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  clientPhone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  deliveryMethod?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  deliveryRegion?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  photoInspection?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
+  sampleShipping?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -409,6 +493,13 @@ export type OrderCreateInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -430,6 +521,13 @@ export type OrderUncheckedCreateInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -448,6 +546,13 @@ export type OrderUpdateInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -469,6 +574,13 @@ export type OrderUncheckedUpdateInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -489,6 +601,13 @@ export type OrderCreateManyInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -506,6 +625,13 @@ export type OrderUpdateManyMutationInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -525,6 +651,13 @@ export type OrderUncheckedUpdateManyInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -560,6 +693,13 @@ export type OrderCountOrderByAggregateInput = {
   orderDate?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   orderer?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  clientContact?: Prisma.SortOrder
+  clientPhone?: Prisma.SortOrder
+  deliveryMethod?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
+  photoInspection?: Prisma.SortOrder
+  sampleShipping?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -584,6 +724,13 @@ export type OrderMaxOrderByAggregateInput = {
   orderDate?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   orderer?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  clientContact?: Prisma.SortOrder
+  clientPhone?: Prisma.SortOrder
+  deliveryMethod?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
+  photoInspection?: Prisma.SortOrder
+  sampleShipping?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -603,6 +750,13 @@ export type OrderMinOrderByAggregateInput = {
   orderDate?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
   orderer?: Prisma.SortOrder
+  worker?: Prisma.SortOrder
+  clientContact?: Prisma.SortOrder
+  clientPhone?: Prisma.SortOrder
+  deliveryMethod?: Prisma.SortOrder
+  deliveryRegion?: Prisma.SortOrder
+  photoInspection?: Prisma.SortOrder
+  sampleShipping?: Prisma.SortOrder
   packagingType?: Prisma.SortOrder
   deliveryType?: Prisma.SortOrder
   courierType?: Prisma.SortOrder
@@ -690,6 +844,13 @@ export type OrderCreateWithoutClientInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -709,6 +870,13 @@ export type OrderUncheckedCreateWithoutClientInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -758,6 +926,13 @@ export type OrderScalarWhereInput = {
   orderDate?: Prisma.DateTimeFilter<"Order"> | Date | string
   dueDate?: Prisma.DateTimeNullableFilter<"Order"> | Date | string | null
   orderer?: Prisma.StringNullableFilter<"Order"> | string | null
+  worker?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientContact?: Prisma.StringNullableFilter<"Order"> | string | null
+  clientPhone?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryMethod?: Prisma.StringNullableFilter<"Order"> | string | null
+  deliveryRegion?: Prisma.StringNullableFilter<"Order"> | string | null
+  photoInspection?: Prisma.BoolFilter<"Order"> | boolean
+  sampleShipping?: Prisma.BoolFilter<"Order"> | boolean
   packagingType?: Prisma.StringNullableFilter<"Order"> | string | null
   deliveryType?: Prisma.StringNullableFilter<"Order"> | string | null
   courierType?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -775,6 +950,13 @@ export type OrderCreateWithoutItemsInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -795,6 +977,13 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -828,6 +1017,13 @@ export type OrderUpdateWithoutItemsInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -848,6 +1044,13 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -866,6 +1069,13 @@ export type OrderCreateManyClientInput = {
   orderDate: Date | string
   dueDate?: Date | string | null
   orderer?: string | null
+  worker?: string | null
+  clientContact?: string | null
+  clientPhone?: string | null
+  deliveryMethod?: string | null
+  deliveryRegion?: string | null
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: string | null
   deliveryType?: string | null
   courierType?: string | null
@@ -883,6 +1093,13 @@ export type OrderUpdateWithoutClientInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -902,6 +1119,13 @@ export type OrderUncheckedUpdateWithoutClientInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -921,6 +1145,13 @@ export type OrderUncheckedUpdateManyWithoutClientInput = {
   orderDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dueDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   orderer?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  worker?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  clientPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryMethod?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  deliveryRegion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photoInspection?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  sampleShipping?: Prisma.BoolFieldUpdateOperationsInput | boolean
   packagingType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deliveryType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   courierType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -971,6 +1202,13 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   orderDate?: boolean
   dueDate?: boolean
   orderer?: boolean
+  worker?: boolean
+  clientContact?: boolean
+  clientPhone?: boolean
+  deliveryMethod?: boolean
+  deliveryRegion?: boolean
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: boolean
   deliveryType?: boolean
   courierType?: boolean
@@ -995,6 +1233,13 @@ export type OrderSelectScalar = {
   orderDate?: boolean
   dueDate?: boolean
   orderer?: boolean
+  worker?: boolean
+  clientContact?: boolean
+  clientPhone?: boolean
+  deliveryMethod?: boolean
+  deliveryRegion?: boolean
+  photoInspection?: boolean
+  sampleShipping?: boolean
   packagingType?: boolean
   deliveryType?: boolean
   courierType?: boolean
@@ -1007,7 +1252,7 @@ export type OrderSelectScalar = {
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "clientId" | "orderDate" | "dueDate" | "orderer" | "packagingType" | "deliveryType" | "courierType" | "deliveryAddress" | "receiverName" | "receiverPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "clientId" | "orderDate" | "dueDate" | "orderer" | "worker" | "clientContact" | "clientPhone" | "deliveryMethod" | "deliveryRegion" | "photoInspection" | "sampleShipping" | "packagingType" | "deliveryType" | "courierType" | "deliveryAddress" | "receiverName" | "receiverPhone" | "note" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -1027,6 +1272,13 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     orderDate: Date
     dueDate: Date | null
     orderer: string | null
+    worker: string | null
+    clientContact: string | null
+    clientPhone: string | null
+    deliveryMethod: string | null
+    deliveryRegion: string | null
+    photoInspection: boolean
+    sampleShipping: boolean
     packagingType: string | null
     deliveryType: string | null
     courierType: string | null
@@ -1414,6 +1666,13 @@ export interface OrderFieldRefs {
   readonly orderDate: Prisma.FieldRef<"Order", 'DateTime'>
   readonly dueDate: Prisma.FieldRef<"Order", 'DateTime'>
   readonly orderer: Prisma.FieldRef<"Order", 'String'>
+  readonly worker: Prisma.FieldRef<"Order", 'String'>
+  readonly clientContact: Prisma.FieldRef<"Order", 'String'>
+  readonly clientPhone: Prisma.FieldRef<"Order", 'String'>
+  readonly deliveryMethod: Prisma.FieldRef<"Order", 'String'>
+  readonly deliveryRegion: Prisma.FieldRef<"Order", 'String'>
+  readonly photoInspection: Prisma.FieldRef<"Order", 'Boolean'>
+  readonly sampleShipping: Prisma.FieldRef<"Order", 'Boolean'>
   readonly packagingType: Prisma.FieldRef<"Order", 'String'>
   readonly deliveryType: Prisma.FieldRef<"Order", 'String'>
   readonly courierType: Prisma.FieldRef<"Order", 'String'>

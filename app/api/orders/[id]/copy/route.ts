@@ -31,7 +31,13 @@ export async function POST(_request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const orderNumber = await generateOrderNumber();
+    const sourceClient = await prisma.client.findUnique({
+      where: { id: source.clientId },
+      select: { companyName: true },
+    });
+    const orderNumber = await generateOrderNumber(
+      sourceClient?.companyName || "UNKNOWN",
+    );
     // 한국시간 기준 오늘
     const kstNow = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }),
