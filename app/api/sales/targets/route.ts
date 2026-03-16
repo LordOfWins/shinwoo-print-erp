@@ -45,8 +45,10 @@ export async function PUT(request: NextRequest) {
     const parsed = salesTargetFormSchema.safeParse(body);
 
     if (!parsed.success) {
+      const firstError =
+        parsed.error.issues[0]?.message || "유효성 검사 실패";
       return NextResponse.json(
-        { message: "유효성 검사 실패", errors: parsed.error.flatten() },
+        { message: firstError, errors: parsed.error.issues },
         { status: 400 },
       );
     }
@@ -61,11 +63,22 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const target = await prisma.salesTarget.upsert({
-      where: { year_month: { year, month } },
-      update: { targetAmount: amount },
-      create: { year, month, targetAmount: amount },
+    // upsert: year_month compound unique
+    const existing = await prisma.salesTarget.findFirst({
+      where: { year, month },
     });
+
+    let target;
+    if (existing) {
+      target = await prisma.salesTarget.update({
+        where: { id: existing.id },
+        data: { targetAmount: amount },
+      });
+    } else {
+      target = await prisma.salesTarget.create({
+        data: { year, month, targetAmount: amount },
+      });
+    }
 
     return NextResponse.json({
       year: target.year,

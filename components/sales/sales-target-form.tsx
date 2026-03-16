@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatAmount, parseAmount } from "@/lib/utils/format";
 import { Save } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface SalesTargetFormProps {
@@ -24,7 +24,12 @@ export function SalesTargetForm({
   const [value, setValue] = useState(currentTarget);
   const [loading, setLoading] = useState(false);
 
-  // currentTarget이 외부에서 바뀌면 value도 동기화
+  // currentTarget이 외부에서 바뀌면 value 동기화 + 편집모드 해제
+  useEffect(() => {
+    setValue(currentTarget);
+    setEditing(false);
+  }, [currentTarget, year, month]);
+
   const handleStartEdit = () => {
     setValue(currentTarget);
     setEditing(true);
@@ -85,10 +90,16 @@ export function SalesTargetForm({
         value={formatAmount(value)}
         onChange={(e) => {
           const raw = e.target.value.replace(/,/g, "");
-          setValue(raw);
+          if (raw === "" || !isNaN(Number(raw))) {
+            setValue(raw);
+          }
         }}
         className="w-[180px] text-right"
         placeholder="목표금액"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSave();
+          if (e.key === "Escape") handleCancel();
+        }}
       />
       <span className="text-sm">원</span>
       <Button size="sm" onClick={handleSave} disabled={loading}>

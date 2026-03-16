@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils";
 import { formatAmount, parseAmount } from "@/lib/utils/format";
 import { salesRecordFormSchema } from "@/lib/validators/sales";
 import { Check, ChevronsUpDown } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 // 매출 인쇄종류
@@ -92,6 +92,7 @@ export function SalesRecordForm({
 }: SalesRecordFormProps) {
   const isEdit = !!editId;
   const [loading, setLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   // 폼 상태
   const [year, setYear] = useState(
@@ -124,9 +125,15 @@ export function SalesRecordForm({
       ? String(defaultValues.sheets)
       : "",
   );
-  const [unitPrice, setUnitPrice] = useState(defaultValues?.unitPrice || "");
+  const [unitPrice, setUnitPrice] = useState(
+    defaultValues?.unitPrice
+      ? String(parseAmount(String(defaultValues.unitPrice)))
+      : "",
+  );
   const [supplyAmount, setSupplyAmount] = useState(
-    defaultValues?.supplyAmount || "",
+    defaultValues?.supplyAmount
+      ? String(parseAmount(String(defaultValues.supplyAmount)))
+      : "",
   );
   const [requestedDueDate, setRequestedDueDate] = useState(
     defaultValues?.requestedDueDate || "",
@@ -143,7 +150,18 @@ export function SalesRecordForm({
   const [note, setNote] = useState(defaultValues?.note || "");
 
   // 거래처 검색
-  const [clients, setClients] = useState<ClientOption[]>([]);
+  const [clients, setClients] = useState<ClientOption[]>(() => {
+    // 초기값에 수정 대상 거래처 포함
+    if (defaultValues?.client && defaultValues.client.id) {
+      return [
+        {
+          id: defaultValues.client.id,
+          companyName: defaultValues.client.companyName,
+        },
+      ];
+    }
+    return [];
+  });
   const [clientOpen, setClientOpen] = useState(false);
   const [clientSearch, setClientSearch] = useState("");
   const selectedClient = clients.find((c) => c.id === clientId);
@@ -156,43 +174,46 @@ export function SalesRecordForm({
       const res = await fetch(`/api/clients?${params.toString()}`);
       if (!res.ok) return;
       const json = await res.json();
-      setClients(
-        json.data.map((c: { id: number; companyName: string }) => ({
+      const fetched: ClientOption[] = json.data.map(
+        (c: { id: number; companyName: string }) => ({
           id: c.id,
           companyName: c.companyName,
-        })),
+        }),
       );
+
+      // 수정모드 기존 거래처가 fetched 목록에 없으면 앞에 추가
+      if (defaultValues?.client && defaultValues.client.id) {
+        const exists = fetched.find((c) => c.id === defaultValues.client!.id);
+        if (!exists) {
+          fetched.unshift({
+            id: defaultValues.client.id,
+            companyName: defaultValues.client.companyName,
+          });
+        }
+      }
+
+      setClients(fetched);
     } catch {
       /* ignore */
     }
-  }, [clientSearch]);
+  }, [clientSearch, defaultValues?.client]);
 
   useEffect(() => {
     fetchClients();
   }, [fetchClients]);
 
-  // 초기 로드 시 수정모드인 경우 기존 거래처를 clients에 포함
+  // 공급가액 자동계산: sheets × unitPrice (초기 마운트 시에는 스킵)
   useEffect(() => {
-    if (defaultValues?.client && defaultValues.client.id) {
-      setClients((prev) => {
-        if (prev.find((c) => c.id === defaultValues.client!.id)) return prev;
-        return [
-          ...prev,
-          {
-            id: defaultValues.client!.id,
-            companyName: defaultValues.client!.companyName,
-          },
-        ];
-      });
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
     }
-  }, [defaultValues?.client]);
-
-  // 공급가액 자동계산: sheets × unitPrice
-  useEffect(() => {
     const s = Number(sheets) || 0;
-    const u = parseAmount(unitPrice);
+    const u = Number(unitPrice) || 0;
     if (s > 0 && u > 0) {
       setSupplyAmount(String(s * u));
+    } else if (s === 0 || u === 0) {
+      // 둘 중 하나가 0이면 수동 입력 허용 (기존값 유지)
     }
   }, [sheets, unitPrice]);
 
@@ -227,7 +248,7 @@ export function SalesRecordForm({
       printType,
       productName,
       sheets,
-      unitPrice: unitPrice ? String(parseAmount(unitPrice)) : "",
+      unitPrice: unitPrice ? String(Number(unitPrice)) : "",
       supplyAmount: supplyAmount ? String(Number(supplyAmount)) : "",
       requestedDueDate,
       transactionDate,
@@ -238,9 +259,8 @@ export function SalesRecordForm({
 
     const parsed = salesRecordFormSchema.safeParse(formData);
     if (!parsed.success) {
-      const errors = parsed.error.flatten();
       const firstError =
-        Object.values(errors.fieldErrors)[0]?.[0] || "입력값을 확인하세요";
+        parsed.error.issues[0]?.message || "입력값을 확인하세요";
       toast.error(firstError);
       return;
     }
@@ -445,7 +465,9 @@ export function SalesRecordForm({
             value={unitPrice ? formatAmount(unitPrice) : ""}
             onChange={(e) => {
               const raw = e.target.value.replace(/,/g, "");
-              setUnitPrice(raw);
+              if (raw === "" || !isNaN(Number(raw))) {
+                setUnitPrice(raw);
+              }
             }}
             placeholder="0"
             className="text-right"
@@ -457,7 +479,9 @@ export function SalesRecordForm({
             value={supplyAmount ? formatAmount(supplyAmount) : ""}
             onChange={(e) => {
               const raw = e.target.value.replace(/,/g, "");
-              setSupplyAmount(raw);
+              if (raw === "" || !isNaN(Number(raw))) {
+                setSupplyAmount(raw);
+              }
             }}
             placeholder="자동계산"
             className="text-right"

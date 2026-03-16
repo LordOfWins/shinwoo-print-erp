@@ -25,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { formatAmount } from "@/lib/utils/format";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface SalesRecord {
@@ -51,6 +51,7 @@ interface SalesRecord {
   taxInvoiceDate: string | null;
   paymentDate: string | null;
   note: string | null;
+  [key: string]: unknown;
 }
 
 interface TargetData {
@@ -62,7 +63,7 @@ interface TargetData {
 const YEARS = [2025, 2026, 2027];
 const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
 
-export default function SalesPage() {
+function SalesPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -78,6 +79,7 @@ export default function SalesPage() {
   const [tab, setTab] = useState(searchParams.get("tab") || "매출");
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
   const pageSize = 20;
 
   const [records, setRecords] = useState<SalesRecord[]>([]);
@@ -107,6 +109,7 @@ export default function SalesPage() {
 
   // 목록 조회
   const fetchRecords = useCallback(async () => {
+    setLoading(true);
     try {
       const params = new URLSearchParams({
         year: String(year),
@@ -120,11 +123,13 @@ export default function SalesPage() {
       const res = await fetch(`/api/sales?${params.toString()}`);
       if (!res.ok) throw new Error("조회 실패");
       const json = await res.json();
-      setRecords(json.data);
-      setTotalCount(json.totalCount);
-      setTotalSupply(json.aggregate.totalSupply);
+      setRecords(json.data || []);
+      setTotalCount(json.totalCount || 0);
+      setTotalSupply(json.aggregate?.totalSupply || "0");
     } catch {
       toast.error("데이터를 불러오는데 실패했습니다");
+    } finally {
+      setLoading(false);
     }
   }, [year, month, tab, search, page, pageSize]);
 
@@ -166,6 +171,7 @@ export default function SalesPage() {
   const handleTabChange = (v: string) => {
     setTab(v);
     setPage(1);
+    setSearch("");
     updateUrl(year, month, v);
   };
 
@@ -431,7 +437,7 @@ export default function SalesPage() {
 
         <TabsContent value={tab} className="space-y-4">
           <SearchInput
-            placeholder="거래처명 검색"
+            placeholder="거래처명/품목/작업자 검색"
             onSearch={(v) => {
               setSearch(v);
               setPage(1);
@@ -439,17 +445,23 @@ export default function SalesPage() {
             defaultValue={search}
           />
 
-          <div className="overflow-x-auto">
-            <DataTable
-              columns={columns}
-              data={records}
-              totalCount={totalCount}
-              page={page}
-              pageSize={pageSize}
-              onPageChange={setPage}
-              emptyMessage={`${tab} 데이터가 없습니다`}
-            />
-          </div>
+          {loading ? (
+            <div className="text-muted-foreground flex h-32 items-center justify-center">
+              불러오는 중...
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <DataTable
+                columns={columns}
+                data={records}
+                totalCount={totalCount}
+                page={page}
+                pageSize={pageSize}
+                onPageChange={setPage}
+                emptyMessage={`${tab} 데이터가 없습니다`}
+              />
+            </div>
+          )}
         </TabsContent>
       </Tabs>
 
@@ -470,6 +482,7 @@ export default function SalesPage() {
             </DialogTitle>
           </DialogHeader>
           <SalesRecordForm
+            key={editRecord ? `edit-${editRecord.id}` : "create"}
             defaultValues={
               editRecord
                 ? editRecord
@@ -499,5 +512,19 @@ export default function SalesPage() {
         variant="destructive"
       />
     </div>
+  );
+}
+
+export default function SalesPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="text-muted-foreground flex h-32 items-center justify-center">
+          불러오는 중...
+        </div>
+      }
+    >
+      <SalesPageContent />
+    </Suspense>
   );
 }
