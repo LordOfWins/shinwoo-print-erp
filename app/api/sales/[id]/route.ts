@@ -4,68 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-function serializeRecord(record: {
-  id: number;
-  year: number;
-  month: number;
-  transactionType: string | null;
-  dataType: string | null;
-  worker: string | null;
-  deliveryType: string | null;
-  deliveryRegion: string | null;
-  orderReceivedDate: Date | null;
-  clientId: number;
-  client: { id: number; companyName: string };
-  printType: string | null;
-  productName: string | null;
-  sheets: number | null;
-  unitPrice: unknown;
-  supplyAmount: unknown;
-  taxIncludedAmount: unknown;
-  requestedDueDate: Date | null;
-  transactionDate: Date | null;
-  taxInvoiceDate: Date | null;
-  paymentDate: Date | null;
-  note: string | null;
-}) {
-  return {
-    id: record.id,
-    year: record.year,
-    month: record.month,
-    transactionType: record.transactionType,
-    dataType: record.dataType,
-    worker: record.worker,
-    deliveryType: record.deliveryType,
-    deliveryRegion: record.deliveryRegion,
-    orderReceivedDate: record.orderReceivedDate
-      ? record.orderReceivedDate.toISOString().split("T")[0]
-      : "",
-    clientId: record.clientId,
-    client: record.client,
-    printType: record.printType,
-    productName: record.productName,
-    sheets: record.sheets,
-    unitPrice: record.unitPrice ? String(record.unitPrice) : "",
-    supplyAmount: record.supplyAmount ? String(record.supplyAmount) : "",
-    taxIncludedAmount: record.taxIncludedAmount
-      ? String(record.taxIncludedAmount)
-      : "",
-    requestedDueDate: record.requestedDueDate
-      ? record.requestedDueDate.toISOString().split("T")[0]
-      : "",
-    transactionDate: record.transactionDate
-      ? record.transactionDate.toISOString().split("T")[0]
-      : "",
-    taxInvoiceDate: record.taxInvoiceDate
-      ? record.taxInvoiceDate.toISOString().split("T")[0]
-      : "",
-    paymentDate: record.paymentDate
-      ? record.paymentDate.toISOString().split("T")[0]
-      : "",
-    note: record.note,
-  };
-}
-
 /**
  * GET /api/sales/[id] — 매출/매입 상세
  */
@@ -97,7 +35,33 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    return NextResponse.json(serializeRecord(record));
+    const serialized = {
+      ...record,
+      unitPrice: record.unitPrice ? record.unitPrice.toString() : "",
+      supplyAmount: record.supplyAmount ? record.supplyAmount.toString() : "",
+      taxIncludedAmount: record.taxIncludedAmount
+        ? record.taxIncludedAmount.toString()
+        : "",
+      orderReceivedDate: record.orderReceivedDate
+        ? record.orderReceivedDate.toISOString().split("T")[0]
+        : "",
+      requestedDueDate: record.requestedDueDate
+        ? record.requestedDueDate.toISOString().split("T")[0]
+        : "",
+      transactionDate: record.transactionDate
+        ? record.transactionDate.toISOString().split("T")[0]
+        : "",
+      taxInvoiceDate: record.taxInvoiceDate
+        ? record.taxInvoiceDate.toISOString().split("T")[0]
+        : "",
+      paymentDate: record.paymentDate
+        ? record.paymentDate.toISOString().split("T")[0]
+        : "",
+      createdAt: record.createdAt.toISOString(),
+      updatedAt: record.updatedAt.toISOString(),
+    };
+
+    return NextResponse.json(serialized);
   } catch (error) {
     console.error("매출/매입 상세 조회 오류:", error);
     return NextResponse.json(
@@ -232,4 +196,32 @@ export async function DELETE(_request: NextRequest, { params }: RouteParams) {
       { status: 500 },
     );
   }
+}
+
+function serializeRecord(record: Record<string, unknown>) {
+  return {
+    ...record,
+    unitPrice: record.unitPrice ? String(record.unitPrice) : null,
+    supplyAmount: record.supplyAmount ? String(record.supplyAmount) : null,
+    taxIncludedAmount: record.taxIncludedAmount
+      ? String(record.taxIncludedAmount)
+      : null,
+    orderReceivedDate: record.orderReceivedDate
+      ? (record.orderReceivedDate as Date).toISOString().split("T")[0]
+      : null,
+    requestedDueDate: record.requestedDueDate
+      ? (record.requestedDueDate as Date).toISOString().split("T")[0]
+      : null,
+    transactionDate: record.transactionDate
+      ? (record.transactionDate as Date).toISOString().split("T")[0]
+      : null,
+    taxInvoiceDate: record.taxInvoiceDate
+      ? (record.taxInvoiceDate as Date).toISOString().split("T")[0]
+      : null,
+    paymentDate: record.paymentDate
+      ? (record.paymentDate as Date).toISOString().split("T")[0]
+      : null,
+    createdAt: (record.createdAt as Date).toISOString(),
+    updatedAt: (record.updatedAt as Date).toISOString(),
+  };
 }

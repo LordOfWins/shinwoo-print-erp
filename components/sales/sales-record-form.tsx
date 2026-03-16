@@ -92,7 +92,9 @@ export function SalesRecordForm({
 }: SalesRecordFormProps) {
   const isEdit = !!editId;
   const [loading, setLoading] = useState(false);
-  const isInitialMount = useRef(true);
+
+  // 공급가 수동편집 추적 (자동계산 덮어쓰기 방지)
+  const supplyManualEdit = useRef(false);
 
   // 폼 상태
   const [year, setYear] = useState(
@@ -120,21 +122,21 @@ export function SalesRecordForm({
   const [productName, setProductName] = useState(
     defaultValues?.productName || "",
   );
-  const [sheets, setSheets] = useState(
-    defaultValues?.sheets !== null && defaultValues?.sheets !== undefined
-      ? String(defaultValues.sheets)
-      : "",
-  );
-  const [unitPrice, setUnitPrice] = useState(
-    defaultValues?.unitPrice
-      ? String(parseAmount(String(defaultValues.unitPrice)))
-      : "",
-  );
-  const [supplyAmount, setSupplyAmount] = useState(
-    defaultValues?.supplyAmount
-      ? String(parseAmount(String(defaultValues.supplyAmount)))
-      : "",
-  );
+  const [sheets, setSheets] = useState(() => {
+    const val = defaultValues?.sheets;
+    if (val === null || val === undefined) return "";
+    return String(val);
+  });
+  const [unitPrice, setUnitPrice] = useState(() => {
+    const val = defaultValues?.unitPrice;
+    if (!val || val === "0") return "";
+    return val;
+  });
+  const [supplyAmount, setSupplyAmount] = useState(() => {
+    const val = defaultValues?.supplyAmount;
+    if (!val || val === "0") return "";
+    return val;
+  });
   const [requestedDueDate, setRequestedDueDate] = useState(
     defaultValues?.requestedDueDate || "",
   );
@@ -150,18 +152,7 @@ export function SalesRecordForm({
   const [note, setNote] = useState(defaultValues?.note || "");
 
   // 거래처 검색
-  const [clients, setClients] = useState<ClientOption[]>(() => {
-    // 초기값에 수정 대상 거래처 포함
-    if (defaultValues?.client && defaultValues.client.id) {
-      return [
-        {
-          id: defaultValues.client.id,
-          companyName: defaultValues.client.companyName,
-        },
-      ];
-    }
-    return [];
-  });
+  const [clients, setClients] = useState<ClientOption[]>([]);
   const [clientOpen, setClientOpen] = useState(false);
   const [clientSearch, setClientSearch] = useState("");
   const selectedClient = clients.find((c) => c.id === clientId);
@@ -174,51 +165,52 @@ export function SalesRecordForm({
       const res = await fetch(`/api/clients?${params.toString()}`);
       if (!res.ok) return;
       const json = await res.json();
-      const fetched: ClientOption[] = json.data.map(
-        (c: { id: number; companyName: string }) => ({
+      setClients(
+        json.data.map((c: { id: number; companyName: string }) => ({
           id: c.id,
           companyName: c.companyName,
-        }),
+        })),
       );
-
-      // 수정모드 기존 거래처가 fetched 목록에 없으면 앞에 추가
-      if (defaultValues?.client && defaultValues.client.id) {
-        const exists = fetched.find((c) => c.id === defaultValues.client!.id);
-        if (!exists) {
-          fetched.unshift({
-            id: defaultValues.client.id,
-            companyName: defaultValues.client.companyName,
-          });
-        }
-      }
-
-      setClients(fetched);
     } catch {
       /* ignore */
     }
-  }, [clientSearch, defaultValues?.client]);
+  }, [clientSearch]);
 
   useEffect(() => {
     fetchClients();
   }, [fetchClients]);
 
-  // 공급가액 자동계산: sheets × unitPrice (초기 마운트 시에는 스킵)
+  // 초기 로드 시 수정모드인 경우 기존 거래처를 clients에 포함
   useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
+    if (defaultValues?.client && defaultValues.client.id) {
+      setClients((prev) => {
+        if (prev.find((c) => c.id === defaultValues.client!.id)) return prev;
+        return [
+          ...prev,
+          {
+            id: defaultValues.client!.id,
+            companyName: defaultValues.client!.companyName,
+          },
+        ];
+      });
     }
+  }, [defaultValues?.client]);
+
+  // 공급가액 자동계산: sheets × unitPrice (수동편집 아닐 때만)
+  useEffect(() => {
+    if (supplyManualEdit.current) return;
     const s = Number(sheets) || 0;
-    const u = Number(unitPrice) || 0;
+    const u = parseAmount(unitPrice);
     if (s > 0 && u > 0) {
       setSupplyAmount(String(s * u));
     } else if (s === 0 || u === 0) {
-      // 둘 중 하나가 0이면 수동 입력 허용 (기존값 유지)
+      // 수량이나 단가가 0이면 공급가도 초기화 (기존값이 있으면 유지)
     }
   }, [sheets, unitPrice]);
 
   // 부가세포함 자동계산
-  const taxIncluded = supplyAmount ? Math.round(Number(supplyAmount) * 1.1) : 0;
+  const supplyNum = supplyAmount ? Number(supplyAmount) : 0;
+  const taxIncluded = supplyNum > 0 ? Math.round(supplyNum * 1.1) : 0;
 
   // transactionType 변경 시 printType/dataType 초기화
   const handleTransactionTypeChange = (v: string) => {
@@ -248,7 +240,7 @@ export function SalesRecordForm({
       printType,
       productName,
       sheets,
-      unitPrice: unitPrice ? String(Number(unitPrice)) : "",
+      unitPrice: unitPrice ? String(parseAmount(unitPrice)) : "",
       supplyAmount: supplyAmount ? String(Number(supplyAmount)) : "",
       requestedDueDate,
       transactionDate,
@@ -455,7 +447,10 @@ export function SalesRecordForm({
           <Input
             type="number"
             value={sheets}
-            onChange={(e) => setSheets(e.target.value)}
+            onChange={(e) => {
+              setSheets(e.target.value);
+              supplyManualEdit.current = false;
+            }}
             placeholder="0"
           />
         </div>
@@ -465,9 +460,8 @@ export function SalesRecordForm({
             value={unitPrice ? formatAmount(unitPrice) : ""}
             onChange={(e) => {
               const raw = e.target.value.replace(/,/g, "");
-              if (raw === "" || !isNaN(Number(raw))) {
-                setUnitPrice(raw);
-              }
+              setUnitPrice(raw);
+              supplyManualEdit.current = false;
             }}
             placeholder="0"
             className="text-right"
@@ -479,9 +473,8 @@ export function SalesRecordForm({
             value={supplyAmount ? formatAmount(supplyAmount) : ""}
             onChange={(e) => {
               const raw = e.target.value.replace(/,/g, "");
-              if (raw === "" || !isNaN(Number(raw))) {
-                setSupplyAmount(raw);
-              }
+              setSupplyAmount(raw);
+              supplyManualEdit.current = true;
             }}
             placeholder="자동계산"
             className="text-right"

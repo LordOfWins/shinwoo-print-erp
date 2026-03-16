@@ -63,22 +63,11 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // upsert: year_month compound unique
-    const existing = await prisma.salesTarget.findFirst({
-      where: { year, month },
+    const target = await prisma.salesTarget.upsert({
+      where: { year_month: { year, month } },
+      update: { targetAmount: amount },
+      create: { year, month, targetAmount: amount },
     });
-
-    let target;
-    if (existing) {
-      target = await prisma.salesTarget.update({
-        where: { id: existing.id },
-        data: { targetAmount: amount },
-      });
-    } else {
-      target = await prisma.salesTarget.create({
-        data: { year, month, targetAmount: amount },
-      });
-    }
 
     return NextResponse.json({
       year: target.year,

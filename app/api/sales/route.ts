@@ -55,28 +55,16 @@ export async function GET(request: NextRequest) {
     ]);
 
     const serialized = data.map((record) => ({
-      id: record.id,
-      year: record.year,
-      month: record.month,
-      transactionType: record.transactionType,
-      dataType: record.dataType,
-      worker: record.worker,
-      deliveryType: record.deliveryType,
-      deliveryRegion: record.deliveryRegion,
-      orderReceivedDate: record.orderReceivedDate
-        ? record.orderReceivedDate.toISOString().split("T")[0]
-        : null,
-      clientId: record.clientId,
-      client: record.client,
-      printType: record.printType,
-      productName: record.productName,
-      sheets: record.sheets,
+      ...record,
       unitPrice: record.unitPrice ? record.unitPrice.toString() : null,
       supplyAmount: record.supplyAmount
         ? record.supplyAmount.toString()
         : null,
       taxIncludedAmount: record.taxIncludedAmount
         ? record.taxIncludedAmount.toString()
+        : null,
+      orderReceivedDate: record.orderReceivedDate
+        ? record.orderReceivedDate.toISOString().split("T")[0]
         : null,
       requestedDueDate: record.requestedDueDate
         ? record.requestedDueDate.toISOString().split("T")[0]
@@ -90,7 +78,8 @@ export async function GET(request: NextRequest) {
       paymentDate: record.paymentDate
         ? record.paymentDate.toISOString().split("T")[0]
         : null,
-      note: record.note,
+      createdAt: record.createdAt.toISOString(),
+      updatedAt: record.updatedAt.toISOString(),
     }));
 
     return NextResponse.json({
@@ -184,34 +173,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json(
-      {
-        ...record,
-        unitPrice: record.unitPrice ? record.unitPrice.toString() : null,
-        supplyAmount: record.supplyAmount
-          ? record.supplyAmount.toString()
-          : null,
-        taxIncludedAmount: record.taxIncludedAmount
-          ? record.taxIncludedAmount.toString()
-          : null,
-        orderReceivedDate: record.orderReceivedDate
-          ? record.orderReceivedDate.toISOString().split("T")[0]
-          : null,
-        requestedDueDate: record.requestedDueDate
-          ? record.requestedDueDate.toISOString().split("T")[0]
-          : null,
-        transactionDate: record.transactionDate
-          ? record.transactionDate.toISOString().split("T")[0]
-          : null,
-        taxInvoiceDate: record.taxInvoiceDate
-          ? record.taxInvoiceDate.toISOString().split("T")[0]
-          : null,
-        paymentDate: record.paymentDate
-          ? record.paymentDate.toISOString().split("T")[0]
-          : null,
-      },
-      { status: 201 },
-    );
+    return NextResponse.json(serializeRecord(record), { status: 201 });
   } catch (error) {
     console.error("매출/매입 등록 오류:", error);
     return NextResponse.json(
@@ -219,4 +181,32 @@ export async function POST(request: NextRequest) {
       { status: 500 },
     );
   }
+}
+
+function serializeRecord(record: Record<string, unknown>) {
+  return {
+    ...record,
+    unitPrice: record.unitPrice ? String(record.unitPrice) : null,
+    supplyAmount: record.supplyAmount ? String(record.supplyAmount) : null,
+    taxIncludedAmount: record.taxIncludedAmount
+      ? String(record.taxIncludedAmount)
+      : null,
+    orderReceivedDate: record.orderReceivedDate
+      ? (record.orderReceivedDate as Date).toISOString().split("T")[0]
+      : null,
+    requestedDueDate: record.requestedDueDate
+      ? (record.requestedDueDate as Date).toISOString().split("T")[0]
+      : null,
+    transactionDate: record.transactionDate
+      ? (record.transactionDate as Date).toISOString().split("T")[0]
+      : null,
+    taxInvoiceDate: record.taxInvoiceDate
+      ? (record.taxInvoiceDate as Date).toISOString().split("T")[0]
+      : null,
+    paymentDate: record.paymentDate
+      ? (record.paymentDate as Date).toISOString().split("T")[0]
+      : null,
+    createdAt: (record.createdAt as Date).toISOString(),
+    updatedAt: (record.updatedAt as Date).toISOString(),
+  };
 }

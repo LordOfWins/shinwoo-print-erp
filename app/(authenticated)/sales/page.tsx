@@ -62,6 +62,7 @@ interface TargetData {
 
 const YEARS = [2025, 2026, 2027];
 const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
+const PAGE_SIZE = 20;
 
 function SalesPageContent() {
   const router = useRouter();
@@ -80,7 +81,6 @@ function SalesPageContent() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const pageSize = 20;
 
   const [records, setRecords] = useState<SalesRecord[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -116,7 +116,7 @@ function SalesPageContent() {
         month: String(month),
         transactionType: tab,
         page: String(page),
-        pageSize: String(pageSize),
+        pageSize: String(PAGE_SIZE),
       });
       if (search) params.set("search", search);
 
@@ -131,7 +131,7 @@ function SalesPageContent() {
     } finally {
       setLoading(false);
     }
-  }, [year, month, tab, search, page, pageSize]);
+  }, [year, month, tab, search, page]);
 
   // 목표 조회
   const fetchTargets = useCallback(async () => {
@@ -344,6 +344,39 @@ function SalesPageContent() {
     },
   ];
 
+  // 탭 내부 공통 콘텐츠
+  const tabContent = (
+    <div className="space-y-4">
+      <SearchInput
+        key={tab}
+        placeholder="거래처명 검색"
+        onSearch={(v) => {
+          setSearch(v);
+          setPage(1);
+        }}
+        defaultValue={search}
+      />
+
+      {loading ? (
+        <div className="text-muted-foreground flex h-32 items-center justify-center">
+          불러오는 중...
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <DataTable
+            columns={columns}
+            data={records}
+            totalCount={totalCount}
+            page={page}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+            emptyMessage={`${tab} 데이터가 없습니다`}
+          />
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -435,34 +468,8 @@ function SalesPageContent() {
           <TabsTrigger value="매입">매입</TabsTrigger>
         </TabsList>
 
-        <TabsContent value={tab} className="space-y-4">
-          <SearchInput
-            placeholder="거래처명/품목/작업자 검색"
-            onSearch={(v) => {
-              setSearch(v);
-              setPage(1);
-            }}
-            defaultValue={search}
-          />
-
-          {loading ? (
-            <div className="text-muted-foreground flex h-32 items-center justify-center">
-              불러오는 중...
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <DataTable
-                columns={columns}
-                data={records}
-                totalCount={totalCount}
-                page={page}
-                pageSize={pageSize}
-                onPageChange={setPage}
-                emptyMessage={`${tab} 데이터가 없습니다`}
-              />
-            </div>
-          )}
-        </TabsContent>
+        <TabsContent value="매출">{tab === "매출" && tabContent}</TabsContent>
+        <TabsContent value="매입">{tab === "매입" && tabContent}</TabsContent>
       </Tabs>
 
       {/* 등록/수정 Dialog */}
@@ -482,7 +489,7 @@ function SalesPageContent() {
             </DialogTitle>
           </DialogHeader>
           <SalesRecordForm
-            key={editRecord ? `edit-${editRecord.id}` : "create"}
+            key={editRecord?.id ?? "new"}
             defaultValues={
               editRecord
                 ? editRecord
