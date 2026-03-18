@@ -31,6 +31,7 @@ interface CompanyData {
   businessNumber: string;
   businessType: string | null;
   businessItem: string | null;
+  logoUrl: string | null;
   sealUrl: string | null;
 }
 
@@ -495,6 +496,12 @@ function TransactionSlip({
       {/* 타이틀 행 */}
       <View style={s.headerRow}>
         <View style={s.titleGroup}>
+          {data.company.logoUrl && (
+            <Image
+              src={data.company.logoUrl}
+              style={{ width: 80, height: 30, marginBottom: 4, objectFit: "contain" as const }}
+            />
+          )}
           <Text style={s.title}>거 래 명 세 서</Text>
           <Text style={s.transDate}>{fmtDate(data.transactionDate)}</Text>
         </View>

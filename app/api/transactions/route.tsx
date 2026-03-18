@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { generateTransactionNumber } from "@/lib/utils/generate-number";
 import { transactionFormSchema } from "@/lib/validators/transaction";
+import { Prisma } from "@/generated/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -93,10 +94,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const transactionNumber = await generateTransactionNumber(
-      client.companyName,
-    );
-
     const totalQuantity = data.items.reduce((sum, item) => {
       return sum + (Number(item.quantity) || 0);
     }, 0);
@@ -111,44 +108,66 @@ export async function POST(request: NextRequest) {
 
     const totalAmount = totalSupplyAmount + totalVat;
 
-    const transaction = await prisma.transaction.create({
-      data: {
-        transactionNumber,
-        transactionDate: new Date(data.transactionDate),
-        clientId: data.clientId,
-        bankAccountId: data.bankAccountId || null,
-        totalQuantity,
-        totalSupplyAmount,
-        totalVat,
-        totalAmount,
-        note: data.note || null,
-        items: {
-          create: data.items.map((item, index) => ({
-            productId: item.productId || null,
-            itemDate: new Date(item.itemDate),
-            productName: item.productName,
-            spec: item.spec || null,
-            quantity: Number(item.quantity) || 0,
-            unit: item.unit || null,
-            unitPrice: Number(item.unitPrice) || 0,
-            supplyAmount: Number(item.supplyAmount) || 0,
-            vat: Number(item.vat) || 0,
-            sortOrder: index,
-          })),
-        },
-      },
-      include: {
-        client: { select: { id: true, companyName: true } },
-        bankAccount: {
-          select: { id: true, bankName: true, accountNumber: true },
-        },
-        items: { orderBy: { sortOrder: "asc" } },
-      },
-    });
+    const MAX_RETRY = 5;
+    let lastError: unknown = null;
 
-    return NextResponse.json(serializeTransaction(transaction), {
-      status: 201,
-    });
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+      const transactionNumber = await generateTransactionNumber(
+        client.companyName,
+      );
+      try {
+        const transaction = await prisma.transaction.create({
+          data: {
+            transactionNumber,
+            transactionDate: new Date(data.transactionDate),
+            clientId: data.clientId,
+            bankAccountId: data.bankAccountId || null,
+            totalQuantity,
+            totalSupplyAmount,
+            totalVat,
+            totalAmount,
+            note: data.note || null,
+            items: {
+              create: data.items.map((item, index) => ({
+                productId: item.productId || null,
+                itemDate: new Date(item.itemDate),
+                productName: item.productName,
+                spec: item.spec || null,
+                quantity: Number(item.quantity) || 0,
+                unit: item.unit || null,
+                unitPrice: Number(item.unitPrice) || 0,
+                supplyAmount: Number(item.supplyAmount) || 0,
+                vat: Number(item.vat) || 0,
+                sortOrder: index,
+              })),
+            },
+          },
+          include: {
+            client: { select: { id: true, companyName: true } },
+            bankAccount: {
+              select: { id: true, bankName: true, accountNumber: true },
+            },
+            items: { orderBy: { sortOrder: "asc" } },
+          },
+        });
+
+        return NextResponse.json(serializeTransaction(transaction), {
+          status: 201,
+        });
+      } catch (e) {
+        lastError = e;
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === "P2002") continue;
+        }
+        throw e;
+      }
+    }
+
+    console.error("거래명세서 생성 재시도 초과:", lastError);
+    return NextResponse.json(
+      { message: "문서번호 생성에 실패했습니다. 잠시 후 다시 시도하세요." },
+      { status: 500 },
+    );
   } catch (error) {
     console.error("거래명세서 생성 오류:", error);
     return NextResponse.json(

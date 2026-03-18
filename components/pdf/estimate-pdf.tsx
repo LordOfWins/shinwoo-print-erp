@@ -31,6 +31,7 @@ interface CompanyData {
   businessNumber: string;
   businessType: string | null;
   businessItem: string | null;
+  logoUrl: string | null;
   sealUrl: string | null;
 }
 
@@ -361,6 +362,12 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
       <Page size="A4" style={s.page}>
         {/* 타이틀 */}
         <View style={s.titleRow}>
+          {data.company.logoUrl && (
+            <Image
+              src={data.company.logoUrl}
+              style={{ width: 80, height: 30, marginBottom: 4, objectFit: "contain" as const }}
+            />
+          )}
           <Text style={s.title}>견 적 서</Text>
           <Text style={s.dateText}>{formatDateKorean(data.estimateDate)}</Text>
         </View>

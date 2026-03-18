@@ -1,3 +1,5 @@
+// app/api/orders/[id]/pdf/route.tsx — 전체 교체
+
 import { OrderPdfDocument } from "@/components/pdf/order-pdf";
 import { renderPdfToResponse } from "@/lib/pdf/render-pdf";
 import { prisma } from "@/lib/prisma";
@@ -17,15 +19,19 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    const order = await prisma.order.findUnique({
-      where: { id: orderId },
-      include: {
-        client: {
-          select: { companyName: true, contactName: true, phone: true },
+    // ★ company 동시 조회 추가
+    const [order, company] = await Promise.all([
+      prisma.order.findUnique({
+        where: { id: orderId },
+        include: {
+          client: {
+            select: { companyName: true, contactName: true, phone: true },
+          },
+          items: { orderBy: { sortOrder: "asc" } },
         },
-        items: { orderBy: { sortOrder: "asc" } },
-      },
-    });
+      }),
+      prisma.companyInfo.findFirst({ where: { id: 1 } }),
+    ]);
 
     if (!order) {
       return NextResponse.json(
@@ -55,6 +61,22 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       receiverName: order.receiverName,
       receiverPhone: order.receiverPhone,
       note: order.note,
+      // ★ company 추가
+      company: company
+        ? {
+          companyName: company.companyName,
+          representative: company.representative,
+          phone: company.phone,
+          logoUrl: company.logoUrl,
+          sealUrl: company.sealUrl,
+        }
+        : {
+          companyName: "",
+          representative: "",
+          phone: "",
+          logoUrl: null,
+          sealUrl: null,
+        },
       items: order.items.map((item) => ({
         productName: item.productName,
         printType: item.printType,

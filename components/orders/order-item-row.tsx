@@ -1,6 +1,7 @@
 "use client";
 
 import { DesignImageUpload } from "@/components/orders/design-image-upload";
+import { ComboboxInput } from "@/components/shared/combobox-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,6 +48,13 @@ interface OrderItemRowProps {
     DATA_TYPE: SystemOption[];
     DESIGN_STATUS: SystemOption[];
   };
+  materialOptions: {
+    paperType: string[];
+    backing: string[];
+    adhesive: string[];
+    thickness: string[];
+    manufacturer: string[];
+  };
 }
 
 export function OrderItemRow({
@@ -59,6 +67,7 @@ export function OrderItemRow({
   canRemove,
   products,
   options,
+  materialOptions,
 }: OrderItemRowProps) {
   const [expanded, setExpanded] = useState(true);
   const prefix = `items.${index}` as const;
@@ -71,9 +80,6 @@ export function OrderItemRow({
   const itemErrors = errors?.items?.[index] as
     | Record<string, { message?: string }>
     | undefined;
-  console.log("errors 전체:", JSON.stringify(errors, null, 2));
-  console.log("errors.items:", errors?.items);
-  console.log(`errors.items[${index}]:`, errors?.items?.[index]);
 
   // 품목 선택 시 자동 채움
   const handleProductSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -275,6 +281,55 @@ export function OrderItemRow({
                 className="text-[0.9rem]"
                 placeholder="0"
                 {...register(`items.${index}.materialWidth`)}
+              />
+            </div>
+          </div>
+
+          {/* 3-1행: 원단 상세(지종/후지/접착제/두께/제조사) */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">지종</Label>
+              <ComboboxInput
+                value={watch(`items.${index}.paperType`) || ""}
+                onChange={(v) => setValue(`items.${index}.paperType`, v)}
+                options={materialOptions.paperType}
+                placeholder="선택"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">후지</Label>
+              <ComboboxInput
+                value={watch(`items.${index}.backing`) || ""}
+                onChange={(v) => setValue(`items.${index}.backing`, v)}
+                options={materialOptions.backing}
+                placeholder="선택"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">접착제</Label>
+              <ComboboxInput
+                value={watch(`items.${index}.adhesive`) || ""}
+                onChange={(v) => setValue(`items.${index}.adhesive`, v)}
+                options={materialOptions.adhesive}
+                placeholder="선택"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">두께</Label>
+              <ComboboxInput
+                value={watch(`items.${index}.thickness`) || ""}
+                onChange={(v) => setValue(`items.${index}.thickness`, v)}
+                options={materialOptions.thickness}
+                placeholder="선택"
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">제조사</Label>
+              <ComboboxInput
+                value={watch(`items.${index}.manufacturer`) || ""}
+                onChange={(v) => setValue(`items.${index}.manufacturer`, v)}
+                options={materialOptions.manufacturer}
+                placeholder="선택"
               />
             </div>
           </div>

@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/prisma";
-import { renderPdfToResponse } from "@/lib/pdf/render-pdf";
 import { TransactionPdfDocument } from "@/components/pdf/transaction-pdf";
+import { renderPdfToResponse } from "@/lib/pdf/render-pdf";
+import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 type RouteParams = { params: Promise<{ id: string }> };
@@ -93,6 +93,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
         businessNumber: company.businessNumber,
         businessType: company.businessType,
         businessItem: company.businessItem,
+        logoUrl: company.logoUrl,    // ★ 추가
         sealUrl: company.sealUrl,
       },
       client: {

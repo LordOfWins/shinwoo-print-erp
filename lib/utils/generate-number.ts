@@ -2,7 +2,7 @@
 import { prisma } from "@/lib/prisma";
 
 /**
- * 문서번호 생성: 거래처명-YYMMDD-01
+ * 문서번호 생성: 거래처명-YYYYMMDD-01
  * 같은 날 같은 거래처 2건째 -> -02
  */
 async function generateDocNumber(
@@ -12,10 +12,10 @@ async function generateDocNumber(
   const kstNow = new Date(
     new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" })
   );
-  const yy = String(kstNow.getFullYear()).slice(2);
+  const yyyy = String(kstNow.getFullYear());
   const mm = String(kstNow.getMonth() + 1).padStart(2, "0");
   const dd = String(kstNow.getDate()).padStart(2, "0");
-  const dateStr = `${yy}${mm}${dd}`;
+  const dateStr = `${yyyy}${mm}${dd}`;
   const base = `${clientName}-${dateStr}-`;
 
   let lastNumber: string | null = null;

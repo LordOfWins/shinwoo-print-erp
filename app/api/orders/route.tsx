@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { generateOrderNumber } from "@/lib/utils/generate-number";
 import { orderFormSchema } from "@/lib/validators/order";
+import { Prisma } from "@/generated/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -91,77 +92,101 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-    const orderNumber = await generateOrderNumber(client.companyName);
+    const MAX_RETRY = 5;
+    let lastError: unknown = null;
 
-    const order = await prisma.order.create({
-      data: {
-        orderNumber,
-        clientId: data.clientId,
-        orderDate: new Date(data.orderDate),
-        dueDate: data.dueDate ? new Date(data.dueDate) : null,
-        orderer: data.orderer || null,
-        status: data.status || "DRAFT",
-        packagingType: data.packagingType || null,
-        deliveryType: data.deliveryType || null,
-        courierType: data.courierType || null,
-        deliveryAddress: data.deliveryAddress || null,
-        receiverName: data.receiverName || null,
-        receiverPhone: data.receiverPhone || null,
-        note: data.note || null,
-        worker: data.worker || null,
-        clientContact: data.clientContact || null,
-        clientPhone: data.clientPhone || null,
-        deliveryMethod: data.deliveryMethod || null,
-        deliveryRegion: data.deliveryRegion || null,
-        photoInspection: data.photoInspection || false,
-        sampleShipping: data.sampleShipping || false,
-        tightRoll: data.tightRoll || false,
-        items: {
-          create: data.items.map((item, index) => ({
-            productId: item.productId || null,
-            productName: item.productName,
-            printType: item.printType || null,
-            printPrice: item.printPrice ? Number(item.printPrice) : null,
-            sheets: item.sheets ?? null,
-            sheetsPerRoll: item.sheetsPerRoll ?? null,
-            unitPrice: item.unitPrice ? Number(item.unitPrice) : null,
-            supplyAmount: item.supplyAmount ? Number(item.supplyAmount) : null,
-            material: item.material || null,
-            materialWidth: item.materialWidth
-              ? Number(item.materialWidth)
-              : null,
-            perforation: item.perforation || false,
-            sizeWidth: item.sizeWidth ? Number(item.sizeWidth) : null,
-            sizeHeight: item.sizeHeight ? Number(item.sizeHeight) : null,
-            shape: item.shape || null,
-            okkuri: item.okkuri ? Number(item.okkuri) : null,
-            lamination: item.lamination || null,
-            foil: item.foil || null,
-            cuttingMethod: item.cuttingMethod || null,
-            rollDirection: item.rollDirection || null,
-            slit: item.slit || false,
-            dataType: item.dataType || null,
-            lastDataDate: item.lastDataDate
-              ? new Date(item.lastDataDate)
-              : null,
-            designFileStatus: item.designFileStatus || null,
-            designImageUrl: item.designImageUrl || null,
-            cuttingType: item.cuttingType || null,
-            sheetsPerSheet: item.sheetsPerSheet || null,
-            labelGap: item.labelGap || null,
-            dieCutter: item.dieCutter || null,
-            resinPlate: item.resinPlate || null,
-            sortOrder: index,
-          })),
-        },
-      },
-      include: {
-        client: { select: { id: true, companyName: true } },
-        items: true,
-      },
-    });
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+      const orderNumber = await generateOrderNumber(client.companyName);
+      try {
+        const order = await prisma.order.create({
+          data: {
+            orderNumber,
+            clientId: data.clientId,
+            orderDate: new Date(data.orderDate),
+            dueDate: data.dueDate ? new Date(data.dueDate) : null,
+            orderer: data.orderer || null,
+            status: data.status || "DRAFT",
+            packagingType: data.packagingType || null,
+            deliveryType: data.deliveryType || null,
+            courierType: data.courierType || null,
+            deliveryAddress: data.deliveryAddress || null,
+            receiverName: data.receiverName || null,
+            receiverPhone: data.receiverPhone || null,
+            note: data.note || null,
+            worker: data.worker || null,
+            clientContact: data.clientContact || null,
+            clientPhone: data.clientPhone || null,
+            deliveryMethod: data.deliveryMethod || null,
+            deliveryRegion: data.deliveryRegion || null,
+            photoInspection: data.photoInspection || false,
+            sampleShipping: data.sampleShipping || false,
+            tightRoll: data.tightRoll || false,
+            items: {
+              create: data.items.map((item, index) => ({
+                productId: item.productId || null,
+                productName: item.productName,
+                printType: item.printType || null,
+                printPrice: item.printPrice ? Number(item.printPrice) : null,
+                sheets: item.sheets ?? null,
+                sheetsPerRoll: item.sheetsPerRoll ?? null,
+                unitPrice: item.unitPrice ? Number(item.unitPrice) : null,
+                supplyAmount: item.supplyAmount ? Number(item.supplyAmount) : null,
+                material: item.material || null,
+                materialWidth: item.materialWidth
+                  ? Number(item.materialWidth)
+                  : null,
+                paperType: item.paperType || null,
+                backing: item.backing || null,
+                adhesive: item.adhesive || null,
+                thickness: item.thickness || null,
+                manufacturer: item.manufacturer || null,
+                perforation: item.perforation || false,
+                sizeWidth: item.sizeWidth ? Number(item.sizeWidth) : null,
+                sizeHeight: item.sizeHeight ? Number(item.sizeHeight) : null,
+                shape: item.shape || null,
+                okkuri: item.okkuri ? Number(item.okkuri) : null,
+                lamination: item.lamination || null,
+                foil: item.foil || null,
+                cuttingMethod: item.cuttingMethod || null,
+                rollDirection: item.rollDirection || null,
+                slit: item.slit || false,
+                dataType: item.dataType || null,
+                lastDataDate: item.lastDataDate
+                  ? new Date(item.lastDataDate)
+                  : null,
+                designFileStatus: item.designFileStatus || null,
+                designImageUrl: item.designImageUrl || null,
+                cuttingType: item.cuttingType || null,
+                sheetsPerSheet: item.sheetsPerSheet || null,
+                labelGap: item.labelGap || null,
+                dieCutter: item.dieCutter || null,
+                resinPlate: item.resinPlate || null,
+                sortOrder: index,
+              })),
+            },
+          },
+          include: {
+            client: { select: { id: true, companyName: true } },
+            items: true,
+          },
+        });
 
-    return NextResponse.json(serializeOrder(order), { status: 201 });
+        return NextResponse.json(serializeOrder(order), { status: 201 });
+      } catch (e) {
+        lastError = e;
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === "P2002") continue; // unique constraint collision → retry
+        }
+        throw e;
+      }
+    }
+
+    console.error("발주서 생성 재시도 초과:", lastError);
+    return NextResponse.json(
+      { message: "문서번호 생성에 실패했습니다. 잠시 후 다시 시도하세요." },
+      { status: 500 },
+    );
+
   } catch (error) {
     console.error("발주서 생성 오류:", error);
     return NextResponse.json(

@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { generateEstimateNumber } from "@/lib/utils/generate-number";
 import { estimateFormSchema } from "@/lib/validators/estimate";
+import { Prisma } from "@/generated/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 /**
@@ -85,8 +86,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const estimateNumber = await generateEstimateNumber(client.companyName);
-
     // 합계 계산
     const totalSupply = data.items.reduce((sum, item) => {
       return sum + (Number(item.supplyAmount) || 0);
@@ -96,42 +95,62 @@ export async function POST(request: NextRequest) {
     }, 0);
     const totalAmount = totalSupply + totalVat;
 
-    const estimate = await prisma.estimate.create({
-      data: {
-        estimateNumber,
-        estimateDate: new Date(data.estimateDate),
-        clientId: data.clientId,
-        clientContactName: data.clientContactName || null,
-        recipientText: data.recipientText || null,
-        stage: data.stage || "1차제안",
-        validDays: data.validDays,
-        totalSupplyAmount: totalSupply,
-        totalVat: totalVat,
-        totalAmount: totalAmount,
-        note: data.note || null,
-        items: {
-          create: data.items.map((item, idx) => ({
-            productId: item.productId || null,
-            productName: item.productName,
-            spec: item.spec || null,
-            quantity: item.quantity,
-            quantityText: item.quantityText || null,
-            unitPrice: item.unitPrice ? Number(item.unitPrice) : 0,
-            unitPriceText: item.unitPriceText || null,
-            supplyAmount: item.supplyAmount ? Number(item.supplyAmount) : 0,
-            vat: item.vat ? Number(item.vat) : 0,
-            note: item.note || null,
-            sortOrder: idx,
-          })),
-        },
-      },
-      include: {
-        client: { select: { id: true, companyName: true } },
-        items: { orderBy: { sortOrder: "asc" } },
-      },
-    });
+    const MAX_RETRY = 5;
+    let lastError: unknown = null;
 
-    return NextResponse.json(serializeEstimate(estimate), { status: 201 });
+    for (let attempt = 0; attempt < MAX_RETRY; attempt++) {
+      const estimateNumber = await generateEstimateNumber(client.companyName);
+      try {
+        const estimate = await prisma.estimate.create({
+          data: {
+            estimateNumber,
+            estimateDate: new Date(data.estimateDate),
+            clientId: data.clientId,
+            clientContactName: data.clientContactName || null,
+            recipientText: data.recipientText || null,
+            stage: data.stage || "1차제안",
+            validDays: data.validDays,
+            totalSupplyAmount: totalSupply,
+            totalVat: totalVat,
+            totalAmount: totalAmount,
+            note: data.note || null,
+            items: {
+              create: data.items.map((item, idx) => ({
+                productId: item.productId || null,
+                productName: item.productName,
+                spec: item.spec || null,
+                quantity: item.quantity,
+                quantityText: item.quantityText || null,
+                unitPrice: item.unitPrice ? Number(item.unitPrice) : 0,
+                unitPriceText: item.unitPriceText || null,
+                supplyAmount: item.supplyAmount ? Number(item.supplyAmount) : 0,
+                vat: item.vat ? Number(item.vat) : 0,
+                note: item.note || null,
+                sortOrder: idx,
+              })),
+            },
+          },
+          include: {
+            client: { select: { id: true, companyName: true } },
+            items: { orderBy: { sortOrder: "asc" } },
+          },
+        });
+
+        return NextResponse.json(serializeEstimate(estimate), { status: 201 });
+      } catch (e) {
+        lastError = e;
+        if (e instanceof Prisma.PrismaClientKnownRequestError) {
+          if (e.code === "P2002") continue;
+        }
+        throw e;
+      }
+    }
+
+    console.error("견적서 생성 재시도 초과:", lastError);
+    return NextResponse.json(
+      { message: "문서번호 생성에 실패했습니다. 잠시 후 다시 시도하세요." },
+      { status: 500 },
+    );
   } catch (error) {
     console.error("견적서 생성 오류:", error);
     return NextResponse.json(
