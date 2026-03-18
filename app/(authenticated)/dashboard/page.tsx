@@ -1,3 +1,5 @@
+"use client";
+
 import { RecentOrdersTable } from "@/components/dashboard/recent-orders-table";
 import { RecentQuotesTable } from "@/components/dashboard/recent-quotes-table";
 import { PageHeader } from "@/components/shared/page-header";
@@ -9,7 +11,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { prisma } from "@/lib/prisma";
 import { formatAmount } from "@/lib/utils/format";
 import {
   Banknote,
@@ -17,135 +18,94 @@ import {
   ClipboardList,
   ShoppingCart,
 } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
-export default async function DashboardPage() {
-  // ── 당월 범위 계산 ──
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth() + 1; // 1~12
-  const monthStart = new Date(year, now.getMonth(), 1);
-  const monthEnd = new Date(year, now.getMonth() + 1, 0, 23, 59, 59, 999);
+interface DashboardData {
+  year: number;
+  month: number;
+  totalSales: number;
+  totalPurchase: number;
+  targetAmount: number | null;
+  progressOrderCount: number;
+  newClientCount: number;
+  recentOrders: {
+    id: number;
+    orderNumber: string;
+    clientName: string;
+    orderDate: string;
+    status: string;
+  }[];
+  recentQuotes: {
+    id: number;
+    estimateNumber: string;
+    clientName: string;
+    estimateDate: string;
+    stage: string;
+  }[];
+}
 
-  // ── 6개 쿼리 병렬 실행 ──
-  const [
-    salesAgg,
-    purchaseAgg,
-    salesTarget,
+export default function DashboardPage() {
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDashboard = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/dashboard");
+      const json = await res.json();
+      setData(json);
+    } catch (error) {
+      console.error("대시보드 데이터 조회 실패:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchDashboard();
+  }, [fetchDashboard]);
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <PageHeader title="대시보드" />
+        <div className="text-muted-foreground flex h-64 items-center justify-center text-lg">
+          불러오는 중...
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="space-y-6">
+        <PageHeader title="대시보드" />
+        <div className="text-muted-foreground flex h-64 items-center justify-center text-lg">
+          데이터를 불러올 수 없습니다
+        </div>
+      </div>
+    );
+  }
+
+  const {
+    year,
+    month,
+    totalSales,
+    totalPurchase,
+    targetAmount,
     progressOrderCount,
     newClientCount,
     recentOrders,
     recentQuotes,
-  ] = await Promise.all([
-    // ① 이번 달 매출액 (transactionType = "매출")
-    prisma.salesRecord.aggregate({
-      _sum: { supplyAmount: true },
-      where: {
-        transactionType: "매출",
-        year,
-        month,
-      },
-    }),
+  } = data;
 
-    // ② 이번 달 매입액 (transactionType = "매입")
-    prisma.salesRecord.aggregate({
-      _sum: { supplyAmount: true },
-      where: {
-        transactionType: "매입",
-        year,
-        month,
-      },
-    }),
-
-    // ③ 매출 목표
-    prisma.salesTarget.findUnique({
-      where: { year_month: { year, month } },
-    }),
-
-    // ④ 진행 중 발주서 건수
-    prisma.order.count({
-      where: { status: "PROGRESS" },
-    }),
-
-    // ⑤ 이번 달 신규 거래처 수
-    prisma.client.count({
-      where: {
-        createdAt: { gte: monthStart, lte: monthEnd },
-      },
-    }),
-
-    // ⑥ 최근 발주서 5건
-    prisma.order.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        orderNumber: true,
-        orderDate: true,
-        status: true,
-        client: { select: { companyName: true } },
-      },
-    }),
-
-    // ⑦ 최근 견적서 5건
-    prisma.estimate.findMany({
-      take: 5,
-      orderBy: { createdAt: "desc" },
-      select: {
-        id: true,
-        estimateNumber: true,
-        estimateDate: true,
-        stage: true,
-        client: { select: { companyName: true } },
-      },
-    }),
-  ]);
-
-  // ── 데이터 가공 ──
-  const totalSales = Number(salesAgg._sum.supplyAmount ?? 0);
-  const totalPurchase = Number(purchaseAgg._sum.supplyAmount ?? 0);
-  const targetAmount = salesTarget
-    ? Number(salesTarget.targetAmount)
-    : null;
   const achievementRate =
     targetAmount && targetAmount > 0
       ? Math.min(Math.round((totalSales / targetAmount) * 100), 100)
       : null;
 
-  const ordersForTable = recentOrders.map(
-    (o: {
-      id: number;
-      orderNumber: string;
-      orderDate: Date;
-      status: string;
-      client: { companyName: string };
-    }) => ({
-    id: o.id,
-    orderNumber: o.orderNumber,
-    clientName: o.client.companyName,
-    orderDate: o.orderDate.toISOString().split("T")[0],
-    status: o.status,
-    }),
-  );
-
-  const quotesForTable = recentQuotes.map(
-    (q: {
-      id: number;
-      estimateNumber: string;
-      estimateDate: Date;
-      stage: string;
-      client: { companyName: string };
-    }) => ({
-    id: q.id,
-    estimateNumber: q.estimateNumber,
-    clientName: q.client.companyName,
-    estimateDate: q.estimateDate.toISOString().split("T")[0],
-    stage: q.stage,
-    }),
-  );
-
   return (
     <div className="space-y-6">
-      {/* ── 페이지 헤더 ── */}
       <PageHeader
         title="대시보드"
         description={`${year}년 ${month}월 영업 현황`}
@@ -153,7 +113,6 @@ export default async function DashboardPage() {
 
       {/* ── 상단: KPI 카드 4장 + 매출목표 카드 ── */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {/* KPI 1: 이번 달 매출액 */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-medium">
@@ -169,7 +128,6 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* KPI 2: 이번 달 매입액 */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-medium">
@@ -185,7 +143,6 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* KPI 3: 진행 중 발주서 */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-medium">
@@ -201,7 +158,6 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* KPI 4: 신규 거래처 */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-base font-medium">
@@ -217,7 +173,6 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        {/* ② 매출 목표 달성 카드 */}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-base font-medium">
@@ -254,7 +209,6 @@ export default async function DashboardPage() {
 
       {/* ── 하단: 최근 발주서 / 최근 견적서 2열 ── */}
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        {/* ③ 최근 발주서 5건 */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
@@ -263,11 +217,10 @@ export default async function DashboardPage() {
             <CardDescription>최근 등록된 발주서 5건</CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentOrdersTable data={ordersForTable} />
+            <RecentOrdersTable data={recentOrders} />
           </CardContent>
         </Card>
 
-        {/* ④ 최근 견적서 5건 */}
         <Card>
           <CardHeader>
             <CardTitle className="text-lg font-semibold">
@@ -276,7 +229,7 @@ export default async function DashboardPage() {
             <CardDescription>최근 등록된 견적서 5건</CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentQuotesTable data={quotesForTable} />
+            <RecentQuotesTable data={recentQuotes} />
           </CardContent>
         </Card>
       </div>
