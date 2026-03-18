@@ -1,4 +1,3 @@
-// src/app/login/page.tsx
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -12,16 +11,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Printer } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useState, type FormEvent } from "react";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -36,7 +36,8 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        router.push("/orders");
+        const redirectTo = searchParams.get("redirect") || "/dashboard";
+        router.push(redirectTo);
         router.refresh();
       } else {
         setError(data.message || "로그인에 실패했습니다.");
@@ -48,6 +49,40 @@ export default function LoginPage() {
     }
   }
 
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div className="space-y-2">
+        <Label htmlFor="password" className="text-base">
+          비밀번호
+        </Label>
+        <Input
+          id="password"
+          type="password"
+          placeholder="비밀번호를 입력하세요"
+          value={password}
+          onChange={(e) => setPassword(e.currentTarget.value)}
+          required
+          autoFocus
+          className="h-12 text-base"
+        />
+      </div>
+
+      {error && (
+        <p className="text-sm font-medium text-destructive">{error}</p>
+      )}
+
+      <Button
+        type="submit"
+        className="h-12 w-full text-base"
+        disabled={isLoading}
+      >
+        {isLoading ? "로그인 중..." : "로그인"}
+      </Button>
+    </form>
+  );
+}
+
+export default function LoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4">
       <Card className="w-full max-w-md">
@@ -63,35 +98,9 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-base">
-                비밀번호
-              </Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="비밀번호를 입력하세요"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                autoFocus
-                className="h-12 text-base"
-              />
-            </div>
-
-            {error && (
-              <p className="text-sm font-medium text-destructive">{error}</p>
-            )}
-
-            <Button
-              type="submit"
-              className="h-12 w-full text-base"
-              disabled={isLoading}
-            >
-              {isLoading ? "로그인 중..." : "로그인"}
-            </Button>
-          </form>
+          <Suspense fallback={null}>
+            <LoginForm />
+          </Suspense>
         </CardContent>
       </Card>
     </div>
