@@ -56,6 +56,41 @@ interface EstimatePdfData {
   bank: BankData;
 }
 
+/* ────────── 컬럼 폭 상수 ────────── */
+const COL = {
+  no: 25,
+  name: 130,
+  spec: 70,
+  qty: 55,
+  unitPrice: 65,
+  supply: 75,
+  vat: 60,
+  note: 55,
+};
+
+// 합계행: No + Name + Spec + Qty + UnitPrice = 345
+const TOTAL_LABEL_WIDTH =
+  COL.no + COL.name + COL.spec + COL.qty + COL.unitPrice;
+// 총합계행: 위 + Supply + Vat = 480
+const GRAND_TOTAL_LABEL_WIDTH = TOTAL_LABEL_WIDTH + COL.supply + COL.vat;
+
+/* ────────── 공통 셀 베이스 ────────── */
+const cellBase = {
+  fontSize: 7.5,
+  padding: 4,
+  justifyContent: "center" as const,
+};
+
+const thBase = {
+  ...cellBase,
+  fontWeight: "bold" as const,
+  color: COLORS.white,
+  textAlign: "center" as const,
+};
+
+const borderR = { borderRight: "0.5pt solid #E5E5E5" };
+const borderRWhite = { borderRight: "0.5pt solid rgba(255,255,255,0.3)" };
+
 /* ────────── 스타일 ────────── */
 const s = StyleSheet.create({
   page: {
@@ -135,6 +170,8 @@ const s = StyleSheet.create({
     fontSize: 7.5,
     padding: 3,
   },
+
+  /* ── 테이블 ── */
   table: {
     marginTop: 10,
     border: "1pt solid #000000",
@@ -168,242 +205,76 @@ const s = StyleSheet.create({
     backgroundColor: "#D4EDDA",
   },
 
-  /* 헤더 셀 - 컬럼별 */
-  thNo: {
-    width: 25,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thName: {
-    width: 130,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thSpec: {
-    width: 70,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thQty: {
-    width: 55,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thUnitPrice: {
-    width: 65,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thSupply: {
-    width: 75,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thVat: {
-    width: 60,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    borderRight: "0.5pt solid rgba(255,255,255,0.3)",
-    justifyContent: "center",
-  },
-  thNoteLast: {
-    width: 55,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    color: COLORS.white,
-    textAlign: "center",
-    padding: 4,
-    justifyContent: "center",
-  },
+  /* ── 헤더 셀 ── */
+  thNo: { ...thBase, width: COL.no, ...borderRWhite },
+  thName: { ...thBase, width: COL.name, ...borderRWhite },
+  thSpec: { ...thBase, width: COL.spec, ...borderRWhite },
+  thQty: { ...thBase, width: COL.qty, ...borderRWhite },
+  thUnitPrice: { ...thBase, width: COL.unitPrice, ...borderRWhite },
+  thSupply: { ...thBase, width: COL.supply, ...borderRWhite },
+  thVat: { ...thBase, width: COL.vat, ...borderRWhite },
+  thNote: { ...thBase, width: COL.note },
 
-  /* 데이터 셀 - 컬럼별 */
-  tdNo: {
-    width: 25,
-    fontSize: 7.5,
-    padding: 4,
-    textAlign: "center",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdName: {
-    width: 130,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdSpec: {
-    width: 70,
-    fontSize: 7.5,
-    padding: 4,
-    textAlign: "center",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdQty: {
-    width: 55,
-    fontSize: 7.5,
-    padding: 4,
-    textAlign: "right",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
+  /* ── 데이터 셀 ── */
+  tdNo: { ...cellBase, width: COL.no, textAlign: "center", ...borderR },
+  tdName: { ...cellBase, width: COL.name, ...borderR },
+  tdSpec: { ...cellBase, width: COL.spec, textAlign: "center", ...borderR },
+  tdQty: { ...cellBase, width: COL.qty, textAlign: "right", ...borderR },
   tdUnitPrice: {
-    width: 65,
-    fontSize: 7.5,
-    padding: 4,
+    ...cellBase,
+    width: COL.unitPrice,
     textAlign: "right",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
+    ...borderR,
   },
-  tdSupply: {
-    width: 75,
-    fontSize: 7.5,
-    padding: 4,
-    textAlign: "right",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdVat: {
-    width: 60,
-    fontSize: 7.5,
-    padding: 4,
-    textAlign: "right",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdNoteLast: {
-    width: 55,
-    fontSize: 7.5,
-    padding: 4,
-    justifyContent: "center",
-  },
+  tdSupply: { ...cellBase, width: COL.supply, textAlign: "right", ...borderR },
+  tdVat: { ...cellBase, width: COL.vat, textAlign: "right", ...borderR },
+  tdNote: { ...cellBase, width: COL.note },
 
-  /* 빈 셀 */
-  tdNoEmpty: {
-    width: 25,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdNameEmpty: {
-    width: 130,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdSpecEmpty: {
-    width: 70,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdQtyEmpty: {
-    width: 55,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdUnitPriceEmpty: {
-    width: 65,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdSupplyEmpty: {
-    width: 75,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdVatEmpty: {
-    width: 60,
-    fontSize: 7.5,
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  tdNoteLastEmpty: {
-    width: 55,
-    fontSize: 7.5,
-    padding: 4,
-    justifyContent: "center",
-  },
-
-  /* 합계행 특수 셀 */
-  totalNoBold: {
-    width: 25,
-    fontSize: 7.5,
-    fontWeight: "bold",
-    padding: 4,
-    textAlign: "center",
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  totalLabelCell: {
-    width: 200,
+  /* ── 합계행 셀 (노란 배경 통일) ── */
+  totalLabel: {
+    ...cellBase,
+    width: TOTAL_LABEL_WIDTH,
     fontSize: 8,
     fontWeight: "bold",
-    padding: 4,
+    textAlign: "center",
     borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
   },
-  grandTotalLabelCell: {
-    width: 260,
-    fontSize: 9,
+  totalSupply: {
+    ...cellBase,
+    width: COL.supply,
     fontWeight: "bold",
-    padding: 4,
-    borderRight: "0.5pt solid #E5E5E5",
-    justifyContent: "center",
-  },
-  grandTotalValueCell: {
-    flex: 1,
-    fontSize: 11,
-    fontWeight: "bold",
-    padding: 4,
     textAlign: "right",
-    justifyContent: "center",
+    borderRight: "0.5pt solid #E5E5E5",
+  },
+  totalVat: {
+    ...cellBase,
+    width: COL.vat,
+    fontWeight: "bold",
+    textAlign: "right",
+    borderRight: "0.5pt solid #E5E5E5",
+  },
+  totalNote: {
+    ...cellBase,
+    width: COL.note,
   },
 
+  /* ── 총합계행 셀 (초록 배경 통일) ── */
+  grandTotalLabel: {
+    ...cellBase,
+    width: GRAND_TOTAL_LABEL_WIDTH - 40,
+    fontSize: 9,
+    fontWeight: "bold",
+    borderRight: "0.5pt solid #E5E5E5",
+  },
+  grandTotalValue: {
+    ...cellBase,
+    width: COL.note + 40,
+    fontSize: 11,
+    fontWeight: "bold",
+    textAlign: "right",
+  },
+
+  /* ── 하단 ── */
   footerSection: {
     marginTop: 14,
   },
@@ -481,6 +352,10 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
   const totalVat = Number(data.totalVat) || 0;
   const totalAmount = Number(data.totalAmount) || 0;
 
+  const MIN_ROWS = 8;
+  const emptyCount =
+    data.items.length < MIN_ROWS ? MIN_ROWS - data.items.length : 0;
+
   return (
     <Document title={"견적서_" + data.estimateNumber} author="신우씨링">
       <Page size="A4" style={s.page}>
@@ -536,6 +411,7 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
 
         {/* 품목 테이블 */}
         <View style={s.table}>
+          {/* 헤더 */}
           <View style={s.tableHeaderRow}>
             <View style={s.thNo}>
               <Text>No</Text>
@@ -558,11 +434,12 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
             <View style={s.thVat}>
               <Text>세액</Text>
             </View>
-            <View style={s.thNoteLast}>
+            <View style={s.thNote}>
               <Text>비고</Text>
             </View>
           </View>
 
+          {/* 데이터 행 */}
           {data.items.map((item, idx) => (
             <View key={idx} style={idx % 2 === 1 ? s.tableRowAlt : s.tableRow}>
               <View style={s.tdNo}>
@@ -588,83 +465,69 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
               <View style={s.tdVat}>
                 <Text>{formatNumber(item.vat)}</Text>
               </View>
-              <View style={s.tdNoteLast}>
+              <View style={s.tdNote}>
                 <Text>{item.note || ""}</Text>
               </View>
             </View>
           ))}
 
-          {data.items.length < 8 &&
-            Array.from({ length: 8 - data.items.length }).map((_, idx) => (
-              <View
-                key={"e" + idx}
-                style={
-                  (data.items.length + idx) % 2 === 1
-                    ? s.tableRowAlt
-                    : s.tableRow
-                }
-              >
-                <View style={s.tdNoEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdNameEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdSpecEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdQtyEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdUnitPriceEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdSupplyEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdVatEmpty}>
-                  <Text>{""}</Text>
-                </View>
-                <View style={s.tdNoteLastEmpty}>
-                  <Text>{""}</Text>
-                </View>
+          {/* 빈 행 */}
+          {Array.from({ length: emptyCount }).map((_, idx) => (
+            <View
+              key={"e" + idx}
+              style={
+                (data.items.length + idx) % 2 === 1 ? s.tableRowAlt : s.tableRow
+              }
+            >
+              <View style={s.tdNo}>
+                <Text>{""}</Text>
               </View>
-            ))}
+              <View style={s.tdName}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdSpec}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdQty}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdUnitPrice}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdSupply}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdVat}>
+                <Text>{""}</Text>
+              </View>
+              <View style={s.tdNote}>
+                <Text>{""}</Text>
+              </View>
+            </View>
+          ))}
 
           {/* 합계 행 */}
           <View style={s.tableTotalRow}>
-            <View style={s.totalNoBold}>
-              <Text>{""}</Text>
+            <View style={s.totalLabel}>
+              <Text>합 계 금 액</Text>
             </View>
-            <View style={s.totalLabelCell}>
-              <Text>합계금액</Text>
-            </View>
-            <View style={s.tdSpecEmpty}>
-              <Text>{""}</Text>
-            </View>
-            <View style={s.tdQtyEmpty}>
-              <Text>{""}</Text>
-            </View>
-            <View style={s.tdUnitPriceEmpty}>
-              <Text>{""}</Text>
-            </View>
-            <View style={s.tdSupply}>
+            <View style={s.totalSupply}>
               <Text>{formatNumber(totalSupply)}</Text>
             </View>
-            <View style={s.tdVat}>
+            <View style={s.totalVat}>
               <Text>{formatNumber(totalVat)}</Text>
             </View>
-            <View style={s.tdNoteLastEmpty}>
+            <View style={s.totalNote}>
               <Text>{""}</Text>
             </View>
           </View>
 
           {/* 총합계 행 */}
           <View style={s.tableGrandTotalRow}>
-            <View style={s.grandTotalLabelCell}>
-              <Text>총합계금액(VAT포함)</Text>
+            <View style={s.grandTotalLabel}>
+              <Text>총 합 계 금 액 (VAT 포함)</Text>
             </View>
-            <View style={s.grandTotalValueCell}>
+            <View style={s.grandTotalValue}>
               <Text>{formatNumber(totalAmount)} 원</Text>
             </View>
           </View>

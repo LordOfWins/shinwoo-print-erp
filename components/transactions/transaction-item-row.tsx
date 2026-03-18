@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { TransactionFormValues } from "@/lib/validators/transaction";
+import type { TransactionFormInput } from "@/lib/validators/transaction";
 import { ChevronDown, ChevronUp, Trash2 } from "lucide-react";
 import { useState } from "react";
 import type {
@@ -28,10 +28,10 @@ interface SystemOption {
 
 interface TransactionItemRowProps {
   index: number;
-  register: UseFormRegister<TransactionFormValues>;
-  setValue: UseFormSetValue<TransactionFormValues>;
-  watch: UseFormWatch<TransactionFormValues>;
-  errors: FieldErrors<TransactionFormValues>;
+  register: UseFormRegister<TransactionFormInput>;
+  setValue: UseFormSetValue<TransactionFormInput>;
+  watch: UseFormWatch<TransactionFormInput>;
+  errors: FieldErrors<TransactionFormInput>;
   onRemove: () => void;
   canRemove: boolean;
   products: ProductOption[];

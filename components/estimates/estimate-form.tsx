@@ -177,7 +177,7 @@ export function EstimateForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit, (formErrors) => {
-        console.log("폼 검증 실패:", JSON.stringify(formErrors, null, 2));
+        console.log("폼 검증 실패:", Object.keys(formErrors));
       })}
     >
       {/* 상단 저장 버튼 */}

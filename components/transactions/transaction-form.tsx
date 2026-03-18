@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { formatAmount } from "@/lib/utils/format";
 import {
   transactionFormSchema,
+  type TransactionFormInput,
   type TransactionFormValues,
 } from "@/lib/validators/transaction";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -90,7 +91,7 @@ export function TransactionForm({
     setValue,
     watch,
     formState: { errors },
-  } = useForm<TransactionFormValues>({
+  } = useForm<TransactionFormInput, unknown, TransactionFormValues>({
     resolver: zodResolver(transactionFormSchema),
     defaultValues: defaultValues || defaultFormValues,
   });
@@ -182,7 +183,7 @@ export function TransactionForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit, (formErrors) => {
-        console.log("폼 검증 실패:", JSON.stringify(formErrors, null, 2));
+        console.log("폼 검증 실패:", Object.keys(formErrors));
       })}
     >
       <div className="mb-4 flex justify-end">

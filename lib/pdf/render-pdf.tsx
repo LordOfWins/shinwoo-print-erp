@@ -1,3 +1,4 @@
+import type { DocumentProps } from "@react-pdf/renderer";
 import { renderToBuffer } from "@react-pdf/renderer";
 import type { ReactElement } from "react";
 
@@ -5,12 +6,12 @@ import type { ReactElement } from "react";
 import "@/lib/pdf/font-register";
 
 export async function renderPdfToResponse(
-  document: ReactElement,
+  document: ReactElement<DocumentProps>,
   fileName: string,
 ): Promise<Response> {
   const buffer = await renderToBuffer(document);
 
-  return new Response(buffer, {
+  return new Response(new Uint8Array(buffer), {
     headers: {
       "Content-Type": "application/pdf",
       "Content-Disposition": `inline; filename="${encodeURIComponent(fileName)}.pdf"`,

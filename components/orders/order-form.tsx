@@ -18,7 +18,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Copy, Loader2, Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-
+interface SystemOption {
+  id: number;
+  label: string;
+  value: string;
+}
 interface ClientOption {
   id: number;
   companyName: string;
@@ -306,7 +310,7 @@ export function OrderForm({
     <>
       <form
         onSubmit={handleSubmit(onSubmit, (formErrors) => {
-          console.log("폼 검증 실패:", JSON.stringify(formErrors, null, 2));
+          console.log("폼 검증 실패:", Object.keys(formErrors));
         })}
       >
         {/* 상단 수정 버튼 */}

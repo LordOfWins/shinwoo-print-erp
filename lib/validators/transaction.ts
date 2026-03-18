@@ -36,4 +36,5 @@ export const transactionFormSchema = z.object({
 });
 
 export type TransactionFormValues = z.infer<typeof transactionFormSchema>;
+export type TransactionFormInput = z.input<typeof transactionFormSchema>;
 export type TransactionItemFormValues = z.infer<typeof transactionItemSchema>;
