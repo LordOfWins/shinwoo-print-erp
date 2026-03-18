@@ -148,6 +148,11 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
               materialWidth: item.materialWidth
                 ? Number(item.materialWidth)
                 : null,
+              paperType: item.paperType || null,        
+              backing: item.backing || null,            
+              adhesive: item.adhesive || null,          
+              thickness: item.thickness || null,        
+              manufacturer: item.manufacturer || null,  
               perforation: item.perforation || false,
               sizeWidth: item.sizeWidth ? Number(item.sizeWidth) : null,
               sizeHeight: item.sizeHeight ? Number(item.sizeHeight) : null,

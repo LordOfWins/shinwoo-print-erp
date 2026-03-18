@@ -275,14 +275,16 @@ function OrderItemPage({
   return (
     <Page size="A4" style={s.page}>
       {/* ═══ 상단 ═══ */}
-      <View style={{ flex: 1 }}>
-        {data.company.logoUrl && (
-          <Image
-            src={data.company.logoUrl}
-            style={{ width: 80, height: 30, marginBottom: 4, objectFit: "contain" as const }}
-          />
-        )}
-        <Text style={s.title}>발주서</Text>
+      <View style={s.headerRow}>
+        {/* 좌측 */}
+        <View style={{ flex: 1 }}>
+          {data.company.logoUrl && (
+            <Image
+              src={data.company.logoUrl}
+              style={{ width: 80, height: 30, marginBottom: 4, objectFit: "contain" as const }}
+            />
+          )}
+          <Text style={s.title}>발주서</Text>
           <Text style={s.labelText}>발주처</Text>
           <Text style={s.valueText}>{data.clientCompanyName}</Text>
           <Text style={s.labelText}>제품명</Text>
@@ -315,6 +317,7 @@ function OrderItemPage({
           <Text style={s.labelText}>발주자</Text>
           <Text style={s.valueText}>{data.orderer || "-"}</Text>
         </View>
+      </View>
 
       {/* ═══ 디자인 시안 이미지 ═══ */}
       <View style={s.designArea}>
@@ -393,11 +396,6 @@ function OrderItemPage({
 
       {/* ═══ 비고 + 체크 ═══ */}
       <View style={s.noteSection}>
-        {data.company.sealUrl && (
-          <View style={{ position: "absolute" as const, bottom: 30, right: 40, width: 60, height: 60 }}>
-            <Image src={data.company.sealUrl} style={{ width: 60, height: 60 }} />
-          </View>
-        )}
         <Text style={s.noteTitle}>비고</Text>
         <Text style={s.noteText}>{data.note || "-"}</Text>
         <View style={s.checkRow}>
@@ -406,6 +404,13 @@ function OrderItemPage({
           <CheckItem label="롤짱짱하게" checked={data.tightRoll} />
         </View>
       </View>
+
+      {/* ★ 직인 — noteSection 바깥 */}
+      {data.company.sealUrl && (
+        <View style={{ position: "absolute" as const, bottom: 30, right: 40, width: 60, height: 60 }}>
+          <Image src={data.company.sealUrl} style={{ width: 60, height: 60 }} />
+        </View>
+      )}
 
       {/* 페이지 번호 */}
       <Text style={s.pageNumber}>
