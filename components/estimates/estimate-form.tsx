@@ -41,6 +41,15 @@ interface EstimateFormProps {
   submitLabel?: string;
   loading?: boolean;
 }
+interface ManagerOption {
+  id: number;
+  name: string;
+  title: string | null;
+  phone: string | null;
+  email: string | null;
+  isDefault: boolean;
+}
+
 
 const emptyItem = {
   productId: null,
@@ -63,12 +72,18 @@ const defaultFormValues: EstimateFormValues = {
   recipientText: "",
   stage: "1차제안",
   validDays: 10,
+  managerId: null,           // ★ 추가
+  managerName: "",           // ★ 추가
+  managerTitle: "",          // ★ 추가
+  managerPhone: "",          // ★ 추가
+  managerEmail: "",          // ★ 추가
   totalSupplyAmount: "0",
   totalVat: "0",
   totalAmount: "0",
   note: "",
   items: [{ ...emptyItem }],
 };
+// ★ 담당자 선택 핸들러
 
 export function EstimateForm({
   defaultValues,
@@ -79,7 +94,7 @@ export function EstimateForm({
   const [clients, setClients] = useState<ClientOption[]>([]);
   const [products, setProducts] = useState<ProductOption[]>([]);
   const [stageOptions, setStageOptions] = useState<SystemOption[]>([]);
-
+  const [managers, setManagers] = useState<ManagerOption[]>([]);
   const {
     register,
     handleSubmit,
@@ -96,7 +111,32 @@ export function EstimateForm({
     control,
     name: "items",
   });
-
+  const handleManagerChange = useCallback(
+    (managerId: number) => {
+      const manager = managers.find((m) => m.id === managerId);
+      if (manager) {
+        setValue("managerId", manager.id);
+        setValue("managerName", manager.name);
+        setValue("managerTitle", manager.title || "");
+        setValue("managerPhone", manager.phone || "");
+        setValue("managerEmail", manager.email || "");
+      } else {
+        setValue("managerId", null);
+        setValue("managerName", "");
+        setValue("managerTitle", "");
+        setValue("managerPhone", "");
+        setValue("managerEmail", "");
+      }
+    },
+    [managers, setValue]
+  );
+  // ★ useEffect 추가 — 담당자 목록 로드
+  useEffect(() => {
+    fetch("/api/estimate-managers")
+      .then((res) => res.json())
+      .then((data) => setManagers(data as ManagerOption[]))
+      .catch(() => setManagers([]));
+  }, []);
   // 거래처 목록 로드
   useEffect(() => {
     fetch("/api/clients?pageSize=500")
@@ -282,6 +322,47 @@ export function EstimateForm({
                 className="text-[0.95rem]"
                 placeholder="예: 동원F&B 이지은 주임님 귀 하"
                 {...register("recipientText")}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-[0.95rem]">견적 담당자</Label>
+              <select
+                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.95rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                value={watch("managerId") ?? ""}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (val) {
+                    handleManagerChange(Number(val));
+                  } else {
+                    setValue("managerId", null);
+                    setValue("managerName", "");
+                    setValue("managerTitle", "");
+                    setValue("managerPhone", "");
+                    setValue("managerEmail", "");
+                  }
+                }}
+              >
+                <option value="">담당자를 선택하세요</option>
+                {managers.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}{m.title ? ` ${m.title}` : ""}{m.isDefault ? " (기본)" : ""}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 담당자 연락처 (읽기 전용 표시) */}
+            <div className="space-y-2">
+              <Label className="text-[0.95rem]">담당자 연락처</Label>
+              <Input
+                className="text-[0.95rem] bg-muted"
+                readOnly
+                value={
+                  [watch("managerPhone"), watch("managerEmail")]
+                    .filter(Boolean)
+                    .join(" / ") || "-"
+                }
               />
             </div>
           </div>

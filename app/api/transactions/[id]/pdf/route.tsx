@@ -24,6 +24,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
           client: {
             select: {
               companyName: true,
+              representative: true,
               contactName: true,
               phone: true,
               fax: true,
@@ -66,9 +67,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
     const pdfData = {
       transactionNumber: transaction.transactionNumber,
-      transactionDate: transaction.transactionDate
-        .toISOString()
-        .split("T")[0],
+      transactionDate: transaction.transactionDate.toISOString().split("T")[0],
       totalQuantity: transaction.totalQuantity,
       totalSupplyAmount: transaction.totalSupplyAmount.toString(),
       totalVat: transaction.totalVat.toString(),
@@ -93,11 +92,12 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
         businessNumber: company.businessNumber,
         businessType: company.businessType,
         businessItem: company.businessItem,
-        logoUrl: company.logoUrl,    // ★ 추가
+        logoUrl: company.logoUrl,
         sealUrl: company.sealUrl,
       },
       client: {
         companyName: transaction.client.companyName,
+        representative: transaction.client.representative,
         contactName: transaction.client.contactName,
         phone: transaction.client.phone,
         fax: transaction.client.fax,
@@ -115,7 +115,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
 
     const fileName = `거래명세서_${transaction.transactionNumber}_${transaction.client.companyName}`;
     return await renderPdfToResponse(
-      <TransactionPdfDocument data={ pdfData } />,
+      <TransactionPdfDocument data={pdfData} />,
       fileName
     );
   } catch (error) {

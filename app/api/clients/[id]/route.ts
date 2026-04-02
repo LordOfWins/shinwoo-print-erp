@@ -1,13 +1,9 @@
-// src/app/api/clients/[id]/route.ts
 import { prisma } from "@/lib/prisma";
 import { clientFormSchema } from "@/lib/validators/client";
 import { NextRequest, NextResponse } from "next/server";
 
 type RouteParams = { params: Promise<{ id: string }> };
 
-/**
- * GET /api/clients/[id] — 거래처 상세
- */
 export async function GET(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
@@ -41,9 +37,6 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
   }
 }
 
-/**
- * PATCH /api/clients/[id] — 거래처 수정
- */
 export async function PATCH(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
@@ -72,6 +65,8 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
       where: { id: clientId },
       data: {
         companyName: data.companyName,
+        clientType: data.clientType || "매출",
+        representative: data.representative || null,
         contactName: data.contactName || null,
         phone: data.phone || null,
         fax: data.fax || null,
@@ -94,9 +89,6 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-/**
- * DELETE /api/clients/[id] — 거래처 삭제 (소프트 삭제)
- */
 export async function DELETE(_request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;

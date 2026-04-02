@@ -33,6 +33,7 @@ export type EstimateAvgAggregateOutputType = {
   totalSupplyAmount: runtime.Decimal | null
   totalVat: runtime.Decimal | null
   totalAmount: runtime.Decimal | null
+  managerId: number | null
 }
 
 export type EstimateSumAggregateOutputType = {
@@ -42,6 +43,7 @@ export type EstimateSumAggregateOutputType = {
   totalSupplyAmount: runtime.Decimal | null
   totalVat: runtime.Decimal | null
   totalAmount: runtime.Decimal | null
+  managerId: number | null
 }
 
 export type EstimateMinAggregateOutputType = {
@@ -56,6 +58,11 @@ export type EstimateMinAggregateOutputType = {
   totalVat: runtime.Decimal | null
   totalAmount: runtime.Decimal | null
   recipientText: string | null
+  managerId: number | null
+  managerName: string | null
+  managerTitle: string | null
+  managerPhone: string | null
+  managerEmail: string | null
   note: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -73,6 +80,11 @@ export type EstimateMaxAggregateOutputType = {
   totalVat: runtime.Decimal | null
   totalAmount: runtime.Decimal | null
   recipientText: string | null
+  managerId: number | null
+  managerName: string | null
+  managerTitle: string | null
+  managerPhone: string | null
+  managerEmail: string | null
   note: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -90,6 +102,11 @@ export type EstimateCountAggregateOutputType = {
   totalVat: number
   totalAmount: number
   recipientText: number
+  managerId: number
+  managerName: number
+  managerTitle: number
+  managerPhone: number
+  managerEmail: number
   note: number
   createdAt: number
   updatedAt: number
@@ -104,6 +121,7 @@ export type EstimateAvgAggregateInputType = {
   totalSupplyAmount?: true
   totalVat?: true
   totalAmount?: true
+  managerId?: true
 }
 
 export type EstimateSumAggregateInputType = {
@@ -113,6 +131,7 @@ export type EstimateSumAggregateInputType = {
   totalSupplyAmount?: true
   totalVat?: true
   totalAmount?: true
+  managerId?: true
 }
 
 export type EstimateMinAggregateInputType = {
@@ -127,6 +146,11 @@ export type EstimateMinAggregateInputType = {
   totalVat?: true
   totalAmount?: true
   recipientText?: true
+  managerId?: true
+  managerName?: true
+  managerTitle?: true
+  managerPhone?: true
+  managerEmail?: true
   note?: true
   createdAt?: true
   updatedAt?: true
@@ -144,6 +168,11 @@ export type EstimateMaxAggregateInputType = {
   totalVat?: true
   totalAmount?: true
   recipientText?: true
+  managerId?: true
+  managerName?: true
+  managerTitle?: true
+  managerPhone?: true
+  managerEmail?: true
   note?: true
   createdAt?: true
   updatedAt?: true
@@ -161,6 +190,11 @@ export type EstimateCountAggregateInputType = {
   totalVat?: true
   totalAmount?: true
   recipientText?: true
+  managerId?: true
+  managerName?: true
+  managerTitle?: true
+  managerPhone?: true
+  managerEmail?: true
   note?: true
   createdAt?: true
   updatedAt?: true
@@ -265,6 +299,11 @@ export type EstimateGroupByOutputType = {
   totalVat: runtime.Decimal
   totalAmount: runtime.Decimal
   recipientText: string | null
+  managerId: number | null
+  managerName: string | null
+  managerTitle: string | null
+  managerPhone: string | null
+  managerEmail: string | null
   note: string | null
   createdAt: Date
   updatedAt: Date
@@ -275,7 +314,7 @@ export type EstimateGroupByOutputType = {
   _max: EstimateMaxAggregateOutputType | null
 }
 
-type GetEstimateGroupByPayload<T extends EstimateGroupByArgs> = Prisma.PrismaPromise<
+export type GetEstimateGroupByPayload<T extends EstimateGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EstimateGroupByOutputType, T['by']> &
       {
@@ -305,6 +344,11 @@ export type EstimateWhereInput = {
   totalVat?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerId?: Prisma.IntNullableFilter<"Estimate"> | number | null
+  managerName?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerTitle?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerPhone?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerEmail?: Prisma.StringNullableFilter<"Estimate"> | string | null
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -324,6 +368,11 @@ export type EstimateOrderByWithRelationInput = {
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   recipientText?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -347,6 +396,11 @@ export type EstimateWhereUniqueInput = Prisma.AtLeast<{
   totalVat?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerId?: Prisma.IntNullableFilter<"Estimate"> | number | null
+  managerName?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerTitle?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerPhone?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerEmail?: Prisma.StringNullableFilter<"Estimate"> | string | null
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -366,6 +420,11 @@ export type EstimateOrderByWithAggregationInput = {
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   recipientText?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerId?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerName?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerPhone?: Prisma.SortOrderInput | Prisma.SortOrder
+  managerEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -391,6 +450,11 @@ export type EstimateScalarWhereWithAggregatesInput = {
   totalVat?: Prisma.DecimalWithAggregatesFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalWithAggregatesFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
+  managerId?: Prisma.IntNullableWithAggregatesFilter<"Estimate"> | number | null
+  managerName?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
+  managerTitle?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
+  managerPhone?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
+  managerEmail?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
   note?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Estimate"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Estimate"> | Date | string
@@ -406,6 +470,11 @@ export type EstimateCreateInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -425,6 +494,11 @@ export type EstimateUncheckedCreateInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -441,6 +515,11 @@ export type EstimateUpdateInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -460,6 +539,11 @@ export type EstimateUncheckedUpdateInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -478,6 +562,11 @@ export type EstimateCreateManyInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -493,6 +582,11 @@ export type EstimateUpdateManyMutationInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -510,6 +604,11 @@ export type EstimateUncheckedUpdateManyInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -543,6 +642,11 @@ export type EstimateCountOrderByAggregateInput = {
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   recipientText?: Prisma.SortOrder
+  managerId?: Prisma.SortOrder
+  managerName?: Prisma.SortOrder
+  managerTitle?: Prisma.SortOrder
+  managerPhone?: Prisma.SortOrder
+  managerEmail?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -555,6 +659,7 @@ export type EstimateAvgOrderByAggregateInput = {
   totalSupplyAmount?: Prisma.SortOrder
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
+  managerId?: Prisma.SortOrder
 }
 
 export type EstimateMaxOrderByAggregateInput = {
@@ -569,6 +674,11 @@ export type EstimateMaxOrderByAggregateInput = {
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   recipientText?: Prisma.SortOrder
+  managerId?: Prisma.SortOrder
+  managerName?: Prisma.SortOrder
+  managerTitle?: Prisma.SortOrder
+  managerPhone?: Prisma.SortOrder
+  managerEmail?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -586,6 +696,11 @@ export type EstimateMinOrderByAggregateInput = {
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
   recipientText?: Prisma.SortOrder
+  managerId?: Prisma.SortOrder
+  managerName?: Prisma.SortOrder
+  managerTitle?: Prisma.SortOrder
+  managerPhone?: Prisma.SortOrder
+  managerEmail?: Prisma.SortOrder
   note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -598,6 +713,7 @@ export type EstimateSumOrderByAggregateInput = {
   totalSupplyAmount?: Prisma.SortOrder
   totalVat?: Prisma.SortOrder
   totalAmount?: Prisma.SortOrder
+  managerId?: Prisma.SortOrder
 }
 
 export type EstimateScalarRelationFilter = {
@@ -679,6 +795,11 @@ export type EstimateCreateWithoutClientInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -696,6 +817,11 @@ export type EstimateUncheckedCreateWithoutClientInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -743,6 +869,11 @@ export type EstimateScalarWhereInput = {
   totalVat?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFilter<"Estimate"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerId?: Prisma.IntNullableFilter<"Estimate"> | number | null
+  managerName?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerTitle?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerPhone?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  managerEmail?: Prisma.StringNullableFilter<"Estimate"> | string | null
   note?: Prisma.StringNullableFilter<"Estimate"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
@@ -758,6 +889,11 @@ export type EstimateCreateWithoutItemsInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -776,6 +912,11 @@ export type EstimateUncheckedCreateWithoutItemsInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -807,6 +948,11 @@ export type EstimateUpdateWithoutItemsInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -825,6 +971,11 @@ export type EstimateUncheckedUpdateWithoutItemsInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -841,6 +992,11 @@ export type EstimateCreateManyClientInput = {
   totalVat?: runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: string | null
+  managerId?: number | null
+  managerName?: string | null
+  managerTitle?: string | null
+  managerPhone?: string | null
+  managerEmail?: string | null
   note?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -856,6 +1012,11 @@ export type EstimateUpdateWithoutClientInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -873,6 +1034,11 @@ export type EstimateUncheckedUpdateWithoutClientInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -890,6 +1056,11 @@ export type EstimateUncheckedUpdateManyWithoutClientInput = {
   totalVat?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   totalAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   recipientText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  managerName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  managerEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -938,6 +1109,11 @@ export type EstimateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   totalVat?: boolean
   totalAmount?: boolean
   recipientText?: boolean
+  managerId?: boolean
+  managerName?: boolean
+  managerTitle?: boolean
+  managerPhone?: boolean
+  managerEmail?: boolean
   note?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -960,12 +1136,17 @@ export type EstimateSelectScalar = {
   totalVat?: boolean
   totalAmount?: boolean
   recipientText?: boolean
+  managerId?: boolean
+  managerName?: boolean
+  managerTitle?: boolean
+  managerPhone?: boolean
+  managerEmail?: boolean
   note?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateNumber" | "estimateDate" | "clientId" | "clientContactName" | "stage" | "validDays" | "totalSupplyAmount" | "totalVat" | "totalAmount" | "recipientText" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["estimate"]>
+export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "estimateNumber" | "estimateDate" | "clientId" | "clientContactName" | "stage" | "validDays" | "totalSupplyAmount" | "totalVat" | "totalAmount" | "recipientText" | "managerId" | "managerName" | "managerTitle" | "managerPhone" | "managerEmail" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["estimate"]>
 export type EstimateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Estimate$itemsArgs<ExtArgs>
@@ -990,6 +1171,11 @@ export type $EstimatePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     totalVat: runtime.Decimal
     totalAmount: runtime.Decimal
     recipientText: string | null
+    managerId: number | null
+    managerName: string | null
+    managerTitle: string | null
+    managerPhone: string | null
+    managerEmail: string | null
     note: string | null
     createdAt: Date
     updatedAt: Date
@@ -1375,6 +1561,11 @@ export interface EstimateFieldRefs {
   readonly totalVat: Prisma.FieldRef<"Estimate", 'Decimal'>
   readonly totalAmount: Prisma.FieldRef<"Estimate", 'Decimal'>
   readonly recipientText: Prisma.FieldRef<"Estimate", 'String'>
+  readonly managerId: Prisma.FieldRef<"Estimate", 'Int'>
+  readonly managerName: Prisma.FieldRef<"Estimate", 'String'>
+  readonly managerTitle: Prisma.FieldRef<"Estimate", 'String'>
+  readonly managerPhone: Prisma.FieldRef<"Estimate", 'String'>
+  readonly managerEmail: Prisma.FieldRef<"Estimate", 'String'>
   readonly note: Prisma.FieldRef<"Estimate", 'String'>
   readonly createdAt: Prisma.FieldRef<"Estimate", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Estimate", 'DateTime'>

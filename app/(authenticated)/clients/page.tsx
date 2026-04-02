@@ -1,4 +1,3 @@
-// src/app/(authenticated)/clients/page.tsx
 "use client";
 
 import { ConfirmDialog } from "@/components/shared/confirm-dialog";
@@ -14,6 +13,7 @@ import { useCallback, useEffect, useState } from "react";
 interface ClientRow {
   id: number;
   companyName: string;
+  clientType: string;
   contactName: string | null;
   phone: string | null;
   email: string | null;
@@ -28,9 +28,8 @@ export default function ClientsPage() {
   const [totalCount, setTotalCount] = useState(0);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [clientTypeFilter, setClientTypeFilter] = useState("");
   const [loading, setLoading] = useState(true);
-
-  // 삭제 관련
   const [deleteTarget, setDeleteTarget] = useState<ClientRow | null>(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
@@ -43,6 +42,7 @@ export default function ClientsPage() {
         page: String(page),
         pageSize: String(pageSize),
         ...(search ? { search } : {}),
+        ...(clientTypeFilter ? { clientType: clientTypeFilter } : {}),
       });
       const res = await fetch(`/api/clients?${params}`);
       const json = await res.json();
@@ -53,7 +53,7 @@ export default function ClientsPage() {
     } finally {
       setLoading(false);
     }
-  }, [page, search]);
+  }, [page, search, clientTypeFilter]);
 
   useEffect(() => {
     fetchData();
@@ -87,6 +87,23 @@ export default function ClientsPage() {
       key: "companyName",
       header: "업체명",
       className: "min-w-[150px] font-medium",
+    },
+    {
+      key: "clientType",
+      header: "구분",
+      className: "w-[90px]",
+      render: (row) => {
+        const colorMap: Record<string, string> = {
+          "매입": "bg-blue-100 text-blue-800",
+          "매출": "bg-green-100 text-green-800",
+          "매입매출": "bg-purple-100 text-purple-800",
+        };
+        return (
+          <Badge className={colorMap[row.clientType] || ""} variant="outline">
+            {row.clientType}
+          </Badge>
+        );
+      },
     },
     {
       key: "contactName",
@@ -158,6 +175,28 @@ export default function ClientsPage() {
         placeholder="업체명 또는 담당자명으로 검색"
         onSearch={handleSearch}
       />
+
+      <div className="flex gap-2">
+        {[
+          { value: "", label: "전체" },
+          { value: "매입", label: "매입" },
+          { value: "매출", label: "매출" },
+          { value: "매입매출", label: "매입매출" },
+        ].map((opt) => (
+          <Button
+            key={opt.value}
+            variant={clientTypeFilter === opt.value ? "default" : "outline"}
+            size="sm"
+            onClick={() => {
+              setClientTypeFilter(opt.value);
+              setPage(1);
+            }}
+            className="text-[0.85rem]"
+          >
+            {opt.label}
+          </Button>
+        ))}
+      </div>
 
       {loading ? (
         <div className="text-muted-foreground flex h-32 items-center justify-center">

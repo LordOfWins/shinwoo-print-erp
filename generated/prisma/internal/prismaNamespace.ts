@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.6.0
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.5.0",
-  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+  client: "7.6.0",
+  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
 /**
@@ -398,7 +398,8 @@ export const ModelName = {
   TransactionItem: 'TransactionItem',
   SalesRecord: 'SalesRecord',
   SalesTarget: 'SalesTarget',
-  FileUpload: 'FileUpload'
+  FileUpload: 'FileUpload',
+  EstimateManager: 'EstimateManager'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "companyInfo" | "bankAccount" | "systemOption" | "material" | "client" | "product" | "order" | "orderItem" | "estimate" | "estimateItem" | "transaction" | "transactionItem" | "salesRecord" | "salesTarget" | "fileUpload"
+    modelProps: "companyInfo" | "bankAccount" | "systemOption" | "material" | "client" | "product" | "order" | "orderItem" | "estimate" | "estimateItem" | "transaction" | "transactionItem" | "salesRecord" | "salesTarget" | "fileUpload" | "estimateManager"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1408,6 +1409,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EstimateManager: {
+      payload: Prisma.$EstimateManagerPayload<ExtArgs>
+      fields: Prisma.EstimateManagerFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EstimateManagerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EstimateManagerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        findFirst: {
+          args: Prisma.EstimateManagerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EstimateManagerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        findMany: {
+          args: Prisma.EstimateManagerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>[]
+        }
+        create: {
+          args: Prisma.EstimateManagerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        createMany: {
+          args: Prisma.EstimateManagerCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        delete: {
+          args: Prisma.EstimateManagerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        update: {
+          args: Prisma.EstimateManagerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        deleteMany: {
+          args: Prisma.EstimateManagerDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EstimateManagerUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        upsert: {
+          args: Prisma.EstimateManagerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EstimateManagerPayload>
+        }
+        aggregate: {
+          args: Prisma.EstimateManagerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEstimateManager>
+        }
+        groupBy: {
+          args: Prisma.EstimateManagerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EstimateManagerGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EstimateManagerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EstimateManagerCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1459,6 +1526,7 @@ export const CompanyInfoScalarFieldEnum = {
   businessItem: 'businessItem',
   logoUrl: 'logoUrl',
   sealUrl: 'sealUrl',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1514,6 +1582,7 @@ export type MaterialScalarFieldEnum = (typeof MaterialScalarFieldEnum)[keyof typ
 export const ClientScalarFieldEnum = {
   id: 'id',
   companyName: 'companyName',
+  clientType: 'clientType',
   contactName: 'contactName',
   phone: 'phone',
   fax: 'fax',
@@ -1635,6 +1704,11 @@ export const EstimateScalarFieldEnum = {
   totalVat: 'totalVat',
   totalAmount: 'totalAmount',
   recipientText: 'recipientText',
+  managerId: 'managerId',
+  managerName: 'managerName',
+  managerTitle: 'managerTitle',
+  managerPhone: 'managerPhone',
+  managerEmail: 'managerEmail',
   note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1757,6 +1831,22 @@ export const FileUploadScalarFieldEnum = {
 export type FileUploadScalarFieldEnum = (typeof FileUploadScalarFieldEnum)[keyof typeof FileUploadScalarFieldEnum]
 
 
+export const EstimateManagerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  title: 'title',
+  phone: 'phone',
+  email: 'email',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EstimateManagerScalarFieldEnum = (typeof EstimateManagerScalarFieldEnum)[keyof typeof EstimateManagerScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1783,7 +1873,8 @@ export const CompanyInfoOrderByRelevanceFieldEnum = {
   businessType: 'businessType',
   businessItem: 'businessItem',
   logoUrl: 'logoUrl',
-  sealUrl: 'sealUrl'
+  sealUrl: 'sealUrl',
+  passwordHash: 'passwordHash'
 } as const
 
 export type CompanyInfoOrderByRelevanceFieldEnum = (typeof CompanyInfoOrderByRelevanceFieldEnum)[keyof typeof CompanyInfoOrderByRelevanceFieldEnum]
@@ -1822,6 +1913,7 @@ export type MaterialOrderByRelevanceFieldEnum = (typeof MaterialOrderByRelevance
 
 export const ClientOrderByRelevanceFieldEnum = {
   companyName: 'companyName',
+  clientType: 'clientType',
   contactName: 'contactName',
   phone: 'phone',
   fax: 'fax',
@@ -1900,6 +1992,10 @@ export const EstimateOrderByRelevanceFieldEnum = {
   clientContactName: 'clientContactName',
   stage: 'stage',
   recipientText: 'recipientText',
+  managerName: 'managerName',
+  managerTitle: 'managerTitle',
+  managerPhone: 'managerPhone',
+  managerEmail: 'managerEmail',
   note: 'note'
 } as const
 
@@ -1956,6 +2052,16 @@ export const FileUploadOrderByRelevanceFieldEnum = {
 } as const
 
 export type FileUploadOrderByRelevanceFieldEnum = (typeof FileUploadOrderByRelevanceFieldEnum)[keyof typeof FileUploadOrderByRelevanceFieldEnum]
+
+
+export const EstimateManagerOrderByRelevanceFieldEnum = {
+  name: 'name',
+  title: 'title',
+  phone: 'phone',
+  email: 'email'
+} as const
+
+export type EstimateManagerOrderByRelevanceFieldEnum = (typeof EstimateManagerOrderByRelevanceFieldEnum)[keyof typeof EstimateManagerOrderByRelevanceFieldEnum]
 
 
 
@@ -2115,6 +2221,7 @@ export type GlobalOmitConfig = {
   salesRecord?: Prisma.SalesRecordOmit
   salesTarget?: Prisma.SalesTargetOmit
   fileUpload?: Prisma.FileUploadOmit
+  estimateManager?: Prisma.EstimateManagerOmit
 }
 
 /* Types for Logging */

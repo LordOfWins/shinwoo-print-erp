@@ -19,6 +19,7 @@ model CompanyInfo {
   businessItem      String?  @db.VarChar(50)
   logoUrl           String?  @db.VarChar(500)
   sealUrl           String?  @db.VarChar(500)
+  passwordHash      String?  @db.VarChar(200)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
@@ -56,7 +57,6 @@ model SystemOption {
   @@map("system_options")
 }
 
-// ★ NEW: 원단 마스터 (시딩 전용)
 model Material {
   id                Int      @id @default(autoincrement())
   paperType         String?  @db.VarChar(50)
@@ -77,6 +77,8 @@ model Material {
 model Client {
   id                Int      @id @default(autoincrement())
   companyName       String   @db.VarChar(100)
+  clientType        String   @default("매출") @db.VarChar(10)
+  representative    String?  @db.VarChar(50)
   contactName       String?  @db.VarChar(50)
   phone             String?  @db.VarChar(30)
   fax               String?  @db.VarChar(30)
@@ -97,6 +99,7 @@ model Client {
 
   @@index([companyName])
   @@index([contactName])
+  @@index([clientType])
   @@map("clients")
 }
 
@@ -136,7 +139,7 @@ model Order {
   deliveryRegion    String?  @db.VarChar(50)
   photoInspection   Boolean  @default(false)
   sampleShipping    Boolean  @default(false)
-  tightRoll         Boolean  @default(false)              // ★ P0 추가
+  tightRoll         Boolean  @default(false)
   packagingType     String?  @db.VarChar(20)
   deliveryType      String?  @db.VarChar(20)
   courierType       String?  @db.VarChar(20)
@@ -171,11 +174,11 @@ model OrderItem {
   supplyAmount      Decimal? @db.Decimal(12, 0)
   material          String?  @db.VarChar(50)
   materialWidth     Decimal? @db.Decimal(6, 1)
-  paperType         String?  @db.VarChar(50)   // ★ 원단: 지종
-  backing           String?  @db.VarChar(50)   // ★ 원단: 후지
-  adhesive          String?  @db.VarChar(50)   // ★ 원단: 접착제
-  thickness         String?  @db.VarChar(20)   // ★ 원단: 두께
-  manufacturer      String?  @db.VarChar(100)  // ★ 원단: 제조사
+  paperType         String?  @db.VarChar(50)
+  backing           String?  @db.VarChar(50)
+  adhesive          String?  @db.VarChar(50)
+  thickness         String?  @db.VarChar(20)
+  manufacturer      String?  @db.VarChar(100)
   perforation       Boolean  @default(false)
   sizeWidth         Decimal? @db.Decimal(6, 1)
   sizeHeight        Decimal? @db.Decimal(6, 1)
@@ -216,9 +219,14 @@ model Estimate {
   stage             String   @default("1차제안") @db.VarChar(30)
   validDays         Int      @default(10)
   totalSupplyAmount Decimal  @default(0) @db.Decimal(12, 0)
-  totalVat          Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
-  totalAmount       Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
-  recipientText     String?  @db.VarChar(200)                  // ★ P0 추가
+  totalVat          Decimal  @default(0) @db.Decimal(12, 0)
+  totalAmount       Decimal  @default(0) @db.Decimal(12, 0)
+  recipientText     String?  @db.VarChar(200)
+  managerId         Int?
+  managerName       String?  @db.VarChar(50)
+  managerTitle      String?  @db.VarChar(50)
+  managerPhone      String?  @db.VarChar(30)
+  managerEmail      String?  @db.VarChar(100)
   note              String?  @db.Text
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
@@ -241,9 +249,9 @@ model EstimateItem {
   quantity          Int      @default(0)
   unitPrice         Decimal  @default(0) @db.Decimal(12, 0)
   supplyAmount      Decimal  @default(0) @db.Decimal(12, 0)
-  vat               Decimal  @default(0) @db.Decimal(12, 0)   // ★ P0 추가
-  quantityText      String?  @db.VarChar(50)                   // ★ P0 추가
-  unitPriceText     String?  @db.VarChar(50)                   // ★ P0 추가
+  vat               Decimal  @default(0) @db.Decimal(12, 0)
+  quantityText      String?  @db.VarChar(50)
+  unitPriceText     String?  @db.VarChar(50)
   note              String?  @db.VarChar(200)
   sortOrder         Int      @default(0)
   createdAt         DateTime @default(now())
@@ -254,6 +262,21 @@ model EstimateItem {
 
   @@index([estimateId])
   @@map("estimate_items")
+}
+
+model EstimateManager {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(50)
+  title       String?  @db.VarChar(50)
+  phone       String?  @db.VarChar(30)
+  email       String?  @db.VarChar(100)
+  isDefault   Boolean  @default(false)
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("estimate_managers")
 }
 
 model Transaction {
@@ -307,7 +330,7 @@ model SalesRecord {
   year                Int
   month               Int
   transactionType     String?  @db.VarChar(10)
-  dataType            String?  @db.VarChar(20)
+  dataType       g?  @db.VarChar(20)
   worker              String?  @db.VarChar(50)
   deliveryType        String?  @db.VarChar(20)
   deliveryRegion      String?  @db.VarChar(50)

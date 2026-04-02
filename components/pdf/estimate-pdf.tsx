@@ -42,6 +42,12 @@ interface BankData {
 }
 
 interface EstimatePdfData {
+  manager: {
+    name: string;
+    title: string | null;
+    phone: string | null;
+    email: string | null;
+  } | null;
   estimateNumber: string;
   estimateDate: string;
   clientCompanyName: string;
@@ -564,13 +570,18 @@ export function EstimatePdfDocument({ data }: { data: EstimatePdfData }) {
           </Text>
         </View>
 
-        {/* 견적 담당자 */}
-        <View style={s.managerRow}>
-          <Text style={s.managerLabel}>견적 담당자</Text>
-          <Text style={s.managerValue}>
-            박성진 실장 010-3583-6312 shinwoo6536@hanmail.net
-          </Text>
-        </View>
+        {/* 견적 담당자 — 하드코딩 제거 → 동적 렌더링 */}
+        {data.manager && (
+          <View style={s.managerRow}>
+            <Text style={s.managerLabel}>견적 담당자</Text>
+            <Text style={s.managerValue}>
+              {data.manager.name}
+              {data.manager.title ? ` ${data.manager.title}` : ""}
+              {data.manager.phone ? ` ${data.manager.phone}` : ""}
+              {data.manager.email ? ` ${data.manager.email}` : ""}
+            </Text>
+          </View>
+        )}
 
         {/* 직인 */}
         {data.company.sealUrl ? (

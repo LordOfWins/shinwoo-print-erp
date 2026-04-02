@@ -65,7 +65,8 @@ export const ModelName = {
   TransactionItem: 'TransactionItem',
   SalesRecord: 'SalesRecord',
   SalesTarget: 'SalesTarget',
-  FileUpload: 'FileUpload'
+  FileUpload: 'FileUpload',
+  EstimateManager: 'EstimateManager'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -96,6 +97,7 @@ export const CompanyInfoScalarFieldEnum = {
   businessItem: 'businessItem',
   logoUrl: 'logoUrl',
   sealUrl: 'sealUrl',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -151,6 +153,7 @@ export type MaterialScalarFieldEnum = (typeof MaterialScalarFieldEnum)[keyof typ
 export const ClientScalarFieldEnum = {
   id: 'id',
   companyName: 'companyName',
+  clientType: 'clientType',
   contactName: 'contactName',
   phone: 'phone',
   fax: 'fax',
@@ -272,6 +275,11 @@ export const EstimateScalarFieldEnum = {
   totalVat: 'totalVat',
   totalAmount: 'totalAmount',
   recipientText: 'recipientText',
+  managerId: 'managerId',
+  managerName: 'managerName',
+  managerTitle: 'managerTitle',
+  managerPhone: 'managerPhone',
+  managerEmail: 'managerEmail',
   note: 'note',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -394,6 +402,22 @@ export const FileUploadScalarFieldEnum = {
 export type FileUploadScalarFieldEnum = (typeof FileUploadScalarFieldEnum)[keyof typeof FileUploadScalarFieldEnum]
 
 
+export const EstimateManagerScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  title: 'title',
+  phone: 'phone',
+  email: 'email',
+  isDefault: 'isDefault',
+  isActive: 'isActive',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EstimateManagerScalarFieldEnum = (typeof EstimateManagerScalarFieldEnum)[keyof typeof EstimateManagerScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -420,7 +444,8 @@ export const CompanyInfoOrderByRelevanceFieldEnum = {
   businessType: 'businessType',
   businessItem: 'businessItem',
   logoUrl: 'logoUrl',
-  sealUrl: 'sealUrl'
+  sealUrl: 'sealUrl',
+  passwordHash: 'passwordHash'
 } as const
 
 export type CompanyInfoOrderByRelevanceFieldEnum = (typeof CompanyInfoOrderByRelevanceFieldEnum)[keyof typeof CompanyInfoOrderByRelevanceFieldEnum]
@@ -459,6 +484,7 @@ export type MaterialOrderByRelevanceFieldEnum = (typeof MaterialOrderByRelevance
 
 export const ClientOrderByRelevanceFieldEnum = {
   companyName: 'companyName',
+  clientType: 'clientType',
   contactName: 'contactName',
   phone: 'phone',
   fax: 'fax',
@@ -537,6 +563,10 @@ export const EstimateOrderByRelevanceFieldEnum = {
   clientContactName: 'clientContactName',
   stage: 'stage',
   recipientText: 'recipientText',
+  managerName: 'managerName',
+  managerTitle: 'managerTitle',
+  managerPhone: 'managerPhone',
+  managerEmail: 'managerEmail',
   note: 'note'
 } as const
 
@@ -593,4 +623,14 @@ export const FileUploadOrderByRelevanceFieldEnum = {
 } as const
 
 export type FileUploadOrderByRelevanceFieldEnum = (typeof FileUploadOrderByRelevanceFieldEnum)[keyof typeof FileUploadOrderByRelevanceFieldEnum]
+
+
+export const EstimateManagerOrderByRelevanceFieldEnum = {
+  name: 'name',
+  title: 'title',
+  phone: 'phone',
+  email: 'email'
+} as const
+
+export type EstimateManagerOrderByRelevanceFieldEnum = (typeof EstimateManagerOrderByRelevanceFieldEnum)[keyof typeof EstimateManagerOrderByRelevanceFieldEnum]
 

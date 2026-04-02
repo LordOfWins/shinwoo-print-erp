@@ -96,6 +96,14 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
         accountNumber: bank.accountNumber,
         accountHolder: bank.accountHolder,
       },
+      manager: estimate.managerName
+        ? {
+          name: estimate.managerName,
+          title: estimate.managerTitle,
+          phone: estimate.managerPhone,
+          email: estimate.managerEmail,
+        }
+        : null,
     };
 
     const fileName = `견적서_${estimate.estimateNumber}_${estimate.client.companyName}`;

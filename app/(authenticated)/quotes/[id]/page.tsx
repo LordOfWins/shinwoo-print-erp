@@ -45,6 +45,11 @@ interface EstimateData {
     note: string | null;
     sortOrder: number;
   }>;
+  managerId: number | null;         // ★ 추가
+  managerName: string | null;       // ★ 추가
+  managerTitle: string | null;      // ★ 추가
+  managerPhone: string | null;      // ★ 추가
+  managerEmail: string | null;      // ★ 추가
 }
 
 export default function EstimateDetailPage() {
@@ -133,6 +138,11 @@ export default function EstimateDetailPage() {
   if (!estimate) return null;
 
   const defaultValues: EstimateFormValues = {
+    managerId: estimate.managerId ?? null,
+    managerName: estimate.managerName || "",          // ★ null → ""
+    managerTitle: estimate.managerTitle || "",         // ★ null → ""
+    managerPhone: estimate.managerPhone || "",         // ★ null → ""
+    managerEmail: estimate.managerEmail || "",         // ★ null → ""
     clientId: estimate.clientId,
     estimateDate: estimate.estimateDate,
     clientContactName: estimate.clientContactName || "",

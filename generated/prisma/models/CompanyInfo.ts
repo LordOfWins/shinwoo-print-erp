@@ -46,6 +46,7 @@ export type CompanyInfoMinAggregateOutputType = {
   businessItem: string | null
   logoUrl: string | null
   sealUrl: string | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +63,7 @@ export type CompanyInfoMaxAggregateOutputType = {
   businessItem: string | null
   logoUrl: string | null
   sealUrl: string | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -78,6 +80,7 @@ export type CompanyInfoCountAggregateOutputType = {
   businessItem: number
   logoUrl: number
   sealUrl: number
+  passwordHash: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -104,6 +107,7 @@ export type CompanyInfoMinAggregateInputType = {
   businessItem?: true
   logoUrl?: true
   sealUrl?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -120,6 +124,7 @@ export type CompanyInfoMaxAggregateInputType = {
   businessItem?: true
   logoUrl?: true
   sealUrl?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -136,6 +141,7 @@ export type CompanyInfoCountAggregateInputType = {
   businessItem?: true
   logoUrl?: true
   sealUrl?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -239,6 +245,7 @@ export type CompanyInfoGroupByOutputType = {
   businessItem: string | null
   logoUrl: string | null
   sealUrl: string | null
+  passwordHash: string | null
   createdAt: Date
   updatedAt: Date
   _count: CompanyInfoCountAggregateOutputType | null
@@ -248,7 +255,7 @@ export type CompanyInfoGroupByOutputType = {
   _max: CompanyInfoMaxAggregateOutputType | null
 }
 
-type GetCompanyInfoGroupByPayload<T extends CompanyInfoGroupByArgs> = Prisma.PrismaPromise<
+export type GetCompanyInfoGroupByPayload<T extends CompanyInfoGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<CompanyInfoGroupByOutputType, T['by']> &
       {
@@ -278,6 +285,7 @@ export type CompanyInfoWhereInput = {
   businessItem?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   sealUrl?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
+  passwordHash?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyInfo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyInfo"> | Date | string
 }
@@ -294,6 +302,7 @@ export type CompanyInfoOrderByWithRelationInput = {
   businessItem?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   sealUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _relevance?: Prisma.CompanyInfoOrderByRelevanceInput
@@ -314,6 +323,7 @@ export type CompanyInfoWhereUniqueInput = Prisma.AtLeast<{
   businessItem?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   logoUrl?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   sealUrl?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
+  passwordHash?: Prisma.StringNullableFilter<"CompanyInfo"> | string | null
   createdAt?: Prisma.DateTimeFilter<"CompanyInfo"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CompanyInfo"> | Date | string
 }, "id">
@@ -330,6 +340,7 @@ export type CompanyInfoOrderByWithAggregationInput = {
   businessItem?: Prisma.SortOrderInput | Prisma.SortOrder
   logoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   sealUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CompanyInfoCountOrderByAggregateInput
@@ -354,6 +365,7 @@ export type CompanyInfoScalarWhereWithAggregatesInput = {
   businessItem?: Prisma.StringNullableWithAggregatesFilter<"CompanyInfo"> | string | null
   logoUrl?: Prisma.StringNullableWithAggregatesFilter<"CompanyInfo"> | string | null
   sealUrl?: Prisma.StringNullableWithAggregatesFilter<"CompanyInfo"> | string | null
+  passwordHash?: Prisma.StringNullableWithAggregatesFilter<"CompanyInfo"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyInfo"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CompanyInfo"> | Date | string
 }
@@ -370,6 +382,7 @@ export type CompanyInfoCreateInput = {
   businessItem?: string | null
   logoUrl?: string | null
   sealUrl?: string | null
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -386,6 +399,7 @@ export type CompanyInfoUncheckedCreateInput = {
   businessItem?: string | null
   logoUrl?: string | null
   sealUrl?: string | null
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -402,6 +416,7 @@ export type CompanyInfoUpdateInput = {
   businessItem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sealUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -418,6 +433,7 @@ export type CompanyInfoUncheckedUpdateInput = {
   businessItem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sealUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -434,6 +450,7 @@ export type CompanyInfoCreateManyInput = {
   businessItem?: string | null
   logoUrl?: string | null
   sealUrl?: string | null
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -450,6 +467,7 @@ export type CompanyInfoUpdateManyMutationInput = {
   businessItem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sealUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -466,6 +484,7 @@ export type CompanyInfoUncheckedUpdateManyInput = {
   businessItem?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sealUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -488,6 +507,7 @@ export type CompanyInfoCountOrderByAggregateInput = {
   businessItem?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
   sealUrl?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,6 +528,7 @@ export type CompanyInfoMaxOrderByAggregateInput = {
   businessItem?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
   sealUrl?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -524,6 +545,7 @@ export type CompanyInfoMinOrderByAggregateInput = {
   businessItem?: Prisma.SortOrder
   logoUrl?: Prisma.SortOrder
   sealUrl?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -566,6 +588,7 @@ export type CompanyInfoSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   businessItem?: boolean
   logoUrl?: boolean
   sealUrl?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["companyInfo"]>
@@ -584,11 +607,12 @@ export type CompanyInfoSelectScalar = {
   businessItem?: boolean
   logoUrl?: boolean
   sealUrl?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CompanyInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyName" | "representative" | "address" | "phone" | "fax" | "businessNumber" | "businessType" | "businessItem" | "logoUrl" | "sealUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["companyInfo"]>
+export type CompanyInfoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyName" | "representative" | "address" | "phone" | "fax" | "businessNumber" | "businessType" | "businessItem" | "logoUrl" | "sealUrl" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["companyInfo"]>
 
 export type $CompanyInfoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "CompanyInfo"
@@ -605,6 +629,7 @@ export type $CompanyInfoPayload<ExtArgs extends runtime.Types.Extensions.Interna
     businessItem: string | null
     logoUrl: string | null
     sealUrl: string | null
+    passwordHash: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["companyInfo"]>
@@ -987,6 +1012,7 @@ export interface CompanyInfoFieldRefs {
   readonly businessItem: Prisma.FieldRef<"CompanyInfo", 'String'>
   readonly logoUrl: Prisma.FieldRef<"CompanyInfo", 'String'>
   readonly sealUrl: Prisma.FieldRef<"CompanyInfo", 'String'>
+  readonly passwordHash: Prisma.FieldRef<"CompanyInfo", 'String'>
   readonly createdAt: Prisma.FieldRef<"CompanyInfo", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CompanyInfo", 'DateTime'>
 }

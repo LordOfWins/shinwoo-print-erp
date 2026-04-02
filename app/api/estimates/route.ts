@@ -114,7 +114,13 @@ export async function POST(request: NextRequest) {
             totalVat: totalVat,
             totalAmount: totalAmount,
             note: data.note || null,
+            managerId: data.managerId || null,              // ★ 추가
+            managerName: data.managerName || null,           // ★ 추가
+            managerTitle: data.managerTitle || null,          // ★ 추가
+            managerPhone: data.managerPhone || null,          // ★ 추가
+            managerEmail: data.managerEmail || null,          // ★ 추가
             items: {
+
               create: data.items.map((item, idx) => ({
                 productId: item.productId || null,
                 productName: item.productName,

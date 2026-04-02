@@ -29,6 +29,13 @@ export const estimateFormSchema = z.object({
     const n = Number(v);
     return isNaN(n) || n < 1 ? 10 : n;
   }),
+  // ★ 담당자 필드 추가
+  managerId: z.union([z.number(), z.null()]),
+  managerName: z.string().max(50).optional().or(z.literal("")),
+  managerTitle: z.string().max(50).optional().or(z.literal("")),
+  managerPhone: z.string().max(30).optional().or(z.literal("")),
+  managerEmail: z.string().max(100).optional().or(z.literal("")),
+  // ★ 여기까지
   totalSupplyAmount: z.string().optional().or(z.literal("")),
   totalVat: z.string().optional().or(z.literal("")),
   totalAmount: z.string().optional().or(z.literal("")),

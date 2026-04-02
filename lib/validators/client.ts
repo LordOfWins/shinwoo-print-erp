@@ -1,4 +1,3 @@
-// src/lib/validators/client.ts
 import { z } from "zod";
 
 export const clientFormSchema = z.object({
@@ -6,6 +5,16 @@ export const clientFormSchema = z.object({
     .string()
     .min(1, "업체명은 필수입니다.")
     .max(100, "업체명은 100자 이내로 입력하세요."),
+  clientType: z
+    .enum(["매입", "매출", "매입매출"], {
+      error: "거래 구분을 선택하세요.",
+    })
+    .default("매출"),
+  representative: z
+    .string()
+    .max(50, "대표자명은 50자 이내로 입력하세요.")
+    .optional()
+    .or(z.literal("")),
   contactName: z
     .string()
     .max(50, "담당자명은 50자 이내로 입력하세요.")

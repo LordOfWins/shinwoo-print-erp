@@ -224,7 +224,7 @@ export type BankAccountGroupByOutputType = {
   _max: BankAccountMaxAggregateOutputType | null
 }
 
-type GetBankAccountGroupByPayload<T extends BankAccountGroupByArgs> = Prisma.PrismaPromise<
+export type GetBankAccountGroupByPayload<T extends BankAccountGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BankAccountGroupByOutputType, T['by']> &
       {

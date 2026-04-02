@@ -1,7 +1,7 @@
-// app/api/orders/[id]/pdf/route.tsx — 전체 교체
 
 import { OrderPdfDocument } from "@/components/pdf/order-pdf";
 import { renderPdfToResponse } from "@/lib/pdf/render-pdf";
+import { resolveImageSrc } from "@/lib/pdf/resolve-image";
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,7 +19,6 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    // ★ company 동시 조회 추가
     const [order, company] = await Promise.all([
       prisma.order.findUnique({
         where: { id: orderId },
@@ -40,11 +39,31 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       );
     }
 
+    // ★ 이미지를 미리 Buffer로 변환
+    const itemImageMap = new Map<number, string | null>();
+    for (const item of order.items) {
+      if (item.designImageUrl) {
+        itemImageMap.set(item.id, await resolveImageSrc(item.designImageUrl));
+      } else {
+        itemImageMap.set(item.id, null);
+      }
+    }
+
+    // ★ 회사 로고/직인도 동일 처리
+    const companyLogoSrc = company?.logoUrl
+      ? await resolveImageSrc(company.logoUrl)
+      : null;
+    const companySealSrc = company?.sealUrl
+      ? await resolveImageSrc(company.sealUrl)
+      : null;
+
     const pdfData = {
       orderNumber: order.orderNumber,
       clientCompanyName: order.client.companyName,
       orderDate: order.orderDate.toISOString().split("T")[0],
-      dueDate: order.dueDate ? order.dueDate.toISOString().split("T")[0] : null,
+      dueDate: order.dueDate
+        ? order.dueDate.toISOString().split("T")[0]
+        : null,
       orderer: order.orderer,
       worker: order.worker,
       clientContact: order.clientContact,
@@ -61,22 +80,21 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       receiverName: order.receiverName,
       receiverPhone: order.receiverPhone,
       note: order.note,
-      // ★ company 추가
       company: company
         ? {
-          companyName: company.companyName,
-          representative: company.representative,
-          phone: company.phone,
-          logoUrl: company.logoUrl,
-          sealUrl: company.sealUrl,
-        }
+            companyName: company.companyName,
+            representative: company.representative,
+            phone: company.phone,
+            logoUrl: companyLogoSrc,   // ★ Buffer data URI
+            sealUrl: companySealSrc,   // ★ Buffer data URI
+          }
         : {
-          companyName: "",
-          representative: "",
-          phone: "",
-          logoUrl: null,
-          sealUrl: null,
-        },
+            companyName: "",
+            representative: "",
+            phone: "",
+            logoUrl: null,
+            sealUrl: null,
+          },
       items: order.items.map((item) => ({
         productName: item.productName,
         printType: item.printType,
@@ -107,7 +125,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
           ? item.lastDataDate.toISOString().split("T")[0]
           : null,
         designFileStatus: item.designFileStatus,
-        designImageUrl: item.designImageUrl,
+        designImageUrl: itemImageMap.get(item.id) ?? null,  // ★ Buffer data URI
         sortOrder: item.sortOrder,
       })),
     };

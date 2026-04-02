@@ -290,7 +290,7 @@ export type EstimateItemGroupByOutputType = {
   _max: EstimateItemMaxAggregateOutputType | null
 }
 
-type GetEstimateItemGroupByPayload<T extends EstimateItemGroupByArgs> = Prisma.PrismaPromise<
+export type GetEstimateItemGroupByPayload<T extends EstimateItemGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<EstimateItemGroupByOutputType, T['by']> &
       {

@@ -1,4 +1,3 @@
-// src/app/(authenticated)/clients/[id]/page.tsx
 "use client";
 
 import { ClientForm } from "@/components/clients/client-form";
@@ -24,6 +23,8 @@ const tabs: { value: TabValue; label: string }[] = [
 interface ClientData {
   id: number;
   companyName: string;
+  clientType: string;
+  representative: string | null;
   contactName: string | null;
   phone: string | null;
   fax: string | null;
@@ -125,6 +126,8 @@ export default function ClientDetailPage() {
 
   const defaultValues: ClientFormValues = {
     companyName: client.companyName,
+    clientType: (client.clientType as "매입" | "매출" | "매입매출") || "매출",
+    representative: client.representative || "",
     contactName: client.contactName || "",
     phone: client.phone || "",
     fax: client.fax || "",
@@ -143,18 +146,13 @@ export default function ClientDetailPage() {
         description="거래처 상세 정보를 확인하고 수정합니다."
         backHref="/clients"
         actions={
-          <Button
-            variant="destructive"
-            onClick={() => setDeleteOpen(true)}
-            className="text-[0.95rem]"
-          >
+          <Button variant="destructive" onClick={() => setDeleteOpen(true)} className="text-[0.95rem]">
             <Trash2 className="mr-2 h-4 w-4" />
             삭제
           </Button>
         }
       />
 
-      {/* 탭 버튼 영역 */}
       <div className="flex flex-wrap gap-2 rounded-lg border bg-muted/30 p-2">
         {tabs.map((tab) => (
           <button
@@ -172,54 +170,36 @@ export default function ClientDetailPage() {
         ))}
       </div>
 
-      {/* 탭 콘텐츠 영역 */}
       {activeTab === "info" && (
-        <ClientForm
-          defaultValues={defaultValues}
-          onSubmit={handleSubmit}
-          submitLabel="수정"
-          loading={saving}
-        />
+        <ClientForm defaultValues={defaultValues} onSubmit={handleSubmit} submitLabel="수정" loading={saving} />
       )}
 
       {activeTab === "orders" && (
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">발주 이력</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle className="text-lg">발주 이력</CardTitle></CardHeader>
           <Separator />
           <CardContent className="pt-6">
-            <p className="text-muted-foreground text-[0.95rem]">
-              발주 데이터가 없습니다 (발주 모듈 구현 후 연동됩니다)
-            </p>
+            <p className="text-muted-foreground text-[0.95rem]">발주 데이터가 없습니다 (발주 모듈 구현 후 연동됩니다)</p>
           </CardContent>
         </Card>
       )}
 
       {activeTab === "estimates" && (
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">견적 이력</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle className="text-lg">견적 이력</CardTitle></CardHeader>
           <Separator />
           <CardContent className="pt-6">
-            <p className="text-muted-foreground text-[0.95rem]">
-              견적 데이터가 없습니다 (견적 모듈 구현 후 연동됩니다)
-            </p>
+            <p className="text-muted-foreground text-[0.95rem]">견적 데이터가 없습니다 (견적 모듈 구현 후 연동됩니다)</p>
           </CardContent>
         </Card>
       )}
 
       {activeTab === "transactions" && (
         <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">거래명세서 이력</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle className="text-lg">거래명세서 이력</CardTitle></CardHeader>
           <Separator />
           <CardContent className="pt-6">
-            <p className="text-muted-foreground text-[0.95rem]">
-              거래명세서 데이터가 없습니다 (거래명세서 모듈 구현 후 연동됩니다)
-            </p>
+            <p className="text-muted-foreground text-[0.95rem]">거래명세서 데이터가 없습니다 (거래명세서 모듈 구현 후 연동됩니다)</p>
           </CardContent>
         </Card>
       )}

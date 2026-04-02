@@ -1,15 +1,12 @@
-// src/app/api/clients/route.ts
 import { prisma } from "@/lib/prisma";
 import { clientFormSchema } from "@/lib/validators/client";
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * GET /api/clients — 거래처 목록 (검색 + 페이지네이션)
- */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
     const search = searchParams.get("search") || "";
+    const clientType = searchParams.get("clientType") || "";
     const page = Math.max(1, Number(searchParams.get("page")) || 1);
     const pageSize = Math.max(1, Number(searchParams.get("pageSize")) || 10);
     const skip = (page - 1) * pageSize;
@@ -24,6 +21,7 @@ export async function GET(request: NextRequest) {
             ],
           }
         : {}),
+      ...(clientType ? { clientType } : {}),
     };
 
     const [data, totalCount] = await Promise.all([
@@ -46,9 +44,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-/**
- * POST /api/clients — 거래처 등록
- */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -66,6 +61,8 @@ export async function POST(request: NextRequest) {
     const client = await prisma.client.create({
       data: {
         companyName: data.companyName,
+        clientType: data.clientType || "매출",
+        representative: data.representative || null,
         contactName: data.contactName || null,
         phone: data.phone || null,
         fax: data.fax || null,
