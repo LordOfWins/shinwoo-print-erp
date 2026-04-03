@@ -1,4 +1,4 @@
-// src/lib/prisma.ts
+// lib/prisma.ts
 import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 
@@ -13,7 +13,12 @@ function createPrismaClient() {
     user: process.env.DATABASE_USER || "root",
     password: process.env.DATABASE_PASSWORD || "",
     database: process.env.DATABASE_NAME || "shinwoo_erp",
-    connectionLimit: 10,
+    connectionLimit: 5,
+    connectTimeout: 30_000,
+    acquireTimeout: 30_000,
+    idleTimeout: 300,
+    // useTextProtocol: true,
+    ssl: false,
   });
 
   return new PrismaClient({ adapter });
