@@ -49,4 +49,8 @@ public/uploads/
 _run-git-commit.mjs
 _push_log.txt
 *.tsx.bak
+
 docker-compose.override.yml
+
+# SSL certificates
+certbot/

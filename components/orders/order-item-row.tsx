@@ -285,10 +285,10 @@ export function OrderItemRow({
             </div>
           </div>
 
-          {/* 3-1행: 원단 상세(지종/후지/접착제/두께/제조사) */}
+          {/* 3-1행: 원단 상세(원단종류/후지/접착제/두께/제조사) */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
             <div className="space-y-1">
-              <Label className="text-[0.85rem]">지종</Label>
+              <Label className="text-[0.85rem]">원단종류</Label>
               <ComboboxInput
                 value={watch(`items.${index}.paperType`) || ""}
                 onChange={(v) => setValue(`items.${index}.paperType`, v)}
