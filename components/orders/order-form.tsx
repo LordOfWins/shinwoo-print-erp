@@ -520,28 +520,6 @@ export function OrderForm({
                 <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
-                    id="photoInspection"
-                    className="h-4 w-4 rounded border-gray-300"
-                    {...register("photoInspection")}
-                  />
-                  <Label htmlFor="photoInspection" className="text-[0.95rem]">
-                    사진검수
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="sampleShipping"
-                    className="h-4 w-4 rounded border-gray-300"
-                    {...register("sampleShipping")}
-                  />
-                  <Label htmlFor="sampleShipping" className="text-[0.95rem]">
-                    샘플발송
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
                     id="tightRoll"
                     className="h-4 w-4 rounded border-gray-300"
                     {...register("tightRoll")}

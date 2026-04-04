@@ -399,8 +399,6 @@ function OrderItemPage({
         <Text style={s.noteTitle}>비고</Text>
         <Text style={s.noteText}>{data.note || "-"}</Text>
         <View style={s.checkRow}>
-          <CheckItem label="사진감리요청" checked={data.photoInspection} />
-          <CheckItem label="샘플우편배송요청" checked={data.sampleShipping} />
           <CheckItem label="롤짱짱하게" checked={data.tightRoll} />
         </View>
       </View>
