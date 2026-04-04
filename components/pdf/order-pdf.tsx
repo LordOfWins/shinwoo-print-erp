@@ -77,7 +77,7 @@ interface OrderPdfData {
 const s = StyleSheet.create({
   page: {
     fontFamily: FONT_FAMILY,
-    fontSize: 8,
+    fontSize: 9,
     padding: PAGE_PADDING,
     color: COLORS.black,
   },
@@ -88,23 +88,23 @@ const s = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: "bold",
     marginBottom: 6,
   },
   labelText: {
-    fontSize: 8,
+    fontSize: 9,
     color: COLORS.gray,
     marginBottom: 2,
   },
   valueText: {
-    fontSize: 9,
+    fontSize: 11,
     marginBottom: 4,
   },
   // 인쇄종류
   printTypeBadge: {
-    fontSize: 7,
-    paddingHorizontal: 4,
+    fontSize: 8,
+    paddingHorizontal: 5,
     paddingVertical: 2,
     borderRadius: 2,
     marginRight: 3,
@@ -147,7 +147,7 @@ const s = StyleSheet.create({
     padding: 6,
   },
   colTitle: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: "bold",
     marginBottom: 4,
     paddingBottom: 3,
@@ -158,12 +158,12 @@ const s = StyleSheet.create({
     marginBottom: 2,
   },
   fieldLabel: {
-    fontSize: 7,
+    fontSize: 8,
     color: COLORS.gray,
-    width: 58,
+    width: 62,
   },
   fieldValue: {
-    fontSize: 7.5,
+    fontSize: 8.5,
     flex: 1,
   },
   // 포장/배송
@@ -184,12 +184,12 @@ const s = StyleSheet.create({
     marginBottom: 6,
   },
   noteTitle: {
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "bold",
     marginBottom: 3,
   },
   noteText: {
-    fontSize: 7.5,
+    fontSize: 8.5,
     lineHeight: 1.4,
   },
   checkRow: {
@@ -214,7 +214,7 @@ const s = StyleSheet.create({
     fontWeight: "bold",
   },
   checkLabel: {
-    fontSize: 7,
+    fontSize: 8,
   },
   // 페이지 번호
   pageNumber: {
@@ -336,34 +336,18 @@ function OrderItemPage({
           <Field label="인쇄가격" value={formatNumber(item.printPrice)} />
           <Field label="발주수량" value={formatNumber(item.sheets)} />
           <Field label="단가" value={formatNumber(item.unitPrice)} />
-          <Field label="원단" value={item.material} />
-          <Field label="재단방식" value={item.cuttingMethod} />
-          <Field
-            label="원단폭"
-            value={item.materialWidth ? `${item.materialWidth}mm` : null}
-          />
           <Field label="롤당매수" value={formatNumber(item.sheetsPerRoll)} />
           <Field label="시트당매수" value={item.sheetsPerSheet} />
-          <Field label="작업자" value={data.worker} />
+          <Field label="재단방식" value={item.cuttingMethod} />
         </View>
         {/* 중: 후가공 */}
         <View style={s.col}>
           <Text style={s.colTitle}>후가공</Text>
           <Field label="규격" value={spec} />
-          <Field label="모형" value={item.shape} />
-          <Field
-            label="오꾸리"
-            value={item.okkuri ? `${item.okkuri}mm` : null}
-          />
           <Field label="라미" value={item.lamination} />
           <Field label="박" value={item.foil} />
           <Field label="미싱선" value={boolToOX(item.perforation)} />
           <Field label="롤방향" value={item.rollDirection} />
-          <Field label="슬리트" value={boolToOX(item.slit)} />
-          <Field
-            label="라벨간간격"
-            value={item.labelGap ? `${item.labelGap}mm` : null}
-          />
         </View>
         {/* 우: 디자인 */}
         <View style={s.col}>
@@ -371,8 +355,7 @@ function OrderItemPage({
           <Field label="DATA종류" value={item.dataType} />
           <Field label="최종DATA날짜" value={formatDate(item.lastDataDate)} />
           <Field label="디자인파일상태" value={item.designFileStatus} />
-          <Field label="도무송칼" value={item.dieCutter} />
-          <Field label="수지판" value={item.resinPlate} />
+
           <Field label="거래처담당자" value={data.clientContact} />
           <Field label="담당자연락처" value={data.clientPhone} />
         </View>

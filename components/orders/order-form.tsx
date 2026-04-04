@@ -462,15 +462,7 @@ export function OrderForm({
                   {...register("orderer")}
                 />
               </div>
-              {/* 담당자(작업자) */}
-              <div className="space-y-2">
-                <Label className="text-[0.95rem]">작업자</Label>
-                <Input
-                  className="text-[0.95rem]"
-                  placeholder="작업자명"
-                  {...register("worker")}
-                />
-              </div>
+
 
               {/* 거래처 담당자 */}
               <div className="space-y-2">
@@ -492,28 +484,9 @@ export function OrderForm({
                 />
               </div>
 
-              {/* 배송방법 */}
-              <div className="space-y-2">
-                <Label className="text-[0.95rem]">배송방법</Label>
-                <select
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.95rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                  {...register("deliveryMethod")}
-                >
-                  <option value="">선택</option>
-                  <option value="직배송">직배송</option>
-                  <option value="택배">택배</option>
-                </select>
-              </div>
 
-              {/* 배송지역 */}
-              <div className="space-y-2">
-                <Label className="text-[0.95rem]">배송지역</Label>
-                <Input
-                  className="text-[0.95rem]"
-                  placeholder="배송지역"
-                  {...register("deliveryRegion")}
-                />
-              </div>
+
+
 
               {/* 체크박스: 사진검수 + 샘플발송 + 롤짱짱하게 */}
               <div className="flex items-center gap-6 col-span-2">
@@ -588,49 +561,51 @@ export function OrderForm({
               {/* 포장종류 */}
               <div className="space-y-2">
                 <Label className="text-[0.95rem]">포장종류</Label>
-                <select
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.95rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                <Input
+                  className="text-[0.95rem]"
+                  placeholder="포장종류 입력"
                   {...register("packagingType")}
-                >
-                  <option value="">선택</option>
-                  {options.PACKAGING.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
 
               {/* 배송종류 */}
               <div className="space-y-2">
                 <Label className="text-[0.95rem]">배송종류</Label>
-                <select
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.95rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                <Input
+                  className="text-[0.95rem]"
+                  placeholder="배송종류 입력"
                   {...register("deliveryType")}
-                >
-                  <option value="">선택</option>
-                  {options.DELIVERY.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
 
               {/* 택배종류 */}
               <div className="space-y-2">
                 <Label className="text-[0.95rem]">택배종류</Label>
-                <select
-                  className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.95rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                <Input
+                  className="text-[0.95rem]"
+                  placeholder="택배종류 입력"
                   {...register("courierType")}
-                >
-                  <option value="">선택</option>
-                  {options.COURIER.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
+                />
+              </div>
+            </div>
+
+            {/* 배송방법/배송지역 */}
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label className="text-[0.95rem]">배송방법</Label>
+                <Input
+                  className="text-[0.95rem]"
+                  placeholder="배송방법 입력"
+                  {...register("deliveryMethod")}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-[0.95rem]">배송지역</Label>
+                <Input
+                  className="text-[0.95rem]"
+                  placeholder="배송지역 입력"
+                  {...register("deliveryRegion")}
+                />
               </div>
             </div>
 

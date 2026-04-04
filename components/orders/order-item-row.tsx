@@ -192,8 +192,8 @@ export function OrderItemRow({
             </div>
           </div>
 
-          {/* 2행: 인쇄종류 + 인쇄가격 + 매수 + 롤당매수 */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          {/* 2행: 인쇄종류 + 인쇄가격 + 매수 */}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             <div className="space-y-1">
               <Label className="text-[0.85rem]">인쇄종류</Label>
               <select
@@ -228,19 +228,9 @@ export function OrderItemRow({
                 })}
               />
             </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">롤당매수</Label>
-              <Input
-                className="text-[0.9rem]"
-                placeholder="0"
-                type="number"
-                min="0"
-                {...register(`items.${index}.sheetsPerRoll`)}
-              />
-            </div>
           </div>
 
-          {/* 3행: 단가 + 공급가액 + 원단 + 원단폭 */}
+          {/* 3행: 단가 + 공급가액 + 롤당매수 + 시트당매수 */}
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="space-y-1">
               <Label className="text-[0.85rem]">단가</Label>
@@ -262,31 +252,27 @@ export function OrderItemRow({
               />
             </div>
             <div className="space-y-1">
-              <Label className="text-[0.85rem]">원단</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.material`)}
-              >
-                <option value="">선택</option>
-                {options.MATERIAL.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">원단폭(mm)</Label>
+              <Label className="text-[0.85rem]">롤당매수</Label>
               <Input
                 className="text-[0.9rem]"
                 placeholder="0"
-                {...register(`items.${index}.materialWidth`)}
+                type="number"
+                min="0"
+                {...register(`items.${index}.sheetsPerRoll`)}
+              />
+            </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">시트당매수</Label>
+              <Input
+                className="text-[0.9rem]"
+                placeholder="예: 100매"
+                {...register(`items.${index}.sheetsPerSheet`)}
               />
             </div>
           </div>
 
-          {/* 3-1행: 원단 상세(원단종류/후지/접착제/두께/제조사) */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+          {/* 3-1행: 원단 상세(원단종류/후지/접착제/두께/제조사/재단방식) */}
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
             <div className="space-y-1">
               <Label className="text-[0.85rem]">원단종류</Label>
               <ComboboxInput
@@ -332,10 +318,18 @@ export function OrderItemRow({
                 placeholder="선택"
               />
             </div>
+            <div className="space-y-1">
+              <Label className="text-[0.85rem]">재단방식</Label>
+              <Input
+                className="text-[0.9rem]"
+                placeholder="재단방식 입력"
+                {...register(`items.${index}.cuttingMethod`)}
+              />
+            </div>
           </div>
 
-          {/* 4행: 사이즈(가로×세로) + 형상 + 오꾸리 + 미싱선 */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          {/* 4행: 사이즈(가로×세로) + 미싱선 */}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             <div className="space-y-1">
               <Label className="text-[0.85rem]">가로(mm)</Label>
               <Input
@@ -350,28 +344,6 @@ export function OrderItemRow({
                 className="text-[0.9rem]"
                 placeholder="0"
                 {...register(`items.${index}.sizeHeight`)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">형상</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.shape`)}
-              >
-                <option value="">선택</option>
-                {options.SHAPE.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">오꾸리(mm)</Label>
-              <Input
-                className="text-[0.9rem]"
-                placeholder="0"
-                {...register(`items.${index}.okkuri`)}
               />
             </div>
             <div className="flex items-end space-x-2 pb-1">
@@ -390,8 +362,8 @@ export function OrderItemRow({
             </div>
           </div>
 
-          {/* 5행: 라미 + 박 + 재단방식 + 롤방향 + 슬리트 */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          {/* 5행: 라미 + 박 + 롤방향 */}
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             <div className="space-y-1">
               <Label className="text-[0.85rem]">라미</Label>
               <select
@@ -421,20 +393,6 @@ export function OrderItemRow({
               </select>
             </div>
             <div className="space-y-1">
-              <Label className="text-[0.85rem]">재단방식</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.cuttingMethod`)}
-              >
-                <option value="">선택</option>
-                {options.CUTTING.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="space-y-1">
               <Label className="text-[0.85rem]">롤방향</Label>
               <select
                 className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
@@ -447,17 +405,6 @@ export function OrderItemRow({
                   </option>
                 ))}
               </select>
-            </div>
-            <div className="flex items-end space-x-2 pb-1">
-              <input
-                type="checkbox"
-                id={`${prefix}-slit`}
-                className="h-4 w-4 rounded border-gray-300"
-                {...register(`items.${index}.slit`)}
-              />
-              <Label htmlFor={`${prefix}-slit`} className="text-[0.85rem]">
-                슬리트
-              </Label>
             </div>
           </div>
 
@@ -507,58 +454,6 @@ export function OrderItemRow({
                   setValue(`items.${index}.designImageUrl`, url)
                 }
               />
-            </div>
-          </div>
-          {/* 7행: 재단방식(롤/시트) + 시트당매수 + 라벨간격 + 도무송칼 + 수지판 */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">재단(롤/시트)</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.cuttingType`)}
-              >
-                <option value="">선택</option>
-                <option value="롤">롤</option>
-                <option value="시트">시트</option>
-              </select>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">시트당매수</Label>
-              <Input
-                className="text-[0.9rem]"
-                placeholder="예: 100매"
-                {...register(`items.${index}.sheetsPerSheet`)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">라벨간격(mm)</Label>
-              <Input
-                className="text-[0.9rem]"
-                placeholder="0"
-                {...register(`items.${index}.labelGap`)}
-              />
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">도무송칼</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.dieCutter`)}
-              >
-                <option value="">선택</option>
-                <option value="보유">보유</option>
-                <option value="주문">주문</option>
-              </select>
-            </div>
-            <div className="space-y-1">
-              <Label className="text-[0.85rem]">수지판</Label>
-              <select
-                className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-[0.9rem] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                {...register(`items.${index}.resinPlate`)}
-              >
-                <option value="">선택</option>
-                <option value="보유">보유</option>
-                <option value="주문">주문</option>
-              </select>
             </div>
           </div>
         </div>

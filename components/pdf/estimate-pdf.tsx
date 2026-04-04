@@ -83,7 +83,7 @@ const GRAND_TOTAL_LABEL_WIDTH = TOTAL_LABEL_WIDTH + COL.supply + COL.vat;
 
 /* ────────── 공통 셀 베이스 ────────── */
 const cellBase = {
-  fontSize: 7.5,
+  fontSize: 8.5,
   padding: 4,
   justifyContent: "center" as const,
 };
@@ -102,7 +102,7 @@ const borderRWhite = { borderRight: "0.5pt solid rgba(255,255,255,0.3)" };
 const s = StyleSheet.create({
   page: {
     fontFamily: FONT_FAMILY,
-    fontSize: 8,
+    fontSize: 9,
     padding: PAGE_PADDING,
     paddingTop: 40,
     color: COLORS.black,
@@ -140,7 +140,7 @@ const s = StyleSheet.create({
     marginBottom: 4,
   },
   validText: {
-    fontSize: 8,
+    fontSize: 9,
     color: COLORS.red,
   },
   supplierBox: {
@@ -167,14 +167,14 @@ const s = StyleSheet.create({
   },
   supplierLabel: {
     width: 75,
-    fontSize: 7.5,
+    fontSize: 8.5,
     backgroundColor: "#F2F2F2",
     padding: 3,
     borderRight: "0.5pt solid #E5E5E5",
   },
   supplierValue: {
     flex: 1,
-    fontSize: 7.5,
+    fontSize: 8.5,
     padding: 3,
   },
 
@@ -241,7 +241,7 @@ const s = StyleSheet.create({
   totalLabel: {
     ...cellBase,
     width: TOTAL_LABEL_WIDTH,
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "bold",
     textAlign: "center",
     borderRight: "0.5pt solid #E5E5E5",
@@ -286,18 +286,18 @@ const s = StyleSheet.create({
     marginTop: 14,
   },
   footerNoteTitle: {
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "bold",
     marginBottom: 3,
     color: COLORS.darkGray,
   },
   footerNoteText: {
-    fontSize: 7,
+    fontSize: 8,
     lineHeight: 1.5,
     color: COLORS.darkGray,
   },
   footerNoteTextMt: {
-    fontSize: 7,
+    fontSize: 8,
     lineHeight: 1.5,
     color: COLORS.darkGray,
     marginTop: 4,
@@ -310,12 +310,12 @@ const s = StyleSheet.create({
     borderRadius: 3,
   },
   bankLabel: {
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "bold",
     marginRight: 6,
   },
   bankValue: {
-    fontSize: 8,
+    fontSize: 9,
   },
   managerRow: {
     marginTop: 8,
@@ -324,12 +324,12 @@ const s = StyleSheet.create({
     borderRadius: 3,
   },
   managerLabel: {
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "bold",
     marginBottom: 2,
   },
   managerValue: {
-    fontSize: 8,
+    fontSize: 9,
   },
   sealContainer: {
     position: "absolute",
